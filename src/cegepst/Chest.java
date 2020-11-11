@@ -10,9 +10,12 @@ import java.io.IOException;
 
 public class Chest extends StaticEntity {
 
-    private static final String CHEST_PATH = "images/chest.png";
-    private Image image;
+    private static final String CLOSED_CHEST_PATH = "images/chest.png";
+    private static final String OPENED_CHEST_PATH = "images/open_chest.png";
+    private Image closedChest;
+    private Image openedChest;
     private Blockade chestBase;
+    private boolean opened = false;
 
     public Chest(int x, int y) {
         teleport(x, y);
@@ -30,15 +33,24 @@ public class Chest extends StaticEntity {
         chestBase.teleport(x, y);
     }
 
+    public void openChest() {
+        opened = true;
+    }
+
     @Override
     public void draw(Buffer buffer) {
-        buffer.drawImage(image, x, y);
+        if (opened) {
+            buffer.drawImage(openedChest, x, y);
+        } else {
+            buffer.drawImage(closedChest, x, y);
+        }
         chestBase.draw(buffer);
     }
 
     private void loadImage() {
         try {
-            image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(CHEST_PATH));
+            closedChest = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(CLOSED_CHEST_PATH));
+            openedChest = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(OPENED_CHEST_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }

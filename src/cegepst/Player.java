@@ -5,12 +5,18 @@ import cegepst.engine.controls.Direction;
 import cegepst.engine.controls.MovementController;
 import cegepst.engine.controls.WalkingAnimator;
 import cegepst.engine.entities.ControllableEntity;
+import cegepst.engine.entities.StaticEntity;
+
+import java.util.ArrayList;
 
 
 public class Player extends ControllableEntity {
 
     private static final String SPRITE_PATH = "images/player.png";
+    private static final int INTERACT_COOLDOWN = 50;
+
     private WalkingAnimator animator;
+    private int interactCooldown = INTERACT_COOLDOWN;
 
     public Player(MovementController gamePad) {
         super(gamePad);
@@ -21,9 +27,22 @@ public class Player extends ControllableEntity {
         animator.setAnimationSpeed(8);
     }
 
+    public boolean canInteract() {
+        return interactCooldown == INTERACT_COOLDOWN;
+    }
+
+    public void interact(ArrayList<StaticEntity> EntitiesInRange) {
+        interactCooldown = 0;
+
+    }
+
     @Override
     public void update() {
         super.update();
+        interactCooldown++;
+        if (interactCooldown > INTERACT_COOLDOWN) {
+            interactCooldown = INTERACT_COOLDOWN;
+        }
         moveAccordingToController();
         animator.update();
     }
