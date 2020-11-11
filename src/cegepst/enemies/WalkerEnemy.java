@@ -6,7 +6,7 @@ import cegepst.engine.entities.MovableEntity;
 
 import java.awt.*;
 
-public class WalkerEnemy extends MovableEntity {
+public class  WalkerEnemy extends MovableEntity {
 
     private WalkingPath path;
 

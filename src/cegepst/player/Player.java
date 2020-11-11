@@ -3,6 +3,7 @@ package cegepst.player;
 import cegepst.Chest;
 import cegepst.PickableMoney;
 import cegepst.engine.Buffer;
+import cegepst.engine.CollidableRepository;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.controls.MovementController;
 import cegepst.engine.controls.WalkingAnimator;
@@ -23,13 +24,11 @@ public class Player extends ControllableEntity {
     private Inventory inventory;
     private StaticEntity interactRange;
 
-    private int health = 100;
-
     public Player(MovementController gamePad) {
         super(gamePad);
         setDimension(32,32);
         teleport(100 ,100);
-        setSpeed(2);
+        setSpeed(PlayerStats.BASE_SPEED);
         inventory = new Inventory();
         interactRange = new InteractRange();
         animator = new WalkingAnimator(this, SPRITE_PATH, 0, 128);
@@ -85,7 +84,15 @@ public class Player extends ControllableEntity {
         } else if (getDirection() == Direction.RIGHT) {
             buffer.drawImage(animator.animateRight(), x, y);
         }
-        buffer.drawText(String.valueOf(inventory.getMoneyCount()), 10, 20, Color.white);
+        drawHub(buffer);
+    }
+
+    private void drawHub(Buffer buffer) {
+        int healthBarMaxWidth = 100;
+        double healthBarWidth = healthBarMaxWidth * ((double)PlayerStats.HEALTH / PlayerStats.MAX_HEALTH);
+        Rectangle healthBar = new Rectangle((int)healthBarWidth,10);
+        buffer.drawRectangle(18, 18, new Rectangle(104,16), Color.BLACK);
+        buffer.drawRectangle(20, 20, healthBar, Color.GREEN);
     }
 
     private void updateInteractRange() {

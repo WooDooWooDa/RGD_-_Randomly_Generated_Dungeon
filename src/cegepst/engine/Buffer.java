@@ -19,6 +19,11 @@ public class Buffer {
         graphics.fillRect(x, y, width, height);
     }
 
+    public void drawRectangle(int x, int y, Rectangle rectangle, Paint color) {
+        graphics.setPaint(color);
+        graphics.fillRect(x, y, rectangle.width, rectangle.height);
+    }
+
     public void drawCircle(int x, int y, int radius, Paint color) {
         graphics.setPaint(color);
         graphics.fillOval(x, y, radius * 2, radius * 2);
