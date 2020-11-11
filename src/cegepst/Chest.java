@@ -7,6 +7,8 @@ import cegepst.engine.entities.StaticEntity;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Chest extends StaticEntity {
 
@@ -19,10 +21,15 @@ public class Chest extends StaticEntity {
 
     public Chest(int x, int y) {
         teleport(x, y);
+        setDimension(32,32);
         loadImage();
         chestBase = new Blockade();
         chestBase.setDimension(32,10);
         chestBaseFromTop();
+    }
+
+    public boolean isOpened() {
+        return opened;
     }
 
     public void chestBaseFromTop() {
@@ -33,8 +40,14 @@ public class Chest extends StaticEntity {
         chestBase.teleport(x, y);
     }
 
-    public void openChest() {
+    public ArrayList<StaticEntity> openChest() {
         opened = true;
+        Random rand = new Random();
+        ArrayList<StaticEntity> monies = new ArrayList<>();
+        monies.add(new PickableMoney(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
+        monies.add(new PickableMoney(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
+        monies.add(new PickableMoney(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
+        return monies;
     }
 
     @Override

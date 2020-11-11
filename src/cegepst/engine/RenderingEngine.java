@@ -6,14 +6,14 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 public class RenderingEngine {
+    public static final int SCREEN_WIDTH = 800;
+    public static final int SCREEN_HEIGHT = 608;
     private static RenderingEngine instance;
 
     private Screen screen;
     private JPanel panel;
     private BufferedImage bufferedImage;
 
-    private final int screeWidth = 800;
-    private final int screenHeight = 608;
 
     public static RenderingEngine getInstance() {
         if (instance == null) {
@@ -35,7 +35,7 @@ public class RenderingEngine {
     }
 
     public Buffer getRenderingBuffer() {
-        bufferedImage = new BufferedImage(screeWidth, screenHeight, BufferedImage.TYPE_INT_RGB);
+        bufferedImage = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = bufferedImage.createGraphics();
         graphics.setRenderingHints(getRenderingHints());
         return new Buffer(graphics);
@@ -59,7 +59,7 @@ public class RenderingEngine {
 
     private void initializeFrame() {
         screen = new Screen();
-        screen.setSize(screeWidth, screenHeight);
+        screen.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         screen.setTitle("Viking Game");
     }
 
