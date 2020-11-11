@@ -58,6 +58,7 @@ public class RGDGame extends Game {
     @Override
     public void initialize() {
         RenderingEngine.getInstance().getScreen().hideCursor();
+        //RenderingEngine.getInstance().getScreen().fullScreen();
     }
 
     @Override

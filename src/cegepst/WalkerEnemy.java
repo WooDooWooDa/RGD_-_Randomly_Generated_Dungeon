@@ -13,13 +13,13 @@ public class WalkerEnemy extends MovableEntity {
         teleport(400, 500);
         setDimension(10, 10);
         setSpeed(1);
-        path = new WalkingPath();
-        setWalkingPath();
+        path = new WalkingPath(WalkingPath.SQUARE);
+        setWalkingPathLength();
     }
 
     @Override
     public void update() {
-        move(path.move());
+        move(path.follow());
     }
 
     @Override
@@ -27,7 +27,7 @@ public class WalkerEnemy extends MovableEntity {
         buffer.drawRectangle(x, y, width, height, Color.WHITE);
     }
 
-    private void setWalkingPath() {
+    private void setWalkingPathLength() {
         path.setDownUpWalk(100);
         path.setLeftRightWalk(100);
     }
