@@ -1,6 +1,7 @@
-package cegepst;
+package cegepst.enemies;
 
 import cegepst.engine.Buffer;
+import cegepst.engine.CollidableRepository;
 import cegepst.engine.entities.MovableEntity;
 
 import java.awt.*;
@@ -15,6 +16,7 @@ public class WalkerEnemy extends MovableEntity {
         setSpeed(1);
         path = new WalkingPath(WalkingPath.SQUARE);
         setWalkingPathLength();
+        CollidableRepository.getInstance().registerEntity(this);
     }
 
     @Override

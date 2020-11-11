@@ -1,4 +1,4 @@
-package cegepst;
+package cegepst.enemies;
 
 import cegepst.engine.controls.Direction;
 

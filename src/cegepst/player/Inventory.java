@@ -1,4 +1,6 @@
-package cegepst;
+package cegepst.player;
+
+import cegepst.Item;
 
 import java.util.ArrayList;
 

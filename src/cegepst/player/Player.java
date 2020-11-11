@@ -1,5 +1,7 @@
-package cegepst;
+package cegepst.player;
 
+import cegepst.Chest;
+import cegepst.PickableMoney;
 import cegepst.engine.Buffer;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.controls.MovementController;

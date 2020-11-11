@@ -1,10 +1,12 @@
 package cegepst;
 
+import cegepst.enemies.WalkerEnemy;
 import cegepst.engine.Buffer;
 import cegepst.engine.Game;
 import cegepst.engine.RenderingEngine;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.entities.UpdatableEntity;
+import cegepst.player.Player;
 
 import java.util.ArrayList;
 

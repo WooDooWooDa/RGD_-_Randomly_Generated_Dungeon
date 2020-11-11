@@ -1,5 +1,6 @@
-package cegepst;
+package cegepst.player;
 
+import cegepst.GameSettings;
 import cegepst.engine.Buffer;
 import cegepst.engine.entities.StaticEntity;
 
