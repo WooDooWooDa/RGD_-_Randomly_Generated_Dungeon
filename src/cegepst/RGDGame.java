@@ -29,10 +29,6 @@ public class RGDGame extends Game {
         if (gamePad.isMenuPressed() && menu.CanBeOpen()) {
             menu.toggleMenu();
         }
-        for (StaticEntity entity : gameEntities) {
-            if (entity instanceof Chest) {
-            }
-        }
         if (!menu.isOpen()) {
             player.update();
         }
