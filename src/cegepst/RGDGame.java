@@ -4,6 +4,7 @@ import cegepst.engine.Buffer;
 import cegepst.engine.Game;
 import cegepst.engine.RenderingEngine;
 import cegepst.engine.entities.StaticEntity;
+import cegepst.engine.entities.UpdatableEntity;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,11 @@ public class RGDGame extends Game {
         if (gamePad.isMenuPressed() && menu.CanBeOpen()) {
             menu.toggleMenu();
         }
+        for (StaticEntity entity: gameEntities) {
+            if (entity instanceof UpdatableEntity) {
+                ((UpdatableEntity) entity).update();
+            }
+        }
         if (!menu.isOpen()) {
             player.update();
         }
@@ -40,10 +46,10 @@ public class RGDGame extends Game {
     @Override
     public void draw(Buffer buffer) {
         world.draw(buffer);
-        player.draw(buffer);
         for (StaticEntity entity: gameEntities) {
             entity.draw(buffer);
         }
+        player.draw(buffer);
         if (menu.isOpen()) {
             menu.draw(buffer);
         }
@@ -69,5 +75,6 @@ public class RGDGame extends Game {
         chests.add(new Chest(100, 200));
         chests.add(new Chest(200, 100));
         gameEntities.addAll(chests);
+        gameEntities.add(new WalkerEnemy());
     }
 }
