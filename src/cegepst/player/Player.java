@@ -3,7 +3,6 @@ package cegepst.player;
 import cegepst.Chest;
 import cegepst.PickableMoney;
 import cegepst.engine.Buffer;
-import cegepst.engine.CollidableRepository;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.controls.MovementController;
 import cegepst.engine.controls.WalkingAnimator;
@@ -30,7 +29,7 @@ public class Player extends ControllableEntity {
         teleport(100 ,100);
         setSpeed(PlayerStats.BASE_SPEED);
         inventory = new Inventory();
-        interactRange = new InteractRange();
+        interactRange = new InteractRange(width * 2, height * 2);
         animator = new WalkingAnimator(this, SPRITE_PATH, 0, 128);
         animator.setAnimationSpeed(8);
     }
@@ -98,6 +97,5 @@ public class Player extends ControllableEntity {
     private void updateInteractRange() {
         interactCooldown = 0;
         interactRange.teleport(x - width / 2, y - height / 2);
-        interactRange.setDimension(width * 2, height * 2);
     }
 }

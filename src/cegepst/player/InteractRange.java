@@ -8,6 +8,11 @@ import java.awt.*;
 
 
 public class InteractRange extends StaticEntity {
+
+    public InteractRange(int width, int height) {
+        setDimension(width, height);
+    }
+
     @Override
     public void draw(Buffer buffer) {
         if (GameSettings.SHOW_COLLISION) {
