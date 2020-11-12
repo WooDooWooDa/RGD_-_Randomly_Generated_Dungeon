@@ -22,12 +22,12 @@ public class WalkingPath {
         currentDirection = Direction.UP;
     }
 
-    public void setDownUpWalk(int length) {
+    public void setHorizontalWalk(int length) {
         walkDown = length;
         walkUp = length;
     }
 
-    public void setLeftRightWalk(int length) {
+    public void setVerticalWalk(int length) {
         walkLeft = length;
         walkRight = length;
     }

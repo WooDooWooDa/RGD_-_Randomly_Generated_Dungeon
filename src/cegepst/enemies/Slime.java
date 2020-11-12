@@ -1,19 +1,21 @@
 package cegepst.enemies;
 
+import cegepst.Animator;
 import cegepst.engine.Buffer;
 import cegepst.engine.CollidableRepository;
 import cegepst.engine.entities.MovableEntity;
 
-import java.awt.*;
-
-public class  WalkerEnemy extends MovableEntity {
+public class Slime extends MovableEntity {
 
     private WalkingPath path;
+    private Animator animator;
 
-    public WalkerEnemy() {
+    public Slime() {
         teleport(400, 500);
-        setDimension(10, 10);
+        setDimension(32, 32);
         setSpeed(1);
+        animator = new Animator(this, "images/slime.png", 4);
+        animator.setAnimationSpeed(12);
         path = new WalkingPath(WalkingPath.SQUARE);
         setWalkingPathLength();
         CollidableRepository.getInstance().registerEntity(this);
@@ -21,16 +23,17 @@ public class  WalkerEnemy extends MovableEntity {
 
     @Override
     public void update() {
+        animator.update();
         move(path.follow());
     }
 
     @Override
     public void draw(Buffer buffer) {
-        buffer.drawRectangle(x, y, width, height, Color.WHITE);
+        buffer.drawImage(animator.animate(), x, y);
     }
 
     private void setWalkingPathLength() {
-        path.setDownUpWalk(100);
-        path.setLeftRightWalk(100);
+        path.setHorizontalWalk(100);
+        path.setVerticalWalk(100);
     }
 }

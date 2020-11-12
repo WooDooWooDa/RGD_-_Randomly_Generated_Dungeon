@@ -1,4 +1,4 @@
-package cegepst.engine.controls;
+package cegepst.player;
 
 import cegepst.engine.entities.MovableEntity;
 

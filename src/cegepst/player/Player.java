@@ -5,7 +5,6 @@ import cegepst.PickableMoney;
 import cegepst.engine.Buffer;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.controls.MovementController;
-import cegepst.engine.controls.WalkingAnimator;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.entities.StaticEntity;
 

@@ -1,6 +1,6 @@
 package cegepst;
 
-import cegepst.enemies.WalkerEnemy;
+import cegepst.enemies.Slime;
 import cegepst.engine.Buffer;
 import cegepst.engine.Game;
 import cegepst.engine.RenderingEngine;
@@ -78,6 +78,6 @@ public class RGDGame extends Game {
         chests.add(new Chest(100, 200));
         chests.add(new Chest(200, 100));
         gameEntities.addAll(chests);
-        gameEntities.add(new WalkerEnemy());
+        gameEntities.add(new Slime());
     }
 }
