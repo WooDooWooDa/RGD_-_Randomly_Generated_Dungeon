@@ -18,7 +18,6 @@ public class Slime extends MovableEntity {
         animator.setAnimationSpeed(12);
         path = new WalkingPath(WalkingPath.SQUARE);
         setWalkingPathLength();
-        CollidableRepository.getInstance().registerEntity(this);
     }
 
     @Override
