@@ -1,10 +1,9 @@
 package cegepst.player;
 
 import cegepst.Chest;
-import cegepst.PickableMoney;
+import cegepst.PickableGem;
 import cegepst.WalkingAnimator;
 import cegepst.engine.Buffer;
-import cegepst.engine.controls.Direction;
 import cegepst.engine.controls.MovementController;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.entities.StaticEntity;
@@ -49,8 +48,8 @@ public class Player extends ControllableEntity {
                         newEntities.addAll(((Chest) entity).openChest());
                     }
                 }
-                if (entity instanceof PickableMoney) {
-                    inventory.addMoney(((PickableMoney) entity).getValue());
+                if (entity instanceof PickableGem) {
+                    inventory.addMoney(((PickableGem) entity).getValue());
                     removedEntities.add(entity);
                 }
             }

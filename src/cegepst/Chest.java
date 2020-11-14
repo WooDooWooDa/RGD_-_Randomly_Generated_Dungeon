@@ -44,9 +44,9 @@ public class Chest extends StaticEntity {
         opened = true;
         Random rand = new Random();
         ArrayList<StaticEntity> monies = new ArrayList<>();
-        monies.add(new PickableMoney(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
-        monies.add(new PickableMoney(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
-        monies.add(new PickableMoney(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
+        monies.add(new PickableGem(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
+        monies.add(new PickableGem(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
+        monies.add(new PickableGem(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
         return monies;
     }
 
