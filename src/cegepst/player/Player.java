@@ -4,6 +4,7 @@ import cegepst.Chest;
 import cegepst.PickableGem;
 import cegepst.WalkingAnimator;
 import cegepst.engine.Buffer;
+import cegepst.engine.SoundPlayer;
 import cegepst.engine.controls.MovementController;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.entities.StaticEntity;
@@ -49,6 +50,7 @@ public class Player extends ControllableEntity {
                     }
                 }
                 if (entity instanceof PickableGem) {
+                    SoundPlayer.play("sounds/coin.wav");
                     inventory.addMoney(((PickableGem) entity).getValue());
                     removedEntities.add(entity);
                 }

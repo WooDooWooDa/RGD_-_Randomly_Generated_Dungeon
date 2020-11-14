@@ -67,12 +67,28 @@ public class WalkingPath {
     }
 
     private Direction moveLeftRight() {
-
+        length++;
+        if (length > walkLeft && currentDirection == Direction.LEFT) {
+            length = 0;
+            currentDirection = Direction.RIGHT;
+        }
+        if (length > walkRight && currentDirection == Direction.RIGHT) {
+            length = 0;
+            currentDirection = Direction.LEFT;
+        }
         return currentDirection;
     }
 
     private Direction moveUpDown() {
-
+        length++;
+        if (length > walkDown && currentDirection == Direction.DOWN) {
+            length = 0;
+            currentDirection = Direction.UP;
+        }
+        if (length > walkUp && currentDirection == Direction.UP) {
+            length = 0;
+            currentDirection = Direction.DOWN;
+        }
         return currentDirection;
     }
 }

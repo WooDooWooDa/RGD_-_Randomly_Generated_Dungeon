@@ -5,11 +5,13 @@ import cegepst.enemies.Zombie;
 import cegepst.engine.Buffer;
 import cegepst.engine.Game;
 import cegepst.engine.RenderingEngine;
+import cegepst.engine.SoundPlayer;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.entities.UpdatableEntity;
 import cegepst.player.Player;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class RGDGame extends Game {
 
@@ -65,6 +67,7 @@ public class RGDGame extends Game {
     @Override
     public void initialize() {
         RenderingEngine.getInstance().getScreen().hideCursor();
+        //SoundPlayer.playLoop("musics/theme.wav"); // TODO: 2020-11-14 add theme song
         //RenderingEngine.getInstance().getScreen().fullScreen();
     }
 
@@ -83,7 +86,7 @@ public class RGDGame extends Game {
         chests.add(new Chest(100, 200));
         chests.add(new Chest(200, 100));
         gameEntities.addAll(chests);
-        gameEntities.add(new Slime(500, 400));
+        gameEntities.add(new Slime(500, 400, new Random().nextInt(3) + 1));
         gameEntities.add(new Zombie(300, 300, 2));
         gameEntities.add(new Zombie(400, 300, 3));
     }

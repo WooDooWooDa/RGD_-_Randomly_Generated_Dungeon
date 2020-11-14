@@ -12,13 +12,13 @@ public class Slime extends MovableEntity {
     private WalkingPath path;
     private Animator animator;
 
-    public Slime(int x, int y) {
+    public Slime(int x, int y, int walkingPathMode) {
         teleport(x, y);
         setDimension(32, 32);
         setSpeed(1);
         animator = new Animator(this, "images/slime.png", 4);
-        animator.setAnimationSpeed(12);
-        path = new WalkingPath(WalkingPath.SQUARE);
+        animator.setAnimationSpeed(16);
+        path = new WalkingPath(walkingPathMode);
         setWalkingPathLength();
     }
 
