@@ -67,7 +67,7 @@ public class RGDGame extends Game {
     @Override
     public void initialize() {
         RenderingEngine.getInstance().getScreen().hideCursor();
-        //SoundPlayer.playLoop("musics/theme.wav"); // TODO: 2020-11-14 add theme song
+        SoundPlayer.playLoop("musics/theme.wav");
         //RenderingEngine.getInstance().getScreen().fullScreen();
     }
 
