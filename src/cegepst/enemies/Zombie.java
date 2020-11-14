@@ -1,14 +1,15 @@
 package cegepst.enemies;
 
+import cegepst.WalkingAnimator;
 import cegepst.engine.Buffer;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.MovableEntity;
 
-import java.awt.*;
-
 public class Zombie extends MovableEntity {
 
+    private static final String SPRITE_PATH = "images/player.png";
     private final int MOVE_COOLDOWN;
+    private final WalkingAnimator animator;
 
     private int deltaX;
     private int deltaY;
@@ -20,12 +21,14 @@ public class Zombie extends MovableEntity {
         teleport(x, y);
         setDimension(32,32);
         setSpeed(2);
+        animator = new WalkingAnimator(this, SPRITE_PATH, 96, 128);
+        animator.setAnimationSpeed(2);
     }
 
     public void update(int playerX, int playerY) {
-        super.update();
         --moveCooldown;
         if (moveCooldown <= 0) {
+            animator.update();
             moveCooldown = MOVE_COOLDOWN;
             getPositionToPlayer(playerX, playerY);
             determineDirectionToPlayer();
@@ -43,7 +46,7 @@ public class Zombie extends MovableEntity {
 
     @Override
     public void draw(Buffer buffer) {
-        buffer.drawRectangle(x, y, width, height, Color.white);
+        buffer.drawImage(animator.animate(getDirection()), x, y);
     }
 
     private void determineDirectionToPlayer() {

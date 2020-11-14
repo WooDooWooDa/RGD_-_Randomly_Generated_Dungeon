@@ -5,6 +5,8 @@ import cegepst.engine.Buffer;
 import cegepst.engine.CollidableRepository;
 import cegepst.engine.entities.MovableEntity;
 
+import java.util.Random;
+
 public class Slime extends MovableEntity {
 
     private WalkingPath path;
@@ -32,7 +34,8 @@ public class Slime extends MovableEntity {
     }
 
     private void setWalkingPathLength() {
-        path.setHorizontalWalk(100);
-        path.setVerticalWalk(100);
+        Random rand = new Random();
+        path.setHorizontalWalk(rand.nextInt(100) + 100);
+        path.setVerticalWalk(rand.nextInt(100) + 100);
     }
 }

@@ -1,5 +1,6 @@
-package cegepst.player;
+package cegepst;
 
+import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.MovableEntity;
 
 import javax.imageio.ImageIO;
@@ -35,6 +36,10 @@ public class WalkingAnimator {
         loadFrames();
     }
 
+    public void setAnimationSpeed(int speed) {
+        animationSpeed = speed;
+    }
+
     public void update() {
         if (entity.hasMoved()) {
             --nextFrame;
@@ -50,24 +55,33 @@ public class WalkingAnimator {
         }
     }
 
-    public Image animateUp() {
+    public Image animate(Direction direction) {
+        if (direction == Direction.UP) {
+            return animateUp();
+        } else if (direction == Direction.DOWN) {
+            return animateDown();
+        } else if (direction == Direction.LEFT) {
+            return animateLeft();
+        } else if (direction == Direction.RIGHT) {
+            return animateRight();
+        }
+        return animateUp();
+    }
+
+    private Image animateUp() {
         return upFrames[currentAnimationFrame];
     }
 
-    public Image animateDown() {
+    private Image animateDown() {
         return downFrames[currentAnimationFrame];
     }
 
-    public Image animateRight() {
+    private Image animateRight() {
         return rightFrames[currentAnimationFrame];
     }
 
-    public Image animateLeft() {
+    private Image animateLeft() {
         return leftFrames[currentAnimationFrame];
-    }
-
-    public void setAnimationSpeed(int speed) {
-        animationSpeed = speed;
     }
 
     private void loadFrames() {

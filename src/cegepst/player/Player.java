@@ -2,6 +2,7 @@ package cegepst.player;
 
 import cegepst.Chest;
 import cegepst.PickableMoney;
+import cegepst.WalkingAnimator;
 import cegepst.engine.Buffer;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.controls.MovementController;
@@ -73,15 +74,7 @@ public class Player extends ControllableEntity {
     @Override
     public void draw(Buffer buffer) {
         interactRange.draw(buffer);
-        if (getDirection() == Direction.UP) {
-            buffer.drawImage(animator.animateUp(), x, y);
-        } else if (getDirection() == Direction.DOWN) {
-            buffer.drawImage(animator.animateDown() ,x ,y);
-        } else if (getDirection() == Direction.LEFT) {
-            buffer.drawImage(animator.animateLeft(), x, y);
-        } else if (getDirection() == Direction.RIGHT) {
-            buffer.drawImage(animator.animateRight(), x, y);
-        }
+        buffer.drawImage(animator.animate(getDirection()), x, y);
         drawHub(buffer);
     }
 

@@ -85,6 +85,6 @@ public class RGDGame extends Game {
         gameEntities.addAll(chests);
         gameEntities.add(new Slime(500, 400));
         gameEntities.add(new Zombie(300, 300, 2));
-        gameEntities.add(new Zombie(400, 300, 5));
+        gameEntities.add(new Zombie(400, 300, 3));
     }
 }
