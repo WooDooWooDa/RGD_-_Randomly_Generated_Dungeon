@@ -10,8 +10,8 @@ public class Slime extends MovableEntity {
     private WalkingPath path;
     private Animator animator;
 
-    public Slime() {
-        teleport(400, 500);
+    public Slime(int x, int y) {
+        teleport(x, y);
         setDimension(32, 32);
         setSpeed(1);
         animator = new Animator(this, "images/slime.png", 4);

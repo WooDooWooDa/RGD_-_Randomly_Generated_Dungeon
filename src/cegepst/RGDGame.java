@@ -1,6 +1,7 @@
 package cegepst;
 
 import cegepst.enemies.Slime;
+import cegepst.enemies.Zombie;
 import cegepst.engine.Buffer;
 import cegepst.engine.Game;
 import cegepst.engine.RenderingEngine;
@@ -34,7 +35,11 @@ public class RGDGame extends Game {
         }
         for (StaticEntity entity: gameEntities) {
             if (entity instanceof UpdatableEntity) {
-                ((UpdatableEntity) entity).update();
+                if (entity instanceof Zombie) {
+                    ((Zombie) entity).update(player.getX(), player.getY());
+                } else {
+                    ((UpdatableEntity) entity).update();
+                }
             }
         }
         if (!menu.isOpen()) {
@@ -78,6 +83,8 @@ public class RGDGame extends Game {
         chests.add(new Chest(100, 200));
         chests.add(new Chest(200, 100));
         gameEntities.addAll(chests);
-        gameEntities.add(new Slime());
+        gameEntities.add(new Slime(500, 400));
+        gameEntities.add(new Zombie(300, 300, 2));
+        gameEntities.add(new Zombie(400, 300, 5));
     }
 }
