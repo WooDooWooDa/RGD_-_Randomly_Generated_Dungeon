@@ -35,10 +35,10 @@ public class Zombie extends MovableEntity {
             if (!((deltaY == 0) && (deltaX == 0))) {
                 move(getDirection());
             }
-            if (!hasMoved() && (getDirection() == Direction.DOWN || getDirection() == Direction.UP)) {
+            if (hitsObstacleVertically()) {
                 moveLeft();
             }
-            if (!hasMoved() && (getDirection() == Direction.LEFT || getDirection() == Direction.RIGHT)) {
+            if (hitsObstacleHorizontally()) {
                 moveDown();
             }
         }
@@ -64,6 +64,15 @@ public class Zombie extends MovableEntity {
             }
         }
     }
+
+    private boolean hitsObstacleVertically() {
+        return !hasMoved() && (getDirection() == Direction.DOWN || getDirection() == Direction.UP);
+    }
+
+    private boolean hitsObstacleHorizontally() {
+        return !hasMoved() && (getDirection() == Direction.LEFT || getDirection() == Direction.RIGHT);
+    }
+
 
     private void getPositionToPlayer(int playerX, int playerY) {
         deltaX = x - playerX;
