@@ -68,19 +68,19 @@ public class WalkingAnimator {
         return animateUp();
     }
 
-    private Image animateUp() {
+    public Image animateUp() {
         return upFrames[currentAnimationFrame];
     }
 
-    private Image animateDown() {
+    public Image animateDown() {
         return downFrames[currentAnimationFrame];
     }
 
-    private Image animateRight() {
+    public Image animateRight() {
         return rightFrames[currentAnimationFrame];
     }
 
-    private Image animateLeft() {
+    public Image animateLeft() {
         return leftFrames[currentAnimationFrame];
     }
 

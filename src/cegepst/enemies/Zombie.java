@@ -20,15 +20,14 @@ public class Zombie extends MovableEntity {
         moveCooldown = MOVE_COOLDOWN;
         teleport(x, y);
         setDimension(32,32);
-        setSpeed(2);
         animator = new WalkingAnimator(this, SPRITE_PATH, 96, 128);
-        animator.setAnimationSpeed(2);
+        animator.setAnimationSpeed(moveSpeed * 5);
     }
 
     public void update(int playerX, int playerY) {
+        super.update();
         --moveCooldown;
         if (moveCooldown <= 0) {
-            animator.update();
             moveCooldown = MOVE_COOLDOWN;
             getPositionToPlayer(playerX, playerY);
             determineDirectionToPlayer();
@@ -41,11 +40,20 @@ public class Zombie extends MovableEntity {
             if (hitsObstacleHorizontally()) {
                 moveDown();
             }
+            animator.update();
         }
     }
 
     @Override
     public void draw(Buffer buffer) {
+        if ((Math.abs(deltaY) == Math.abs(deltaX))) {
+            if (deltaX > 0) {
+                buffer.drawImage(animator.animateLeft(), x, y);
+            } else {
+                buffer.drawImage(animator.animateRight(), x, y);
+            }
+            return;
+        }
         buffer.drawImage(animator.animate(getDirection()), x, y);
     }
 
