@@ -92,7 +92,7 @@ public class RGDGame extends Game {
         chests.add(new Chest(100, 200));
         chests.add(new Chest(200, 100));
         gameEntities.addAll(chests);
-        gameEntities.add(new Slime(500, 500, new Random().nextInt(3) + 1));
+        gameEntities.add(new Slime(500, 500));
         gameEntities.add(new Zombie(300, 300, 2));
         gameEntities.add(new Zombie(400, 300, 3));
     }
