@@ -2,7 +2,7 @@ package cegepst.enemies;
 
 import cegepst.Animator;
 import cegepst.engine.Buffer;
-import cegepst.engine.CollidableRepository;
+import cegepst.engine.SoundPlayer;
 import cegepst.engine.entities.MovableEntity;
 
 import java.util.Random;
@@ -21,15 +21,26 @@ public class Slime extends MovableEntity {
         path = new WalkingPath(walkingPathMode);
         setWalkingPathLength();
     }
-
-    @Override
-    public void update() {
+    
+    public void update(int playerX, int playerY) {
         animator.update();
         move(path.follow());
+        playSoundIfClose(playerX, playerY);
+    }
+
+    private void playSoundIfClose(int playerX, int playerY) {
+        if ((playerX >= (x - width * 2) && playerX <= (x + width * 3)) && (playerY >= (y - height * 2) && playerY <= (y + height * 3))) {
+            Random rand = new Random();
+            int chance = rand.nextInt(200) + 1;
+            if (chance <= 1) {
+                SoundPlayer.play("sounds/slimeWalking.wav");
+            }
+        }
     }
 
     @Override
     public void draw(Buffer buffer) {
+        drawHitBox(buffer);
         buffer.drawImage(animator.animate(), x, y);
     }
 

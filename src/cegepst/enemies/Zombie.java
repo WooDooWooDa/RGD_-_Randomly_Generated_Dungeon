@@ -13,12 +13,17 @@ public class Zombie extends MovableEntity {
     private static final String SPRITE_PATH = "images/player.png";
     private final int MOVE_COOLDOWN;
     private final int GRLL_COOLDOWN = 100;
+    private final int ATTACK_RATE = 120;
     private final WalkingAnimator animator;
+
+    private int health = 100;
+    private int damage = 10;
 
     private int deltaX;
     private int deltaY;
     private int moveCooldown;
     private int grll = GRLL_COOLDOWN;
+    private int attack = ATTACK_RATE;
 
     public Zombie(int x, int y, int moveSpeed) {
         MOVE_COOLDOWN = moveSpeed;
@@ -29,9 +34,22 @@ public class Zombie extends MovableEntity {
         animator.setAnimationSpeed(moveSpeed * 5);
     }
 
+    public int dealDamage() {
+        attack = ATTACK_RATE;
+        return damage;
+    }
+
+    public boolean canAttack() {
+        return attack == 0;
+    }
+
     public void update(int playerX, int playerY) {
         super.update();
         --moveCooldown;
+        --attack;
+        if (attack <= 0) {
+            attack = 0;
+        }
         playSoundIfClose(playerX, playerY);
         if (moveCooldown <= 0) {
             moveCooldown = MOVE_COOLDOWN;

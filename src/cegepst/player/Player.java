@@ -38,6 +38,11 @@ public class Player extends ControllableEntity {
         return interactCooldown == INTERACT_COOLDOWN;
     }
 
+    public void receiveDamage(int damageReceive) {
+        SoundPlayer.play("sounds/damageReceive.wav");
+        PlayerStats.HEALTH -= damageReceive - (PlayerStats.BASE_ARMOR + PlayerStats.BONUS_ARMOR);
+    }
+
     public ArrayList<StaticEntity> interact(ArrayList<StaticEntity> gameEntities) {
         updateInteractRange();
         ArrayList<StaticEntity> newEntities = new ArrayList<>();
