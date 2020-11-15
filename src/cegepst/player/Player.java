@@ -47,12 +47,14 @@ public class Player extends ControllableEntity {
                 if (entity instanceof Chest) {
                     if (!((Chest) entity).isOpened()) {
                         newEntities.addAll(((Chest) entity).openChest());
+                        break;
                     }
                 }
                 if (entity instanceof PickableGem) {
                     SoundPlayer.play("sounds/coin.wav");
                     inventory.addMoney(((PickableGem) entity).getValue());
                     removedEntities.add(entity);
+                    break;
                 }
             }
         }

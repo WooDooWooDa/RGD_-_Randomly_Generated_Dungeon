@@ -2,18 +2,23 @@ package cegepst.enemies;
 
 import cegepst.WalkingAnimator;
 import cegepst.engine.Buffer;
+import cegepst.engine.SoundPlayer;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.MovableEntity;
+
+import java.util.Random;
 
 public class Zombie extends MovableEntity {
 
     private static final String SPRITE_PATH = "images/player.png";
     private final int MOVE_COOLDOWN;
+    private final int GRLL_COOLDOWN = 100;
     private final WalkingAnimator animator;
 
     private int deltaX;
     private int deltaY;
     private int moveCooldown;
+    private int grll = GRLL_COOLDOWN;
 
     public Zombie(int x, int y, int moveSpeed) {
         MOVE_COOLDOWN = moveSpeed;
@@ -27,6 +32,7 @@ public class Zombie extends MovableEntity {
     public void update(int playerX, int playerY) {
         super.update();
         --moveCooldown;
+        playSoundIfClose(playerX, playerY);
         if (moveCooldown <= 0) {
             moveCooldown = MOVE_COOLDOWN;
             getPositionToPlayer(playerX, playerY);
@@ -73,6 +79,25 @@ public class Zombie extends MovableEntity {
         }
     }
 
+    private void playSoundIfClose(int playerX, int playerY) {
+        if ((playerX >= (x - width * 2) && playerX <= (x + width * 3)) && (playerY >= (y - height * 2) && playerY <= (y + height * 3))) {
+            grll--;
+            if (grll <= 0) {
+                grll = 0;
+            }
+            Random rand = new Random();
+            int chance = rand.nextInt(200) + 1;
+            if (chance <= 1 && grll == 0) {
+                grll = GRLL_COOLDOWN;
+                if (rand.nextInt(2) == 1) {
+                    SoundPlayer.play("sounds/zombies1.wav");
+                } else {
+                    SoundPlayer.play("sounds/zombies2.wav");
+                }
+            }
+        }
+    }
+
     private boolean hitsObstacleVertically() {
         return !hasMoved() && (getDirection() == Direction.DOWN || getDirection() == Direction.UP);
     }
@@ -80,7 +105,6 @@ public class Zombie extends MovableEntity {
     private boolean hitsObstacleHorizontally() {
         return !hasMoved() && (getDirection() == Direction.LEFT || getDirection() == Direction.RIGHT);
     }
-
 
     private void getPositionToPlayer(int playerX, int playerY) {
         deltaX = x - playerX;

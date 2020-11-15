@@ -1,6 +1,7 @@
 package cegepst;
 
 import cegepst.engine.Buffer;
+import cegepst.engine.SoundPlayer;
 import cegepst.engine.entities.Blockade;
 import cegepst.engine.entities.StaticEntity;
 
@@ -41,6 +42,7 @@ public class Chest extends StaticEntity {
     }
 
     public ArrayList<StaticEntity> openChest() {
+        SoundPlayer.play("sounds/chestOpen.wav");
         opened = true;
         Random rand = new Random();
         ArrayList<StaticEntity> monies = new ArrayList<>();
