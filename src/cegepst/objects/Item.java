@@ -1,4 +1,4 @@
-package cegepst;
+package cegepst.objects;
 
 public class Item {
 

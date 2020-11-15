@@ -18,6 +18,7 @@ public class Slime extends MovableEntity {
         setSpeed(1);
         animator = new Animator(this, "images/slime.png", 4);
         animator.setAnimationSpeed(16);
+        System.out.println(walkingPathMode);
         path = new WalkingPath(walkingPathMode);
         setWalkingPathLength();
     }

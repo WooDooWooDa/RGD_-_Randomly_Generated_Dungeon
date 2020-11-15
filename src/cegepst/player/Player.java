@@ -1,7 +1,7 @@
 package cegepst.player;
 
-import cegepst.Chest;
-import cegepst.PickableGem;
+import cegepst.objects.Chest;
+import cegepst.objects.PickableGem;
 import cegepst.WalkingAnimator;
 import cegepst.engine.Buffer;
 import cegepst.engine.SoundPlayer;
@@ -22,6 +22,7 @@ public class Player extends ControllableEntity {
     private WalkingAnimator animator;
     private Inventory inventory;
     private StaticEntity interactRange;
+    private Hud hud;
 
     public Player(MovementController gamePad) {
         super(gamePad);
@@ -29,6 +30,8 @@ public class Player extends ControllableEntity {
         teleport(100 ,100);
         setSpeed(PlayerStats.BASE_SPEED);
         inventory = new Inventory();
+        hud = new Hud();
+        PlayerStats.HEALTH = PlayerStats.MAX_HEALTH;
         interactRange = new InteractRange(width * 2, height * 2);
         animator = new WalkingAnimator(this, SPRITE_PATH, 0, 128);
         animator.setAnimationSpeed(8);
@@ -38,9 +41,13 @@ public class Player extends ControllableEntity {
         return interactCooldown == INTERACT_COOLDOWN;
     }
 
-    public void receiveDamage(int damageReceive) {
+    public void receiveDamage(int damage) {
         SoundPlayer.play("sounds/damageReceive.wav");
-        PlayerStats.HEALTH -= damageReceive - (PlayerStats.BASE_ARMOR + PlayerStats.BONUS_ARMOR);
+        int damageReceived = damage - (PlayerStats.BASE_ARMOR + PlayerStats.BONUS_ARMOR);
+        if (damageReceived <= 0) {
+            damageReceived = 0;
+        }
+        PlayerStats.HEALTH -= damageReceived;
     }
 
     public ArrayList<StaticEntity> interact(ArrayList<StaticEntity> gameEntities) {
@@ -83,15 +90,11 @@ public class Player extends ControllableEntity {
     public void draw(Buffer buffer) {
         interactRange.draw(buffer);
         buffer.drawImage(animator.animate(getDirection()), x, y);
-        drawHub(buffer);
+        hud.draw(buffer);
     }
 
     private void drawHub(Buffer buffer) {
-        int healthBarMaxWidth = 100;
-        double healthBarWidth = healthBarMaxWidth * ((double)PlayerStats.HEALTH / PlayerStats.MAX_HEALTH);
-        Rectangle healthBar = new Rectangle((int)healthBarWidth,10);
-        buffer.drawRectangle(18, 18, new Rectangle(104,16), Color.BLACK);
-        buffer.drawRectangle(20, 20, healthBar, Color.GREEN);
+
     }
 
     private void updateInteractRange() {

@@ -20,6 +20,9 @@ public class WalkingPath {
         this.walkMode = walkMode;
         length = 0;
         currentDirection = Direction.UP;
+        if (walkMode == LINEAR_LEFT_RIGHT) {
+            currentDirection = Direction.LEFT;
+        }
     }
 
     public void setHorizontalWalk(int length) {

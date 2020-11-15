@@ -17,7 +17,7 @@ public class Zombie extends MovableEntity {
     private final WalkingAnimator animator;
 
     private int health = 100;
-    private int damage = 10;
+    private int damage = 5;
 
     private int deltaX;
     private int deltaY;
@@ -34,9 +34,17 @@ public class Zombie extends MovableEntity {
         animator.setAnimationSpeed(moveSpeed * 5);
     }
 
+    public void receivedDamage(int damage) {
+        health -= damage;
+    }
+
     public int dealDamage() {
         attack = ATTACK_RATE;
         return damage;
+    }
+
+    public boolean isAlive() {
+        return health > 0;
     }
 
     public boolean canAttack() {

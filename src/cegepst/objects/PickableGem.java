@@ -1,4 +1,4 @@
-package cegepst;
+package cegepst.objects;
 
 import cegepst.engine.Buffer;
 import cegepst.engine.entities.StaticEntity;

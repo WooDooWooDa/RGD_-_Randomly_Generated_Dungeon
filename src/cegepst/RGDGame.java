@@ -8,6 +8,7 @@ import cegepst.engine.RenderingEngine;
 import cegepst.engine.SoundPlayer;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.entities.UpdatableEntity;
+import cegepst.objects.Chest;
 import cegepst.player.Player;
 
 import java.util.ArrayList;
