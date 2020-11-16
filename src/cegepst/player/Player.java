@@ -103,10 +103,6 @@ public class Player extends ControllableEntity {
         hud.draw(buffer);
     }
 
-    private void drawHub(Buffer buffer) {
-
-    }
-
     private void updateInteractRange() {
         interactCooldown = 0;
         interactRange.teleport(x - width / 2, y - height / 2);
