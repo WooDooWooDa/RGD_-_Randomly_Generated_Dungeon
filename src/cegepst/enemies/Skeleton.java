@@ -1,9 +1,27 @@
 package cegepst.enemies;
 
 import cegepst.engine.Buffer;
-import cegepst.engine.entities.UpdatableEntity;
 
-public class Skeleton extends UpdatableEntity {
+public class Skeleton extends Enemy {
+
+    public Skeleton() {
+
+    }
+
+    @Override
+    public int dealDamage() {
+        return 0;
+    }
+
+    @Override
+    public boolean canAttack() {
+        return false;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return false;
+    }
 
     @Override
     public void update() {

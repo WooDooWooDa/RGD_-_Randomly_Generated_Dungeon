@@ -22,10 +22,10 @@ public class Player extends ControllableEntity {
     private int shotRateCooldown = SHOT_RATE;
     private int interactCooldown = INTERACT_COOLDOWN;
 
-    private WalkingAnimator animator;
+    private final WalkingAnimator animator;
     private Inventory inventory;
     private StaticEntity interactRange;
-    private Hud hud;
+    private final Hud hud;
 
     public Player(MovementController gamePad) {
         super(gamePad);
@@ -45,7 +45,7 @@ public class Player extends ControllableEntity {
     }
 
     public boolean canShot() {
-        return shotRateCooldown == SHOT_RATE; // TODO: 2020-11-16 add a attack rate from bow in item inventory
+        return shotRateCooldown == SHOT_RATE; // TODO: 2020-11-16 attack rate from bow in item inventory
     }
     
     public void receiveDamage(int damage) {

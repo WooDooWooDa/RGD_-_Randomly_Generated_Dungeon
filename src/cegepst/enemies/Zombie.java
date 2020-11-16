@@ -4,12 +4,11 @@ import cegepst.WalkingAnimator;
 import cegepst.engine.Buffer;
 import cegepst.engine.SoundPlayer;
 import cegepst.engine.controls.Direction;
-import cegepst.engine.entities.MovableEntity;
 
 import java.awt.*;
 import java.util.Random;
 
-public class Zombie extends MovableEntity {
+public class Zombie extends Enemy {
 
     public static int maxHealth = 100;
     private static final String SPRITE_PATH = "images/player.png";
@@ -18,9 +17,6 @@ public class Zombie extends MovableEntity {
     private final int GRLL_COOLDOWN = 100;
     private final int ATTACK_RATE = 120;
     private final WalkingAnimator animator;
-
-    private int health = maxHealth;
-    private int damage = 5;
 
     private int deltaX;
     private int deltaY;
@@ -31,14 +27,12 @@ public class Zombie extends MovableEntity {
     public Zombie(int x, int y, int moveSpeed) {
         MOVE_COOLDOWN = moveSpeed;
         moveCooldown = MOVE_COOLDOWN;
+        health = maxHealth;
+        damage = 10;
         teleport(x, y);
         setDimension(32,32);
         animator = new WalkingAnimator(this, SPRITE_PATH, 96, 128);
         animator.setAnimationSpeed(moveSpeed * 5);
-    }
-
-    public void receivedDamage(int damage) {
-        health -= damage;
     }
 
     public int dealDamage() {

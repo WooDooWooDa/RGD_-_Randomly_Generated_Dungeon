@@ -2,6 +2,7 @@ package cegepst;
 
 import cegepst.enemies.Slime;
 import cegepst.enemies.Zombie;
+import cegepst.enemies.ZombieSpawner;
 import cegepst.engine.*;
 import cegepst.engine.entities.Blockade;
 import cegepst.engine.entities.StaticEntity;
@@ -21,6 +22,7 @@ public class RGDGame extends Game {
     private ArrayList<StaticEntity> worldEntities;
     private ArrayList<StaticEntity> gameEnemies;
     private ArrayList<StaticEntity> killedEntities;
+    private ArrayList<StaticEntity> newEntities;
 
     public RGDGame() {
         initAll();
@@ -52,6 +54,14 @@ public class RGDGame extends Game {
                     }
                 } else if (entity instanceof Slime) {
                     ((Slime) entity).update(player.getX(), player.getY());
+                    if (entity.intersectWith(player) && ((Slime) entity).canAttack()) {
+                        player.receiveDamage(((Slime) entity).dealDamage());
+                    }
+                } else if (entity instanceof ZombieSpawner) {
+                    ((ZombieSpawner) entity).update();
+                    if (((ZombieSpawner) entity).canAttack()) {
+                        newEntities.add(((ZombieSpawner) entity).spawn());
+                    }
                 } else if (entity instanceof Arrow) {
                     Arrow arrow = (Arrow)entity;
                     arrow.update();
@@ -60,6 +70,12 @@ public class RGDGame extends Game {
                             if (other instanceof Zombie) {
                                 ((Zombie) other).receivedDamage(arrow.dealDamage());
                                 if (!((Zombie) other).isAlive()) {
+                                    killedEntities.add(other);
+                                }
+                            }
+                            if (other instanceof ZombieSpawner) {
+                                ((ZombieSpawner) other).receivedDamage(arrow.dealDamage());
+                                if (!((ZombieSpawner) other).isAlive()) {
                                     killedEntities.add(other);
                                 }
                             }
@@ -74,6 +90,8 @@ public class RGDGame extends Game {
                 }
             }
         }
+        gameEnemies.addAll(newEntities);
+        newEntities.clear();
         updateKilledEntities();
         if (!menu.isOpen()) {
             player.update();
@@ -129,6 +147,7 @@ public class RGDGame extends Game {
         gameEnemies = new ArrayList<>();
         worldEntities = new ArrayList<>();
         killedEntities = new ArrayList<>();
+        newEntities = new ArrayList<>();
         menu = new Menu();
         world = new World();
         gamePad = new GamePad();
@@ -139,5 +158,6 @@ public class RGDGame extends Game {
         gameEnemies.add(new Slime(500, 500));
         gameEnemies.add(new Zombie(300, 300, 2));
         gameEnemies.add(new Zombie(400, 300, 3));
+        gameEnemies.add(new ZombieSpawner(600, 100));
     }
 }

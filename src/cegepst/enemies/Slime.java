@@ -3,27 +3,51 @@ package cegepst.enemies;
 import cegepst.Animator;
 import cegepst.engine.Buffer;
 import cegepst.engine.SoundPlayer;
-import cegepst.engine.entities.MovableEntity;
 
 import java.util.Random;
 
-public class Slime extends MovableEntity {
+public class Slime extends Enemy {
+
+    public static int maxHealth = 100;
+
+    private final int ATTACK_RATE = 50;
 
     private WalkingPath path;
     private Animator animator;
+
+    private int attack = ATTACK_RATE;
 
     public Slime(int x, int y) {
         teleport(x, y);
         setDimension(32, 32);
         setSpeed(1);
+        damage = 5;
+        health = maxHealth;
         animator = new Animator(this, "images/slime.png", 4);
         animator.setAnimationSpeed(16);
         path = new WalkingPath(new Random().nextInt(3) + 1);
         setWalkingPathLength();
     }
+
+    public int dealDamage() {
+        attack = ATTACK_RATE;
+        return damage;
+    }
+
+    public boolean canAttack() {
+        return attack == 0;
+    }
+
+    public boolean isAlive() {
+        return health > 0;
+    }
     
     public void update(int playerX, int playerY) {
         animator.update();
+        --attack;
+        if (attack < 0) {
+            attack = 0;
+        }
         move(path.follow());
         playSoundIfClose(playerX, playerY);
     }
