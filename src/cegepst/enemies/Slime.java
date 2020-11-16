@@ -4,6 +4,7 @@ import cegepst.Animator;
 import cegepst.engine.Buffer;
 import cegepst.engine.SoundPlayer;
 
+import java.awt.*;
 import java.util.Random;
 
 public class Slime extends Enemy {
@@ -65,6 +66,9 @@ public class Slime extends Enemy {
     @Override
     public void draw(Buffer buffer) {
         buffer.drawImage(animator.animate(), x, y);
+        if (health < maxHealth) {
+            buffer.drawRectangle(x , y - 10, (int)(32 * ((double)health / maxHealth)), 3, Color.RED);
+        }
     }
 
     private void setWalkingPathLength() {

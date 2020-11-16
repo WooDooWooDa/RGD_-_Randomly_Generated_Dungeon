@@ -31,7 +31,7 @@ public class ZombieSpawner extends Enemy {
     }
 
     public boolean canAttack() {
-        return spawn == 0 && random.nextInt(100) > 1;
+        return spawn == 0 && random.nextInt(100) <= 1;
     }
 
     public boolean isAlive() {
@@ -42,7 +42,7 @@ public class ZombieSpawner extends Enemy {
         spawn = SPAWN_RATE;
         int newZombieX = (x - width) + (random.nextInt(width * 3));
         int newZombieY = (y - height) + (random.nextInt(height * 3));
-        return new Zombie(newZombieX, newZombieY, random.nextInt(3) + 1);
+        return new Zombie(newZombieX, newZombieY, random.nextInt(1) + 1);
     }
 
     @Override
