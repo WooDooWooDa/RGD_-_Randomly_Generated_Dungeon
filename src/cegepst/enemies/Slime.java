@@ -40,7 +40,6 @@ public class Slime extends MovableEntity {
 
     @Override
     public void draw(Buffer buffer) {
-        drawHitBox(buffer);
         buffer.drawImage(animator.animate(), x, y);
     }
 

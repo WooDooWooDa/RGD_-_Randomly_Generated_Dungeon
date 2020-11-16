@@ -11,7 +11,6 @@ import cegepst.engine.controls.MovementController;
 import cegepst.engine.entities.ControllableEntity;
 import cegepst.engine.entities.StaticEntity;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -19,6 +18,8 @@ public class Player extends ControllableEntity {
 
     private static final String SPRITE_PATH = "images/player.png";
     private static final int INTERACT_COOLDOWN = 25;
+    private static final int SHOT_RATE = 25;
+    private int shotRateCooldown = SHOT_RATE;
     private int interactCooldown = INTERACT_COOLDOWN;
 
     private WalkingAnimator animator;
@@ -44,7 +45,7 @@ public class Player extends ControllableEntity {
     }
 
     public boolean canShot() {
-        return true; // TODO: 2020-11-16 add a attack rate from bow in item inventory 
+        return shotRateCooldown == SHOT_RATE; // TODO: 2020-11-16 add a attack rate from bow in item inventory
     }
     
     public void receiveDamage(int damage) {
@@ -57,6 +58,7 @@ public class Player extends ControllableEntity {
     }
 
     public ArrayList<StaticEntity> interact(ArrayList<StaticEntity> gameEntities) {
+        interactCooldown = 0;
         updateInteractRange();
         ArrayList<StaticEntity> newEntities = new ArrayList<>();
         ArrayList<StaticEntity> removedEntities = new ArrayList<>();
@@ -82,6 +84,8 @@ public class Player extends ControllableEntity {
     }
     
     public MovableEntity shotArrow() {
+        shotRateCooldown = 0;
+        SoundPlayer.play("sounds/arrowshot.wav");
         return new Arrow(getDirection(), x, y, PlayerStats.BASE_DAMAGE + PlayerStats.BONUS_DAMAGE);
     }
 
@@ -89,6 +93,10 @@ public class Player extends ControllableEntity {
     public void update() {
         super.update();
         interactCooldown++;
+        shotRateCooldown++;
+        if (shotRateCooldown > SHOT_RATE) {
+            shotRateCooldown = SHOT_RATE;
+        }
         if (interactCooldown > INTERACT_COOLDOWN) {
             interactCooldown = INTERACT_COOLDOWN;
         }
@@ -104,7 +112,6 @@ public class Player extends ControllableEntity {
     }
 
     private void updateInteractRange() {
-        interactCooldown = 0;
         interactRange.teleport(x - width / 2, y - height / 2);
     }
 }
