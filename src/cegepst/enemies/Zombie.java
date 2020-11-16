@@ -6,17 +6,19 @@ import cegepst.engine.SoundPlayer;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.MovableEntity;
 
+import java.awt.*;
 import java.util.Random;
 
 public class Zombie extends MovableEntity {
 
+    public static int maxHealth = 100;
     private static final String SPRITE_PATH = "images/player.png";
     private final int MOVE_COOLDOWN;
     private final int GRLL_COOLDOWN = 100;
     private final int ATTACK_RATE = 120;
     private final WalkingAnimator animator;
 
-    private int health = 100;
+    private int health = maxHealth;
     private int damage = 5;
 
     private int deltaX;
@@ -87,6 +89,9 @@ public class Zombie extends MovableEntity {
             return;
         }
         buffer.drawImage(animator.animate(getDirection()), x, y);
+        if (health < maxHealth) {
+            buffer.drawRectangle(x , y - 10, (int)(32 * ((double)health / maxHealth)), 3, Color.RED);
+        }
     }
 
     private void determineDirectionToPlayer() {
