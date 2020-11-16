@@ -55,7 +55,7 @@ public class RGDGame extends Game {
                 } else if (entity instanceof Arrow) {
                     Arrow arrow = (Arrow)entity;
                     arrow.update();
-                    for (StaticEntity other : gameEnemies) {
+                    for (StaticEntity other : gameEnemies) { // TODO: 2020-11-16 send this loop in arrow.update 
                         if (arrow.hitBoxIntersectWith(other)) {
                             if (other instanceof Zombie) {
                                 ((Zombie) other).receivedDamage(arrow.dealDamage());
