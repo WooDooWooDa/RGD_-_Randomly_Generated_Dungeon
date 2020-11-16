@@ -1,5 +1,7 @@
 package cegepst.player;
 
+import cegepst.engine.entities.MovableEntity;
+import cegepst.objects.Arrow;
 import cegepst.objects.Chest;
 import cegepst.objects.PickableGem;
 import cegepst.WalkingAnimator;
@@ -41,6 +43,10 @@ public class Player extends ControllableEntity {
         return interactCooldown == INTERACT_COOLDOWN;
     }
 
+    public boolean canShot() {
+        return true; // TODO: 2020-11-16 add a attack rate from bow in item inventory 
+    }
+    
     public void receiveDamage(int damage) {
         SoundPlayer.play("sounds/damageReceive.wav");
         int damageReceived = damage - (PlayerStats.BASE_ARMOR + PlayerStats.BONUS_ARMOR);
@@ -73,6 +79,10 @@ public class Player extends ControllableEntity {
         gameEntities.removeAll(removedEntities);
         gameEntities.addAll(newEntities);
         return gameEntities;
+    }
+    
+    public MovableEntity shotArrow() {
+        return new Arrow(getDirection(), x, y, 10);
     }
 
     @Override
