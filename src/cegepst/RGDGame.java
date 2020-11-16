@@ -3,6 +3,7 @@ package cegepst;
 import cegepst.enemies.Slime;
 import cegepst.enemies.Zombie;
 import cegepst.engine.*;
+import cegepst.engine.entities.Blockade;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.entities.UpdatableEntity;
 import cegepst.objects.Arrow;
@@ -10,7 +11,6 @@ import cegepst.objects.Chest;
 import cegepst.player.Player;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class RGDGame extends Game {
 
@@ -55,11 +55,19 @@ public class RGDGame extends Game {
                 } else if (entity instanceof Arrow) {
                     Arrow arrow = (Arrow)entity;
                     arrow.update();
-                    for (StaticEntity other : gameEnemies) { // TODO: 2020-11-16 send this loop in arrow.update 
+                    for (StaticEntity other : gameEnemies) {
                         if (arrow.hitBoxIntersectWith(other)) {
                             if (other instanceof Zombie) {
                                 ((Zombie) other).receivedDamage(arrow.dealDamage());
+                                if (!((Zombie) other).isAlive()) {
+                                    killedEntities.add(other);
+                                }
                             }
+                            killedEntities.add(arrow);
+                        }
+                    }
+                    for (StaticEntity blockade : worldEntities) {
+                        if (arrow.hitBoxIntersectWith(blockade)) {
                             killedEntities.add(arrow);
                         }
                     }
@@ -127,7 +135,8 @@ public class RGDGame extends Game {
         player = new Player(gamePad);
         worldEntities.add(new Chest(100, 200));
         worldEntities.add(new Chest(200, 100));
-        gameEnemies.add(new Slime(500, 500, new Random().nextInt(3) + 1));
+        worldEntities.addAll(world.getWorldBorder());
+        gameEnemies.add(new Slime(500, 500));
         gameEnemies.add(new Zombie(300, 300, 2));
         gameEnemies.add(new Zombie(400, 300, 3));
     }

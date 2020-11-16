@@ -3,6 +3,7 @@ package cegepst;
 import cegepst.engine.Buffer;
 import cegepst.engine.RenderingEngine;
 import cegepst.engine.entities.Blockade;
+import cegepst.engine.entities.StaticEntity;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -26,6 +27,10 @@ public class World {
         for (Blockade worldBorder : worldBorders) {
             worldBorder.draw(buffer);
         }
+    }
+
+    public ArrayList<Blockade> getWorldBorder() {
+        return worldBorders;
     }
 
     private void createBorders() {

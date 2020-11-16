@@ -7,6 +7,7 @@ public class PlayerStats {
     public static int LVL = 1;
     protected static int NEXT_LVL_EXP = 100;
     protected static int PLAYER_EXP = 0;
+    protected static int MONEY = 0;
 
     protected static int MAX_HEALTH = 100;
     protected static int HEALTH;

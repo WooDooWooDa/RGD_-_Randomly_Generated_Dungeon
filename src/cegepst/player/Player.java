@@ -70,7 +70,7 @@ public class Player extends ControllableEntity {
                 }
                 if (entity instanceof PickableGem) {
                     SoundPlayer.play("sounds/coin.wav");
-                    inventory.addMoney(((PickableGem) entity).getValue());
+                    PlayerStats.MONEY += ((PickableGem) entity).getValue();
                     removedEntities.add(entity);
                     break;
                 }
@@ -82,7 +82,7 @@ public class Player extends ControllableEntity {
     }
     
     public MovableEntity shotArrow() {
-        return new Arrow(getDirection(), x, y, 10);
+        return new Arrow(getDirection(), x, y, PlayerStats.BASE_DAMAGE + PlayerStats.BONUS_DAMAGE);
     }
 
     @Override
