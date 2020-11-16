@@ -13,6 +13,7 @@ public class Zombie extends MovableEntity {
 
     public static int maxHealth = 100;
     private static final String SPRITE_PATH = "images/player.png";
+
     private final int MOVE_COOLDOWN;
     private final int GRLL_COOLDOWN = 100;
     private final int ATTACK_RATE = 120;
