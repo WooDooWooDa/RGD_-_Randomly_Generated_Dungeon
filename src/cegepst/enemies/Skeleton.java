@@ -4,8 +4,9 @@ import cegepst.engine.Buffer;
 
 public class Skeleton extends Enemy {
 
-    public Skeleton() {
-
+    public Skeleton(int x, int y) {
+        teleport(x, y);
+        setDimension(32,32);
     }
 
     @Override

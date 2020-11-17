@@ -5,7 +5,6 @@ import cegepst.enemies.Slime;
 import cegepst.enemies.Zombie;
 import cegepst.enemies.ZombieSpawner;
 import cegepst.engine.*;
-import cegepst.engine.entities.Blockade;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.entities.UpdatableEntity;
 import cegepst.objects.Arrow;

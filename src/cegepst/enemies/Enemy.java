@@ -4,8 +4,8 @@ import cegepst.engine.entities.MovableEntity;
 
 public abstract class Enemy extends MovableEntity {
 
-    public int health;
-    public int damage;
+    protected int health;
+    protected int damage;
 
     public void receivedDamage(int damage) {
         health -= damage;
