@@ -70,6 +70,16 @@ public abstract class MovableEntity extends UpdatableEntity {
         return direction;
     }
 
+    public Direction getInvertedDirection() {
+        switch (direction) {
+            case UP: return Direction.DOWN;
+            case DOWN: return Direction.UP;
+            case LEFT: return Direction.RIGHT;
+            case RIGHT: return Direction.LEFT;
+        }
+        return direction;
+    }
+
     public void setDirection(Direction direction) {
         this.direction = direction;
     }

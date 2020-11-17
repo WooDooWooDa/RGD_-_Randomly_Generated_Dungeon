@@ -1,5 +1,6 @@
 package cegepst;
 
+import cegepst.enemies.Enemy;
 import cegepst.enemies.Slime;
 import cegepst.enemies.Zombie;
 import cegepst.enemies.ZombieSpawner;
@@ -131,18 +132,8 @@ public class RGDGame extends Game {
 
     private void updateKilledEntities() {
         for (StaticEntity entity : gameEnemies) {
-            if (entity instanceof Zombie) {
-                if (!((Zombie) entity).isAlive()) {
-                    killedEntities.add(entity);
-                }
-            }
-            if (entity instanceof ZombieSpawner) {
-                if (!((ZombieSpawner) entity).isAlive()) {
-                    killedEntities.add(entity);
-                }
-            }
-            if (entity instanceof Slime) {
-                if (!((Slime) entity).isAlive()) {
+            if (entity instanceof Enemy) {
+                if (!((Enemy)entity).isAlive()) {
                     killedEntities.add(entity);
                 }
             }
