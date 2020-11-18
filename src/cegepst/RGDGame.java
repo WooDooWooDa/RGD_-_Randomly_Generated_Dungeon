@@ -5,6 +5,7 @@ import cegepst.enemies.Slime;
 import cegepst.enemies.Zombie;
 import cegepst.enemies.ZombieSpawner;
 import cegepst.engine.*;
+import cegepst.engine.entities.Blockade;
 import cegepst.engine.entities.CollidableRepository;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.entities.UpdatableEntity;
@@ -63,21 +64,13 @@ public class RGDGame extends Game {
                         Arrow arrow = (Arrow)entity;
                         arrow.update();
                         for (StaticEntity other : gameEnemies) {
-                            if (arrow.hitBoxIntersectWith(other)) {
-                                if (other instanceof Zombie) {
-                                    ((Zombie) other).receivedDamage(arrow.dealDamage());
-                                }
-                                if (other instanceof ZombieSpawner) {
-                                    ((ZombieSpawner) other).receivedDamage(arrow.dealDamage());
-                                }
-                                if (other instanceof Slime) {
-                                    ((Slime) other).receivedDamage(arrow.dealDamage());
-                                }
+                            if (arrow.hitBoxIntersectWith(other) && other instanceof Enemy) {
+                                ((Enemy)other).receivedDamage(arrow.dealDamage());
                                 killedEntities.add(arrow);
                             }
                         }
-                        for (StaticEntity blockade : worldEntities) {
-                            if (arrow.hitBoxIntersectWith(blockade)) {
+                        for (StaticEntity worldEntity : worldEntities) {
+                            if (arrow.hitBoxIntersectWith(worldEntity) && worldEntity instanceof Blockade) {
                                 killedEntities.add(arrow);
                             }
                         }
@@ -137,7 +130,7 @@ public class RGDGame extends Game {
         for (StaticEntity entity : gameEnemies) {
             if (entity instanceof Enemy) {
                 if (!((Enemy)entity).isAlive()) {
-                    worldEntities.add(entity.dies());
+                    worldEntities.addAll(((Enemy)entity).dies());
                     killedEntities.add(entity);
                 }
             }

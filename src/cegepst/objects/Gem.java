@@ -4,18 +4,15 @@ import cegepst.GameResources;
 import cegepst.engine.Buffer;
 import cegepst.engine.entities.StaticEntity;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.Random;
 
-public class PickableGem extends StaticEntity {
+public class Gem extends StaticEntity {
 
-    private Image itemImage;
+    private Image image;
     private final int value;
 
-    public PickableGem(int x, int y) {
+    public Gem(int x, int y) {
         teleport(x, y);
         setInteractable();
         setDimension(16, 16);
@@ -29,11 +26,11 @@ public class PickableGem extends StaticEntity {
 
     @Override
     public void draw(Buffer buffer) {
-        buffer.drawImage(itemImage, x, y);
+        buffer.drawImage(image, x, y);
     }
 
     private void loadItemImage() {
-        itemImage = GameResources.getInstance().getBufferedImage("items").getSubimage(10 * width, 11 * height, width, height);
+        image = GameResources.getInstance().getBufferedImage("items").getSubimage(10 * width, 11 * height, width, height);
     }
 
 }

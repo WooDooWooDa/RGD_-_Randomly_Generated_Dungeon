@@ -48,7 +48,7 @@ public class Chest extends StaticEntity {
         Random rand = new Random();
         ArrayList<StaticEntity> items = new ArrayList<>();
         for (int i = 0; i <= rand.nextInt(3); i++) {
-            items.add(new PickableGem(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
+            items.add(new Gem(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
         }
         if (rand.nextInt() <= 5) {
             items.add(Item.Factory.create(width * 2 + (x - width), rand.nextInt(20) + (y + height / 2)));

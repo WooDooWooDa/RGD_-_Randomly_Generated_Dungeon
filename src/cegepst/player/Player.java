@@ -69,9 +69,9 @@ public class Player extends ControllableEntity {
                             break;
                         }
                     }
-                    if (entity instanceof PickableGem) {
+                    if (entity instanceof Gem) {
                         SoundPlayer.play("sounds/coin.wav");
-                        PlayerStats.GEM += ((PickableGem) entity).getValue();
+                        PlayerStats.GEM += ((Gem) entity).getValue();
                         removedEntities.add(entity);
                         break;
                     }
