@@ -16,7 +16,7 @@ public class Player extends ControllableEntity {
 
     private static final String SPRITE_PATH = "images/player.png";
     private static final int INTERACT_COOLDOWN = 25;
-    private static final int SHOT_RATE = 25;
+    private static final int SHOT_RATE = 50;
     private int shotRateCooldown = SHOT_RATE;
     private int interactCooldown = INTERACT_COOLDOWN;
 

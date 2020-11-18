@@ -26,7 +26,6 @@ public abstract class Enemy extends MovableEntity {
             int dropChance = rand.nextInt(200);
             if (dropChance <= 1) {
                 drop.add(Item.Factory.create(x + rand.nextInt(width), y + rand.nextInt(height)));
-                continue;
             } else if (dropChance <= 100) {
                 drop.add(new Gem(x + rand.nextInt(width), y + rand.nextInt(height)));
             }
