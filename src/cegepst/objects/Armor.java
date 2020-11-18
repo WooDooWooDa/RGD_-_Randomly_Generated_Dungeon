@@ -15,10 +15,7 @@ public class Armor extends Item {
     }
 
     public boolean isBetterThan(Armor other) {
-        if (this.armorPoint > other.armorPoint) {
-            return true;
-        }
-        return false;
+        return this.armorPoint > other.armorPoint;
     }
 
     private static Image getImage(int xPositionInSheet) {

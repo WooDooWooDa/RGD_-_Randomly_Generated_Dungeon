@@ -16,10 +16,7 @@ public class Sword extends Item {
     }
 
     public boolean isBetterThan(Sword other) {
-        if (this.attackDamage > other.attackDamage) {
-            return true;
-        }
-        return false;
+        return this.attackDamage > other.attackDamage;
     }
 
     public int dealDamage() {
