@@ -33,15 +33,21 @@ public class Armor extends Item {
         Random random = new Random();
         if (level == 2) {
             armorPoint = random.nextInt(15 + 1 - 5) + 5;
-        } else if (level == 3) {
-            armorPoint = random.nextInt(25 + 1 - 10) + 10;
-        } else if (level == 4) {
-            armorPoint = random.nextInt(35 + 1 - 20) + 20;
-        } else if (level == 5) {
-            armorPoint = random.nextInt(50 + 1 - 35) + 35;
-        } else {
-            armorPoint = random.nextInt(10 + 1 - 2) + 2;
+            return;
         }
+        if (level == 3) {
+            armorPoint = random.nextInt(25 + 1 - 10) + 10;
+            return;
+        }
+        if (level == 4) {
+            armorPoint = random.nextInt(35 + 1 - 20) + 20;
+            return;
+        }
+        if (level == 5) {
+            armorPoint = random.nextInt(50 + 1 - 35) + 35;
+            return;
+        }
+        armorPoint = random.nextInt(10 + 1 - 2) + 2;
     }
 
 }
