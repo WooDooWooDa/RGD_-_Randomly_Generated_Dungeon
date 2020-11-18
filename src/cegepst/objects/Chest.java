@@ -23,6 +23,7 @@ public class Chest extends StaticEntity {
     public Chest(int x, int y) {
         teleport(x, y);
         setDimension(32,32);
+        setInteractable();
         loadImage();
         chestBase = new Blockade();
         chestBase.setDimension(32,10);

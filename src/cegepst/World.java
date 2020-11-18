@@ -3,7 +3,6 @@ package cegepst;
 import cegepst.engine.Buffer;
 import cegepst.engine.RenderingEngine;
 import cegepst.engine.entities.Blockade;
-import cegepst.engine.entities.StaticEntity;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 
 public class World {
 
-    private static final String MAP_PATH = "images/map.png";
+    private static final String MAP_PATH = "images/forestMap.png";
     private Image backGround;
     private ArrayList<Blockade> worldBorders;
 

@@ -9,6 +9,7 @@ import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.entities.UpdatableEntity;
 import cegepst.objects.Arrow;
 import cegepst.objects.Chest;
+import cegepst.objects.Item;
 import cegepst.player.Player;
 
 import java.util.ArrayList;
@@ -157,6 +158,7 @@ public class RGDGame extends Game {
         player = new Player(gamePad);
         worldEntities.add(new Chest(100, 200));
         worldEntities.add(new Chest(200, 100));
+        //worldEntities.add(new Item.Factory.create(200, 200)); // TODO: 2020-11-18 wHY?? isnt it working?
         worldEntities.addAll(world.getWorldBorder());
         gameEnemies.add(new Slime(500, 500));
         gameEnemies.add(new Zombie(300, 300, 2));

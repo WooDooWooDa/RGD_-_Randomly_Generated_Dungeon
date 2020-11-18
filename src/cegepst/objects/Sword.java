@@ -10,9 +10,7 @@ public class Sword extends Item {
     private int attackRate;
 
     public Sword(int x, int y, int level) {
-        super(level, getSwordName(), getImage(level - 1));
-        teleport(x, y);
-        setDimension(16, 16);
+        super(x, y, getSwordName(), getImage(level - 1));
         setAttackPoint(level);
     }
 

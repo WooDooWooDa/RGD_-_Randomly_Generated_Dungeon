@@ -57,30 +57,32 @@ public class Player extends ControllableEntity {
         PlayerStats.HEALTH -= damageReceived;
     }
 
-    public ArrayList<StaticEntity> interact(ArrayList<StaticEntity> gameEntities) {
+    public ArrayList<StaticEntity> interact(ArrayList<StaticEntity> worldEntities) {
         interactCooldown = 0;
         updateInteractRange();
         ArrayList<StaticEntity> newEntities = new ArrayList<>();
         ArrayList<StaticEntity> removedEntities = new ArrayList<>();
-        for (StaticEntity entity : gameEntities) {
-            if (entity.intersectWith(interactRange)) {
-                if (entity instanceof Chest) {
-                    if (!((Chest) entity).isOpened()) {
-                        newEntities.addAll(((Chest) entity).openChest());
+        for (StaticEntity entity : worldEntities) {
+            if (entity.isInteractable()) {
+                if (entity.intersectWith(interactRange)) {
+                    if (entity instanceof Chest) {
+                        if (!((Chest) entity).isOpened()) {
+                            newEntities.addAll(((Chest) entity).openChest());
+                            break;
+                        }
+                    }
+                    if (entity instanceof PickableGem) {
+                        SoundPlayer.play("sounds/coin.wav");
+                        PlayerStats.MONEY += ((PickableGem) entity).getValue();
+                        removedEntities.add(entity);
                         break;
                     }
                 }
-                if (entity instanceof PickableGem) {
-                    SoundPlayer.play("sounds/coin.wav");
-                    PlayerStats.MONEY += ((PickableGem) entity).getValue();
-                    removedEntities.add(entity);
-                    break;
-                }
             }
         }
-        gameEntities.removeAll(removedEntities);
-        gameEntities.addAll(newEntities);
-        return gameEntities;
+        worldEntities.removeAll(removedEntities);
+        worldEntities.addAll(newEntities);
+        return worldEntities;
     }
     
     public MovableEntity shotArrow() {

@@ -9,12 +9,13 @@ import java.util.Random;
 
 public class Item extends StaticEntity {
 
-    private final int level;
     private final String name;
-    private Image image;
+    private final Image image;
 
-    protected Item(int level, String name, Image image) {
-        this.level = level;
+    protected Item(int x, int y, String name, Image image) {
+        setInteractable();
+        teleport(x, y);
+        setDimension(16, 16);
         this.name = name;
         this.image = image;
     }
@@ -30,9 +31,10 @@ public class Item extends StaticEntity {
     }
 
     public static class Factory {
-        private static final Random random = new Random();
+        private static Random random;
 
-        public static Item createItem(int x, int y) {
+        public static Item create(int x, int y) {
+             random = new Random();
             if (random.nextInt(2) == 1) {
                 return new Armor(x, y, generateLevel());
             }

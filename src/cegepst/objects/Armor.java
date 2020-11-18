@@ -10,9 +10,7 @@ public class Armor extends Item {
     private int armorPoint;
 
     public Armor(int x, int y, int level) {
-        super(level, getArmorName(), getImage(level - 1));
-        teleport(x, y);
-        setDimension(16, 16);
+        super(x, y, getArmorName(), getImage(level - 1));
         setArmorPoint(level);
     }
 

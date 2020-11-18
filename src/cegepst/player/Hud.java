@@ -1,18 +1,15 @@
 package cegepst.player;
 
+import cegepst.GameResources;
 import cegepst.engine.Buffer;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.IOException;
 
 public class Hud {
 
-    private static final String HUD_PATH = "images/playerHud.png";
-
     private final Color hpBarColor = new Color(214, 15, 15);
     private final Color expColor = new Color(99, 228, 90);
-    private final Color textColor = new Color(184, 185, 196);
+    private final Color textColor = Color.black;
 
     private Image backGround;
     private int damageTextX = 110;
@@ -47,10 +44,6 @@ public class Hud {
     }
 
     private void loadBackGround() {
-        try {
-            backGround = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(HUD_PATH));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        backGround = GameResources.getInstance().getImage("playerHud");
     }
 }

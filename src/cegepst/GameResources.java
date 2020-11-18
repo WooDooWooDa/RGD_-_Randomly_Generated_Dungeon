@@ -23,13 +23,26 @@ public class GameResources {
         return allBufferedImages.get(key);
     }
 
+    public Image getImage(String key) {
+        return allImages.get(key);
+    }
+
     private GameResources() {
         allImages = new HashMap<>();
         allBufferedImages = new HashMap<>();
         loadImagesResources();
+        loadBufferedImagesResources();
     }
 
     private void loadImagesResources() {
+        try {
+            allImages.put("playerHud", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/playerHud.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadBufferedImagesResources() {
         try {
             allBufferedImages.put("items", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/allItems.png")));
         } catch (IOException e) {

@@ -16,6 +16,7 @@ public class PickableGem extends StaticEntity {
 
     public PickableGem(int x, int y) {
         teleport(x, y);
+        setInteractable();
         setDimension(16, 16);
         loadItemImage(10, 11);
     }

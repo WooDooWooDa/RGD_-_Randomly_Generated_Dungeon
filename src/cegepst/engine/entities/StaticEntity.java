@@ -10,6 +10,7 @@ public abstract class StaticEntity {
     protected int y;
     protected int width;
     protected int height;
+    protected boolean interactable = false;
 
     public abstract void draw(Buffer buffer);
 
@@ -21,6 +22,10 @@ public abstract class StaticEntity {
     public void setDimension(int width, int height) {
         this.width = width;
         this.height = height;
+    }
+
+    public void setInteractable() {
+        interactable = true;
     }
 
     public int getX() {
@@ -43,7 +48,12 @@ public abstract class StaticEntity {
         return getBounds().intersects(other.getBounds());
     }
 
+    public boolean isInteractable() {
+        return interactable;
+    }
+
     protected Rectangle getBounds() {
         return new Rectangle(x, y, width, height);
     }
+
 }
