@@ -22,7 +22,7 @@ public class Armor extends Item {
     }
 
     private static Image getImage(int xPositionInSheet) {
-        return GameResources.getInstance().getBufferedImage("items").getSubimage(xPositionInSheet * 16, 16 * 16, 16, 16);
+        return GameResources.getInstance().getBufferedImage("items").getSubimage(xPositionInSheet * 16, 16, 16, 16);
     }
 
     private static String getArmorName() {

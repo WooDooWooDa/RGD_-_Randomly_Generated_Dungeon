@@ -31,7 +31,7 @@ public class Sword extends Item {
     }
 
     private static Image getImage(int x) {
-        return GameResources.getInstance().getBufferedImage("items").getSubimage(x * 16, 16 * 16, 16, 16);
+        return GameResources.getInstance().getBufferedImage("items").getSubimage(x * 16,  4 * 16, 16, 16);
     }
 
     private static String getSwordName() {
