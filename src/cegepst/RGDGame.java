@@ -153,6 +153,7 @@ public class RGDGame extends Game {
         world = new World();
         gamePad = new GamePad();
         player = new Player(gamePad);
+        //camera = new Camera(player, worldEntities);
         worldEntities.add(new Chest(100, 200));
         worldEntities.add(new Chest(200, 100));
         worldEntities.add(Item.Factory.create(200, 200));

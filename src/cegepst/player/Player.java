@@ -80,6 +80,12 @@ public class Player extends ControllableEntity {
                         removedEntities.add(entity);
                         break;
                     }
+                    if (entity instanceof ExpOrb) {
+                        //play exp sound
+                        PlayerStats.PLAYER_EXP += ((ExpOrb) entity).getExpValue();
+                        removedEntities.add(entity);
+                        break;
+                    }
                 }
             }
         }

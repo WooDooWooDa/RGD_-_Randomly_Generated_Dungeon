@@ -20,6 +20,10 @@ public class ExpOrb extends StaticEntity {
         expValue = new Random().nextInt(10) + 1;
     }
 
+    public int getExpValue() {
+        return expValue;
+    }
+
     @Override
     public void draw(Buffer buffer) {
         buffer.drawImage(image, x, y);

@@ -22,7 +22,7 @@ public abstract class Enemy extends MovableEntity {
     public ArrayList<StaticEntity> dies() {
         Random rand = new Random();
         ArrayList<StaticEntity> drop = new ArrayList<>();
-        for (int i = 0; i < rand.nextInt(2) + level; i++) {
+        for (int i = 1; i <= rand.nextInt(2) + level; i++) {
             int dropChance = rand.nextInt(200);
             if (dropChance <= 1) {
                 drop.add(Item.Factory.create(x + rand.nextInt(width), y + rand.nextInt(height)));
