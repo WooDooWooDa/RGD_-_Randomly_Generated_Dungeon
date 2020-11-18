@@ -8,10 +8,11 @@ import java.util.Random;
 public class Armor extends Item {
 
     private int armorPoint;
+    private int healthPoint;
 
     public Armor(int x, int y, int level) {
         super(level, x, y, getArmorName(), getImage(level - 1));
-        setArmorPoint(level);
+        setBonusPoint(level);
     }
 
     public boolean isBetterThan(Armor other) {
@@ -25,6 +26,10 @@ public class Armor extends Item {
         return armorPoint;
     }
 
+    public int getHealthPoint() {
+        return healthPoint;
+    }
+
     private static Image getImage(int xPositionInSheet) {
         return GameResources.getInstance().getBufferedImage("items").getSubimage(xPositionInSheet * 16, 16, 16, 16);
     }
@@ -33,10 +38,11 @@ public class Armor extends Item {
         return "name";
     }
 
-    private void setArmorPoint(int level) {
+    private void setBonusPoint(int level) { // TODO: 2020-11-18 set bonus healthPoint
         Random random = new Random();
         if (level == 2) {
             armorPoint = random.nextInt(15 + 1 - 5) + 5;
+            //healthPoint = random.nextInt();
             return;
         }
         if (level == 3) {

@@ -22,6 +22,7 @@ public class RGDGame extends Game {
     private World world;
     private GamePad gamePad;
     private Player player;
+    private WorldTime worldTime;
     private ArrayList<StaticEntity> worldEntities;
     private ArrayList<StaticEntity> gameEnemies;
     private ArrayList<StaticEntity> killedEntities;
@@ -34,6 +35,7 @@ public class RGDGame extends Game {
     @Override
     public void update() {
         menu.update();
+        worldTime.update();
         checkForKeyPressed();
         //updateWorldEntities();
         for (StaticEntity entity : worldEntities) {
@@ -47,7 +49,7 @@ public class RGDGame extends Game {
                 if (entity instanceof UpdatableEntity) {
                     if (entity instanceof Zombie) {
                         ((Zombie) entity).update(player.getX(), player.getY());
-                        if (((Zombie) entity).hitBoxIntersectWith(player) && ((Zombie) entity).canAttack()) {
+                        if (((Zombie) entity).intersectWith(player) && ((Zombie) entity).canAttack()) {
                             player.receiveDamage(((Zombie) entity).dealDamage());
                         }
                     } else if (entity instanceof Slime) {
@@ -93,6 +95,7 @@ public class RGDGame extends Game {
             entity.draw(buffer);
         }
         player.draw(buffer);
+        worldTime.draw(buffer);
         if (menu.isOpen()) {
             menu.draw(buffer);
         }
@@ -151,6 +154,7 @@ public class RGDGame extends Game {
         newEntities = new ArrayList<>();
         menu = new Menu();
         world = new World();
+        worldTime = new WorldTime();
         gamePad = new GamePad();
         player = new Player(gamePad);
         //camera = new Camera(player, worldEntities);

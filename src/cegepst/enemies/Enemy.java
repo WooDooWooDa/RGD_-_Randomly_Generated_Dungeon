@@ -27,9 +27,12 @@ public abstract class Enemy extends MovableEntity {
             if (dropChance <= 1) {
                 drop.add(Item.Factory.create(x + rand.nextInt(width), y + rand.nextInt(height)));
             } else if (dropChance <= 100) {
-                drop.add(new Gem(x + rand.nextInt(width), y + rand.nextInt(height)));
+                drop.add(new ExpOrb(x + rand.nextInt(width), y + rand.nextInt(height)));
             }
-            drop.add(new ExpOrb(x + rand.nextInt(width), y + rand.nextInt(height)));
+            if (this instanceof Slime) {
+                return drop;
+            }
+            drop.add(new Gem(x + rand.nextInt(width), y + rand.nextInt(height)));
         }
         return drop;
     }

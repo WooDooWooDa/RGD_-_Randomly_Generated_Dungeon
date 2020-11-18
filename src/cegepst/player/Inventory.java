@@ -1,6 +1,7 @@
 package cegepst.player;
 
 import cegepst.objects.Armor;
+import cegepst.objects.Bow;
 import cegepst.objects.Item;
 import cegepst.objects.Sword;
 
@@ -10,8 +11,15 @@ public class Inventory {
 
     private Sword equippedSword;
     private Armor equippedArmor;
+    private Bow equippedBow;
 
-    public Inventory() {}
+    public Inventory() {
+        equippedBow = new Bow();
+    }
+
+    public Bow getBow() {
+        return equippedBow;
+    }
 
     public ArrayList<Item> getItems() {
         ArrayList<Item> items = new ArrayList<>();
@@ -36,6 +44,7 @@ public class Inventory {
             if (((Armor) item).isBetterThan(equippedArmor)) {
                 equippedArmor = (Armor)item;
                 PlayerStats.BONUS_ARMOR = equippedArmor.getArmorPoint();
+                PlayerStats.BONUS_HEALTH = equippedArmor.getHealthPoint();
                 return;
             }
         }

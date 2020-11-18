@@ -11,12 +11,13 @@ import java.io.IOException;
 
 public class Arrow extends MovableEntity {
 
-    private final int damage = 15;
+    private final int damage;
     private Image[] arrowsImages = new Image[4];
     private Image arrow;
 
-    public Arrow(Player player) {
+    public Arrow(Player player, int damage) {
         loadImage();
+        this.damage = damage;
         teleport(player.getX(), player.getY());
         setSpeed(2);
         setDirection(player.getDirection());

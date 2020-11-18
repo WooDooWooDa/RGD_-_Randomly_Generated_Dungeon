@@ -16,8 +16,6 @@ public class Player extends ControllableEntity {
 
     private static final String SPRITE_PATH = "images/player.png";
     private static final int INTERACT_COOLDOWN = 25;
-    private static final int SHOT_RATE = 50;
-    private int shotRateCooldown = SHOT_RATE;
     private int interactCooldown = INTERACT_COOLDOWN;
 
     private final WalkingAnimator animator;
@@ -43,7 +41,7 @@ public class Player extends ControllableEntity {
     }
 
     public boolean canShot() {
-        return shotRateCooldown == SHOT_RATE; // TODO: 2020-11-16 attack rate from bow in item inventory
+        return inventory.getBow().canShot();
     }
     
     public void receiveDamage(int damage) {
@@ -54,6 +52,13 @@ public class Player extends ControllableEntity {
         }
         PlayerStats.HEALTH -= damageReceived;
     }
+
+    public MovableEntity shotArrow() {
+        inventory.getBow().reset();
+        SoundPlayer.play("sounds/arrowshot.wav");
+        return new Arrow(this, inventory.getBow().getDamage());
+    }
+
 
     public ArrayList<StaticEntity> interact(ArrayList<StaticEntity> worldEntities) {
         interactCooldown = 0;
@@ -93,21 +98,12 @@ public class Player extends ControllableEntity {
         worldEntities.addAll(newEntities);
         return worldEntities;
     }
-    
-    public MovableEntity shotArrow() {
-        shotRateCooldown = 0;
-        SoundPlayer.play("sounds/arrowshot.wav");
-        return new Arrow(this);
-    }
 
     @Override
     public void update() {
         super.update();
+        inventory.getBow().update();
         interactCooldown++;
-        shotRateCooldown++;
-        if (shotRateCooldown > SHOT_RATE) {
-            shotRateCooldown = SHOT_RATE;
-        }
         if (interactCooldown > INTERACT_COOLDOWN) {
             interactCooldown = INTERACT_COOLDOWN;
         }
