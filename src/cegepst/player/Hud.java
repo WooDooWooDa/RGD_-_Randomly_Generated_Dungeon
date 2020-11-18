@@ -27,6 +27,7 @@ public class Hud {
         buffer.drawRectangle(18, 23 + (81 - expBarHeight), 5, expBarHeight, expColor);
         buffer.drawText(String.valueOf(PlayerStats.LVL), 47, 95, expColor);
         buffer.drawText(String.valueOf(PlayerStats.BASE_DAMAGE + PlayerStats.BONUS_DAMAGE), damageTextX, 90, textColor);
+        buffer.drawText(String.valueOf(PlayerStats.MONEY), 195, 90, textColor);
         buffer.drawText(String.valueOf(PlayerStats.BASE_ARMOR + PlayerStats.BONUS_ARMOR), armorTextX, 90, textColor);
     }
 
