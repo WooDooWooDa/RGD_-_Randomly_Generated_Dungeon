@@ -11,20 +11,23 @@ public class Sword extends Item {
     private int attackRate;
 
     public Sword(int x, int y, int level) {
-        super(x, y, getSwordName(), getImage(level - 1));
+        super(level, x, y, getSwordName(), getImage(level - 1));
         setAttackPoint(level);
     }
 
     public boolean isBetterThan(Sword other) {
+        if (other == null) {
+            return true;
+        }
         return this.attackDamage > other.attackDamage;
     }
 
-    public int dealDamage() {
+    public int getDamage() {
         return attackDamage;
     }
 
-    public boolean canAttack() {
-        return true;
+    public int getAttackRate() {
+        return attackRate;
     }
 
     private static Image getImage(int x) {

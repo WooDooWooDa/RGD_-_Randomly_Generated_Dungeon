@@ -1,9 +1,7 @@
 package cegepst.player;
 
 import cegepst.engine.entities.MovableEntity;
-import cegepst.objects.Arrow;
-import cegepst.objects.Chest;
-import cegepst.objects.PickableGem;
+import cegepst.objects.*;
 import cegepst.WalkingAnimator;
 import cegepst.engine.Buffer;
 import cegepst.engine.SoundPlayer;
@@ -33,7 +31,7 @@ public class Player extends ControllableEntity {
         teleport(100 ,100);
         setSpeed(PlayerStats.BASE_SPEED);
         inventory = new Inventory();
-        hud = new Hud();
+        hud = new Hud(this);
         PlayerStats.HEALTH = PlayerStats.MAX_HEALTH;
         interactRange = new InteractRange(width * 2, height * 2);
         animator = new WalkingAnimator(this, SPRITE_PATH, 0, 128);
@@ -63,8 +61,8 @@ public class Player extends ControllableEntity {
         ArrayList<StaticEntity> newEntities = new ArrayList<>();
         ArrayList<StaticEntity> removedEntities = new ArrayList<>();
         for (StaticEntity entity : worldEntities) {
-            if (entity.isInteractable()) {
-                if (entity.intersectWith(interactRange)) {
+            if (entity.intersectWith(interactRange)) {
+                if (entity.isInteractable()) {
                     if (entity instanceof Chest) {
                         if (!((Chest) entity).isOpened()) {
                             newEntities.addAll(((Chest) entity).openChest());
@@ -73,7 +71,12 @@ public class Player extends ControllableEntity {
                     }
                     if (entity instanceof PickableGem) {
                         SoundPlayer.play("sounds/coin.wav");
-                        PlayerStats.MONEY += ((PickableGem) entity).getValue();
+                        PlayerStats.GEM += ((PickableGem) entity).getValue();
+                        removedEntities.add(entity);
+                        break;
+                    }
+                    if (entity instanceof Item) {
+                        inventory.addItem((Item)entity);
                         removedEntities.add(entity);
                         break;
                     }
@@ -88,7 +91,7 @@ public class Player extends ControllableEntity {
     public MovableEntity shotArrow() {
         shotRateCooldown = 0;
         SoundPlayer.play("sounds/arrowshot.wav");
-        return new Arrow(getDirection(), x, y, PlayerStats.BASE_DAMAGE + PlayerStats.BONUS_DAMAGE);
+        return new Arrow(this);
     }
 
     @Override
@@ -111,6 +114,10 @@ public class Player extends ControllableEntity {
         interactRange.draw(buffer);
         buffer.drawImage(animator.animate(getDirection()), x, y);
         hud.draw(buffer);
+    }
+
+    protected ArrayList<Item> getItems() {
+        return inventory.getItems();
     }
 
     private void updateInteractRange() {

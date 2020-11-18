@@ -3,6 +3,7 @@ package cegepst.objects;
 import cegepst.engine.Buffer;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.MovableEntity;
+import cegepst.player.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,16 +11,15 @@ import java.io.IOException;
 
 public class Arrow extends MovableEntity {
 
-    private final int damage;
-    private Image[] arrows = new Image[4];
+    private final int damage = 15;
+    private Image[] arrowsImages = new Image[4];
     private Image arrow;
 
-    public Arrow(Direction direction, int x, int y, int damage) {
-        this.damage = damage;
+    public Arrow(Player player) {
         loadImage();
-        teleport(x, y);
+        teleport(player.getX(), player.getY());
         setSpeed(2);
-        setDirection(direction);
+        setDirection(player.getDirection());
         setDimensionForDirection();
         updatePositionOrientation();
     }
@@ -43,19 +43,19 @@ public class Arrow extends MovableEntity {
         switch (getDirection()) {
             case UP:
                 teleport(x + 9, y);
-                arrow = arrows[2];
+                arrow = arrowsImages[2];
                 break;
             case DOWN:
                 teleport(x + 9, y + 32);
-                arrow = arrows[3];
+                arrow = arrowsImages[3];
                 break;
             case LEFT:
                 teleport(x, y + 9);
-                arrow = arrows[0];
+                arrow = arrowsImages[0];
                 break;
             case RIGHT:
                 teleport(x + 32, y + 9);
-                arrow = arrows[1];
+                arrow = arrowsImages[1];
                 break;
         }
     }
@@ -70,10 +70,10 @@ public class Arrow extends MovableEntity {
 
     private void loadImage() {
         try {
-            arrows[0] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/arrowleft.png"));
-            arrows[1] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/arrowright.png"));
-            arrows[2] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/arrowup.png"));
-            arrows[3] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/arrowdown.png"));
+            arrowsImages[0] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/arrowleft.png"));
+            arrowsImages[1] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/arrowright.png"));
+            arrowsImages[2] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/arrowup.png"));
+            arrowsImages[3] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/arrowdown.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

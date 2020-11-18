@@ -11,7 +11,8 @@ public class Buffer {
 
     public Buffer(Graphics2D graphics) {
         this.graphics = graphics;
-        setFont("minecraftFontAlt.ttf");
+        addFont("minecraftFontAlt.ttf");
+        graphics.setFont(gameFont);
     }
 
     public void drawImage(Image image, int x, int y) {
@@ -38,14 +39,13 @@ public class Buffer {
         graphics.drawString(text, x, y);
     }
 
-    private void setFont(String font) {
+    private void addFont(String font) {
         try {
             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File(font)).deriveFont(20f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(font)));
+            ge.registerFont(gameFont);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
-        graphics.setFont(gameFont);
     }
 }

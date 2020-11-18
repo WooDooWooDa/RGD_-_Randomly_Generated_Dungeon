@@ -1,7 +1,7 @@
 package cegepst.enemies;
 
 import cegepst.engine.Buffer;
-import cegepst.engine.CollidableRepository;
+import cegepst.engine.entities.CollidableRepository;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,7 +12,7 @@ public class ZombieSpawner extends Enemy {
 
     public int maxHealth = 150;
 
-    private final int SPAWN_RATE = 500;
+    private final int SPAWN_RATE = 1000;
 
     private int spawn = SPAWN_RATE;
     private Random random = new Random();

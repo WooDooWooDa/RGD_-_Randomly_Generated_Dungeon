@@ -9,11 +9,13 @@ import java.util.Random;
 
 public class Item extends StaticEntity {
 
+    private final int level;
     private final String name;
     private final Image image;
 
-    protected Item(int x, int y, String name, Image image) {
+    protected Item(int level, int x, int y, String name, Image image) {
         setInteractable();
+        this.level = level;
         teleport(x, y);
         setDimension(16, 16);
         this.name = name;
@@ -24,9 +26,16 @@ public class Item extends StaticEntity {
         return name;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
     @Override
     public void draw(Buffer buffer) {
-        buffer.drawText(getName(), x, y + 5, Color.white);
         buffer.drawImage(image, x, y);
     }
 

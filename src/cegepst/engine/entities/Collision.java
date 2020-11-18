@@ -1,6 +1,5 @@
 package cegepst.engine.entities;
 
-import cegepst.engine.CollidableRepository;
 import cegepst.engine.controls.Direction;
 
 import java.awt.*;

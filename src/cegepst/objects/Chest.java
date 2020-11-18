@@ -46,11 +46,14 @@ public class Chest extends StaticEntity {
         SoundPlayer.play("sounds/chestOpen.wav");
         opened = true;
         Random rand = new Random();
-        ArrayList<StaticEntity> monies = new ArrayList<>();
-        monies.add(new PickableGem(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
-        monies.add(new PickableGem(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
-        monies.add(new PickableGem(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
-        return monies;
+        ArrayList<StaticEntity> items = new ArrayList<>();
+        for (int i = 0; i <= rand.nextInt(3); i++) {
+            items.add(new PickableGem(rand.nextInt(width * 2) + (x - width), rand.nextInt(20) + (y + height / 2)));
+        }
+        if (rand.nextInt() <= 5) {
+            items.add(Item.Factory.create(width * 2 + (x - width), rand.nextInt(20) + (y + height / 2)));
+        }
+        return items;
     }
 
     @Override

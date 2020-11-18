@@ -2,6 +2,7 @@ package cegepst.player;
 
 import cegepst.GameResources;
 import cegepst.engine.Buffer;
+import cegepst.objects.Item;
 
 import java.awt.*;
 
@@ -14,8 +15,11 @@ public class Hud {
     private Image backGround;
     private int damageTextX = 110;
     private int armorTextX = 271;
+    private int gemTextX = 195;
+    private Player playerRef;
 
-    public Hud() {
+    public Hud(Player player) {
+        playerRef = player;
         loadBackGround();
     }
 
@@ -27,8 +31,13 @@ public class Hud {
         buffer.drawRectangle(18, 23 + (81 - expBarHeight), 5, expBarHeight, expColor);
         buffer.drawText(String.valueOf(PlayerStats.LVL), 47, 95, expColor);
         buffer.drawText(String.valueOf(PlayerStats.BASE_DAMAGE + PlayerStats.BONUS_DAMAGE), damageTextX, 90, textColor);
-        buffer.drawText(String.valueOf(PlayerStats.MONEY), 195, 90, textColor);
+        buffer.drawText(String.valueOf(PlayerStats.GEM), gemTextX, 90, textColor);
         buffer.drawText(String.valueOf(PlayerStats.BASE_ARMOR + PlayerStats.BONUS_ARMOR), armorTextX, 90, textColor);
+        if (playerRef.getItems().size() > 0) {
+            for (int i = 0; i < playerRef.getItems().size(); i++) {
+                buffer.drawImage(playerRef.getItems().get(i).getImage(), 97 + i * 32, 95);
+            }
+        }
     }
 
     private void setXValueOfText() {
@@ -41,6 +50,9 @@ public class Hud {
             armorTextX = 249;
         } else if ((PlayerStats.BASE_ARMOR + PlayerStats.BONUS_ARMOR) >= 10) {
             armorTextX = 260;
+        }
+        if (PlayerStats.GEM >= 10) {
+            gemTextX = 185;
         }
     }
 

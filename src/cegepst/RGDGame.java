@@ -5,6 +5,7 @@ import cegepst.enemies.Slime;
 import cegepst.enemies.Zombie;
 import cegepst.enemies.ZombieSpawner;
 import cegepst.engine.*;
+import cegepst.engine.entities.CollidableRepository;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.entities.UpdatableEntity;
 import cegepst.objects.Arrow;
@@ -33,6 +34,7 @@ public class RGDGame extends Game {
     public void update() {
         menu.update();
         checkForKeyPressed();
+        //updateWorldEntities();
         for (StaticEntity entity : worldEntities) {
             if (entity instanceof UpdatableEntity) {
                 ((UpdatableEntity) entity).update();
@@ -135,6 +137,7 @@ public class RGDGame extends Game {
         for (StaticEntity entity : gameEnemies) {
             if (entity instanceof Enemy) {
                 if (!((Enemy)entity).isAlive()) {
+                    worldEntities.add(entity.dies());
                     killedEntities.add(entity);
                 }
             }
@@ -159,7 +162,7 @@ public class RGDGame extends Game {
         player = new Player(gamePad);
         worldEntities.add(new Chest(100, 200));
         worldEntities.add(new Chest(200, 100));
-        //worldEntities.add(new Item.Factory.create(200, 200)); // TODO: 2020-11-18 wHY?? isnt it working?
+        worldEntities.add(Item.Factory.create(200, 200));
         worldEntities.addAll(world.getWorldBorder());
         gameEnemies.add(new Slime(500, 500));
         gameEnemies.add(new Zombie(300, 300, 2));

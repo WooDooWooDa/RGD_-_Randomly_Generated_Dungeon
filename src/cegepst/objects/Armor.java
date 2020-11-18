@@ -10,12 +10,19 @@ public class Armor extends Item {
     private int armorPoint;
 
     public Armor(int x, int y, int level) {
-        super(x, y, getArmorName(), getImage(level - 1));
+        super(level, x, y, getArmorName(), getImage(level - 1));
         setArmorPoint(level);
     }
 
     public boolean isBetterThan(Armor other) {
+        if (other == null) {
+            return true;
+        }
         return this.armorPoint > other.armorPoint;
+    }
+
+    public int getArmorPoint() {
+        return armorPoint;
     }
 
     private static Image getImage(int xPositionInSheet) {
