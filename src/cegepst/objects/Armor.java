@@ -1,6 +1,7 @@
 package cegepst.objects;
 
-import javax.imageio.ImageIO;
+import cegepst.GameResources;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -9,7 +10,7 @@ public class Armor extends Item {
     private int armorPoint;
 
     public Armor(int x, int y, int level) {
-        super(level, getArmorName(), getImage());
+        super(level, getArmorName(), getImage(level - 1));
         teleport(x, y);
         setDimension(16, 16);
         setArmorPoint(level);
@@ -22,9 +23,8 @@ public class Armor extends Item {
         return false;
     }
 
-    private static Image getImage() {
-        //return ImageIO.read(.getClass().getClassLoader().getResourceAsStream("images/armorSheet.png"));
-        return null;
+    private static Image getImage(int xPositionInSheet) {
+        return GameResources.getInstance().getBufferedImage("items").getSubimage(xPositionInSheet * 16, 16 * 16, 16, 16);
     }
 
     private static String getArmorName() {

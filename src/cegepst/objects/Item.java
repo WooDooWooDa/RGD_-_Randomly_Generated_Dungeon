@@ -25,6 +25,7 @@ public class Item extends StaticEntity {
 
     @Override
     public void draw(Buffer buffer) {
+        buffer.drawText(getName(), x, y + 5, Color.white);
         buffer.drawImage(image, x, y);
     }
 

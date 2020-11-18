@@ -1,13 +1,16 @@
 package cegepst;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class GameResources {
 
     private static GameResources instance;
     private HashMap<String, Image> allImages;
+    private HashMap<String, BufferedImage> allBufferedImages;
 
     public static GameResources getInstance() {
         if (instance == null) {
@@ -16,12 +19,21 @@ public class GameResources {
         return instance;
     }
 
-    private GameResources() {
-        allImages = new HashMap<>();
-        loadImagesResources(new File("resources/images"));
+    public BufferedImage getBufferedImage(String key) {
+        return allBufferedImages.get(key);
     }
 
-    private void loadImagesResources(File folder) {
+    private GameResources() {
+        allImages = new HashMap<>();
+        allBufferedImages = new HashMap<>();
+        loadImagesResources();
+    }
 
+    private void loadImagesResources() {
+        try {
+            allBufferedImages.put("items", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/allItems.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
