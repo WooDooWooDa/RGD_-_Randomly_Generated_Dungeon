@@ -2,7 +2,6 @@ package cegepst.player;
 
 import cegepst.GameResources;
 import cegepst.engine.Buffer;
-import cegepst.objects.Item;
 
 import java.awt.*;
 

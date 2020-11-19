@@ -23,6 +23,8 @@ public class Player extends ControllableEntity {
     private StaticEntity interactRange;
     private final Hud hud;
 
+    private boolean isAttackingBySword;
+
     public Player(MovementController gamePad) {
         super(gamePad);
         setDimension(32,32);
@@ -108,6 +110,10 @@ public class Player extends ControllableEntity {
             interactCooldown = INTERACT_COOLDOWN;
         }
         moveAccordingToController();
+        if (isAttackingBySword) {
+            //attackAnimator.animate();
+            //return;
+        }
         animator.update();
     }
 

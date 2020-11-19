@@ -19,5 +19,4 @@ public class PlayerStats {
     protected static int BONUS_HEALTH;
     protected static int BONUS_DAMAGE;
     protected static int BONUS_ARMOR;
-    protected static int BONUS_SPEED;
 }

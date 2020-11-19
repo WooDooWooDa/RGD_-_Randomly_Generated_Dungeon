@@ -9,10 +9,12 @@ public class Sword extends Item {
 
     private int attackDamage;
     private int attackRate;
+    private int attackRange;
 
     public Sword(int x, int y, int level) {
         super(level, x, y, getSwordName(), getImage(level - 1));
         setAttackPoint(level);
+        attackRate = 30 / level + 10;
     }
 
     public boolean isBetterThan(Sword other) {
