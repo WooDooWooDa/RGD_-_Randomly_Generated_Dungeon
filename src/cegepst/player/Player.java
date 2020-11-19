@@ -19,7 +19,7 @@ public class Player extends ControllableEntity {
     private int interactCooldown = INTERACT_COOLDOWN;
 
     private final WalkingAnimator animator;
-    private Inventory inventory;
+    private final Inventory inventory;
     private StaticEntity interactRange;
     private final Hud hud;
 

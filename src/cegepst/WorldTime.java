@@ -20,28 +20,27 @@ public class WorldTime {
     }
 
     public void update() {
-        if (GameSettings.DISABLE_GAME_TIME) {
-            return;
-        }
-        if (isNight) {
-            time--;
-            if (time <= 0) {
-                isNight = false;
+        if (GameSettings.GAME_TIME) {
+            if (isNight) {
+                time--;
+                if (time <= 0) {
+                    isNight = false;
+                }
+            } else {
+                time++;
+                if (time >= MAX_TIME) {
+                    isNight = true;
+                }
             }
-        } else {
-            time++;
-            if (time >= MAX_TIME) {
-                isNight = true;
-            }
+            darkness = (int)(100 * ((double)time / MAX_TIME)) * 2;
+            light = new Color(0, 0, 0, darkness);
         }
-        darkness = (int)(100 * ((double)time / MAX_TIME)) * 2;
-        light = new Color(0, 0, 0, darkness);
+
     }
 
     public void draw(Buffer buffer) {
-        if (GameSettings.DISABLE_GAME_TIME) {
-            return;
+        if (GameSettings.GAME_TIME) {
+            buffer.drawRectangle(0, 0, RenderingEngine.SCREEN_WIDTH, RenderingEngine.SCREEN_HEIGHT, light);
         }
-        buffer.drawRectangle(0, 0, RenderingEngine.SCREEN_WIDTH, RenderingEngine.SCREEN_HEIGHT, light);
     }
 }
