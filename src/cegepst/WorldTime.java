@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class WorldTime {
 
-    private final int MAX_TIME = 10000;
+    private final int MAX_TIME = 24000;
     private int time;
     private int darkness;
     private Color light;

@@ -1,5 +1,6 @@
 package cegepst.player;
 
+import cegepst.Animator;
 import cegepst.engine.entities.MovableEntity;
 import cegepst.objects.*;
 import cegepst.WalkingAnimator;
@@ -15,28 +16,27 @@ import java.util.ArrayList;
 public class Player extends ControllableEntity {
 
     private static final String SPRITE_PATH = "images/player.png";
+    private static final String ATTACK_PATH = "images/playerAttack.png";
     private static final int INTERACT_COOLDOWN = 25;
     private int interactCooldown = INTERACT_COOLDOWN;
 
-    private final WalkingAnimator animator;
-    private final Inventory inventory;
+    private WalkingAnimator animator;
+    private Animator attackAnimator;
+    private Inventory inventory;
     private StaticEntity interactRange;
-    private final Hud hud;
+    private Hud hud;
 
     private boolean isAttackingBySword = false;
     private boolean isAttackingByBow = false;
+    private int attack = 4;
 
     public Player(MovementController gamePad) {
         super(gamePad);
         setDimension(32,32);
         teleport(100 ,100);
         setSpeed(PlayerStats.BASE_SPEED);
-        inventory = new Inventory();
-        hud = new Hud(this);
         PlayerStats.HEALTH = PlayerStats.MAX_HEALTH;
-        interactRange = new InteractRange(width * 2, height * 2);
-        animator = new WalkingAnimator(this, SPRITE_PATH, 0, 128);
-        animator.setAnimationSpeed(8);
+        addComplements();
     }
 
     public boolean canInteract() {
@@ -57,6 +57,7 @@ public class Player extends ControllableEntity {
     }
 
     public MovableEntity shotArrow() {
+        isAttackingByBow = true;
         inventory.getBow().reset();
         SoundPlayer.play("sounds/arrowshot.wav");
         return new Arrow(this, inventory.getBow().getDamage());
@@ -110,12 +111,19 @@ public class Player extends ControllableEntity {
         if (interactCooldown > INTERACT_COOLDOWN) {
             interactCooldown = INTERACT_COOLDOWN;
         }
+        if (attack <= 0) {
+            isAttackingByBow = false;
+            isAttackingBySword = false;
+            attack = 4;
+        }
         if (isAttackingBySword) {
-            //attackAnimator.animateSword(); // TODO: 2020-11-18 attack animator (apres son animation, remet isAttacking a false)
-            //return;
+            attack--;
+            //attackAnimator.animateSword(attack); // TODO: 2020-11-18 attack animator (apres son animation, remet isAttacking a false)
+            return;
         } else if (isAttackingByBow) {
-            //attackAnimator.animateBow();
-            //return;
+            attack--;
+            //attackAnimator.animateBow(attack);
+            return;
         }
         moveAccordingToController();
         animator.update();
@@ -134,5 +142,13 @@ public class Player extends ControllableEntity {
 
     private void updateInteractRange() {
         interactRange.teleport(x - width / 2, y - height / 2);
+    }
+
+    private void addComplements() {
+        inventory = new Inventory();
+        hud = new Hud(this);
+        interactRange = new InteractRange(width * 2, height * 2);
+        animator = new WalkingAnimator(this, SPRITE_PATH, 0, 128);
+        //attackAnimator = new Animator(this, ATTACK_PATH, 4);
     }
 }
