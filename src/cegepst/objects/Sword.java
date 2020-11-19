@@ -11,9 +11,11 @@ public class Sword extends Item {
     private int attackRate;
     private int attackRange;
 
+    private int rate;
+
     public Sword(int x, int y, int level) {
         super(level, x, y, getSwordName(), getImage(level - 1));
-        setAttackPoint(level);
+        setBonusPoint(level);
         attackRate = 30 / level + 10;
     }
 
@@ -28,19 +30,26 @@ public class Sword extends Item {
         return attackDamage;
     }
 
-    public int getAttackRate() {
-        return attackRate;
+    public boolean canAttack() {
+        return rate == attackRate;
     }
 
-    private static Image getImage(int x) {
-        return GameResources.getInstance().getBufferedImage("items").getSubimage(x * 16,  4 * 16, 16, 16);
+    public void update() {
+        rate++;
+        if (rate > attackRate) {
+            rate = attackRate;
+        }
     }
 
     private static String getSwordName() {
         return "name";
     }
 
-    private void setAttackPoint(int level) {
+    private static Image getImage(int x) {
+        return GameResources.getInstance().getBufferedImage("items").getSubimage(x * 16,  4 * 16, 16, 16);
+    }
+
+    private void setBonusPoint(int level) {    // TODO: 2020-11-19 attack Range
         Random random = new Random();
         if (level == 2) {
             attackDamage = random.nextInt(25 + 1 - 10) + 10;

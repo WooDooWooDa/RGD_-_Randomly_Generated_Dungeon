@@ -23,7 +23,8 @@ public class Player extends ControllableEntity {
     private StaticEntity interactRange;
     private final Hud hud;
 
-    private boolean isAttackingBySword;
+    private boolean isAttackingBySword = false;
+    private boolean isAttackingByBow = false;
 
     public Player(MovementController gamePad) {
         super(gamePad);
@@ -88,7 +89,7 @@ public class Player extends ControllableEntity {
                         break;
                     }
                     if (entity instanceof ExpOrb) {
-                        //play exp sound
+                        // TODO: 2020-11-19 play exp sound mc
                         PlayerStats.PLAYER_EXP += ((ExpOrb) entity).getExpValue();
                         removedEntities.add(entity);
                         break;
@@ -109,11 +110,14 @@ public class Player extends ControllableEntity {
         if (interactCooldown > INTERACT_COOLDOWN) {
             interactCooldown = INTERACT_COOLDOWN;
         }
-        moveAccordingToController();
         if (isAttackingBySword) {
-            //attackAnimator.animate();
+            //attackAnimator.animateSword(); // TODO: 2020-11-18 attack animator (apres son animation, remet isAttacking a false)
+            //return;
+        } else if (isAttackingByBow) {
+            //attackAnimator.animateBow();
             //return;
         }
+        moveAccordingToController();
         animator.update();
     }
 
