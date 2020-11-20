@@ -27,6 +27,9 @@ public class Hud {
         setXValueOfText();
         buffer.drawImage(backGround, 15 ,15);
         buffer.drawRectangle(97, 42, (int)(224 * ((double)PlayerStats.HEALTH / PlayerStats.MAX_HEALTH)), 16, hpBarColor);
+        buffer.setGameFontSmall();
+        buffer.drawText((PlayerStats.HEALTH + " I " + PlayerStats.MAX_HEALTH), 100, 54, Color.WHITE);
+        buffer.setGameFontBig();
         int expBarHeight = (int)(81 * ((double)PlayerStats.PLAYER_EXP / PlayerStats.NEXT_LVL_EXP));
         buffer.drawRectangle(18, 23 + (81 - expBarHeight), 5, expBarHeight, expColor);
         buffer.drawText(String.valueOf(PlayerStats.LVL), 47, 95, expColor);

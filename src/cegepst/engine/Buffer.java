@@ -8,10 +8,11 @@ public class Buffer {
 
     private Graphics2D graphics;
     private Font gameFont;
+    private Font gameFontSmall;
 
     public Buffer(Graphics2D graphics) {
         this.graphics = graphics;
-        addFont("minecraftFontAlt.ttf");
+        createFonts();
         graphics.setFont(gameFont);
     }
 
@@ -39,11 +40,21 @@ public class Buffer {
         graphics.drawString(text, x, y);
     }
 
-    private void addFont(String font) {
+    public void setGameFontBig() {
+        graphics.setFont(gameFont);
+    }
+
+    public void setGameFontSmall() {
+        graphics.setFont(gameFontSmall);
+    }
+
+    private void createFonts() {
         try {
-            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File(font)).deriveFont(20f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("minecraftFontAlt.ttf")).deriveFont(20f);
+            gameFontSmall = Font.createFont(Font.TRUETYPE_FONT, new File("minecraftFontAlt.ttf")).deriveFont(10f);
             ge.registerFont(gameFont);
+            ge.registerFont(gameFontSmall);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }

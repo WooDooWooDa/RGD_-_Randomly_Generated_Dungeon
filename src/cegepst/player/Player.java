@@ -102,6 +102,10 @@ public class Player extends ControllableEntity {
     @Override
     public void update() {
         super.update();
+        if (PlayerStats.PLAYER_EXP >= PlayerStats.NEXT_LVL_EXP) {
+            PlayerStats.LVL++;
+            // TODO: 2020-11-20 update le next lvl exp + play lvl up sound
+        }
         inventory.getBow().update();
         interactCooldown++;
         if (interactCooldown > INTERACT_COOLDOWN) {

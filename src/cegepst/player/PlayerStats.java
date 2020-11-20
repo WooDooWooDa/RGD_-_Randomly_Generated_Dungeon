@@ -4,7 +4,7 @@ public class PlayerStats {
 
     public static boolean alive = true;
 
-    public static int LVL = 1;
+    public static int LVL = 5;
     protected static int NEXT_LVL_EXP = 300;
     protected static int PLAYER_EXP = 0;
     protected static int GEM = 0;
