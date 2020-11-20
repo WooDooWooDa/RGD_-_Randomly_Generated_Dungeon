@@ -11,7 +11,7 @@ public class PlayerStats {
     protected static int MAX_HEALTH = 100;
     protected static int HEALTH;
 
-    protected static int BASE_DAMAGE = 10;
+    protected static int BASE_DAMAGE = 15;
     protected static int BASE_ARMOR = 0;
     protected static int BASE_SPEED = 2;
 

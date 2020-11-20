@@ -16,7 +16,7 @@ public class Sword extends Item {
     public Sword(int x, int y, int level) {
         super(level, x, y, getSwordName(), getImage(level - 1));
         setBonusPoint(level);
-        attackRate = 30 / level + 10;
+        attackRate = 40 / level + 10;
     }
 
     public boolean isBetterThan(Sword other) {
@@ -26,8 +26,16 @@ public class Sword extends Item {
         return this.attackDamage > other.attackDamage;
     }
 
+    public int getAttackRange() {
+        return attackRange;
+    }
+
     public int getDamage() {
         return attackDamage;
+    }
+
+    public void reset() {
+        rate = 0;
     }
 
     public boolean canAttack() {

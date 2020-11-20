@@ -5,7 +5,6 @@ import cegepst.enemies.Slime;
 import cegepst.enemies.Zombie;
 import cegepst.enemies.ZombieSpawner;
 import cegepst.engine.*;
-import cegepst.engine.entities.Blockade;
 import cegepst.engine.entities.CollidableRepository;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.entities.UpdatableEntity;
@@ -22,6 +21,7 @@ public class RGDGame extends Game {
     private GamePad gamePad;
     private Player player;
     private WorldTime worldTime;
+    private Camera camera;
     private ArrayList<StaticEntity> worldEntities;
     private ArrayList<StaticEntity> worldEnemies;
     private ArrayList<StaticEntity> killedEntities;
@@ -49,7 +49,7 @@ public class RGDGame extends Game {
                 if (entity instanceof UpdatableEntity) {
                     if (entity instanceof Zombie) {
                         ((Zombie) entity).update(player.getX(), player.getY());
-                        if (((Zombie) entity).intersectWith(player) && ((Zombie) entity).canAttack()) {
+                        if (entity.intersectWith(player) && ((Zombie) entity).canAttack()) {
                             player.receiveDamage(((Zombie) entity).dealDamage());
                         }
                     } else if (entity instanceof Slime) {
@@ -71,15 +71,11 @@ public class RGDGame extends Game {
                                 killedEntities.add(arrow);
                             }
                         }
-                        for (StaticEntity worldEntity : worldEntities) {
-                            if (arrow.hitBoxIntersectWith(worldEntity) && worldEntity instanceof Blockade) {
-                                killedEntities.add(arrow);
-                            }
-                        }
                     }
                 }
             }
         }
+        //camera.update();
         updateKilledEntities();
         worldEnemies.addAll(newEntities);
         newEntities.clear();
@@ -92,10 +88,11 @@ public class RGDGame extends Game {
     public void draw(Buffer buffer) {
         world.draw(buffer);
         if (player.isAlive()) {
-            for (StaticEntity entity: worldEntities) {
+            //camera.draw(buffer);
+            for (StaticEntity entity: worldEnemies) {
                 entity.draw(buffer);
             }
-            for (StaticEntity entity: worldEnemies) {
+            for (StaticEntity entity: worldEntities) {
                 entity.draw(buffer);
             }
             player.draw(buffer);
@@ -130,6 +127,9 @@ public class RGDGame extends Game {
         }
         if (gamePad.isRangeAttackPressed() && player.canShot()) {
             worldEnemies.add(player.shotArrow());
+        }
+        if (gamePad.isMeleeAttackPressed() && player.canAttack()) {
+            player.swordAttack(worldEnemies);
         }
         if (gamePad.isInteractPressed() && player.canInteract()) {
             worldEntities = player.interact(worldEntities);
@@ -173,13 +173,13 @@ public class RGDGame extends Game {
         newEntities = new ArrayList<>();
         menu = new Menu();
         world = new World();
-        worldEnemies = world.createMobs(currentWorldBiomes);
-        worldEntities = world.createMisc();
+        worldEnemies.addAll(world.createMobs(currentWorldBiomes));
+        worldEntities.addAll(world.createMisc());
         world.changeBackGround(currentWorldBiomes);
         worldTime = new WorldTime();
         gamePad = new GamePad();
         player = new Player(gamePad);
-        //camera = new Camera(player, worldEntities);
+        camera = new Camera(player, worldEntities, worldEnemies);
 
     }
 }

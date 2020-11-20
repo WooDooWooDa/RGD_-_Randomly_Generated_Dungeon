@@ -1,6 +1,7 @@
 package cegepst.player;
 
 import cegepst.Animator;
+import cegepst.enemies.Enemy;
 import cegepst.engine.entities.MovableEntity;
 import cegepst.objects.*;
 import cegepst.WalkingAnimator;
@@ -24,6 +25,7 @@ public class Player extends ControllableEntity {
     private Animator attackAnimator;
     private Inventory inventory;
     private StaticEntity interactRange;
+    private SwordSlash swordSlash;
     private Hud hud;
 
     private boolean isAttackingBySword = false;
@@ -47,6 +49,10 @@ public class Player extends ControllableEntity {
         return interactCooldown == INTERACT_COOLDOWN;
     }
 
+    public boolean canAttack() {
+        return inventory.swordCanAttack();
+    }
+
     public boolean canShot() {
         return inventory.getBow().canShot();
     }
@@ -67,6 +73,18 @@ public class Player extends ControllableEntity {
         return new Arrow(this, inventory.getBow().getDamage());
     }
 
+    public void swordAttack(ArrayList<StaticEntity> worldEnemies) {
+        if (swordSlash != null) {
+            inventory.getSword().reset();
+            isAttackingBySword = true;
+            swordSlash.update(this);
+            for (StaticEntity entity : worldEnemies) {
+                if (entity instanceof Enemy && entity.intersectWith(swordSlash)) {
+                    ((Enemy) entity).receivedDamage(PlayerStats.BASE_DAMAGE + PlayerStats.BONUS_DAMAGE);
+                }
+            }
+        }
+    }
 
     public ArrayList<StaticEntity> interact(ArrayList<StaticEntity> worldEntities) {
         interactCooldown = 0;
@@ -90,6 +108,9 @@ public class Player extends ControllableEntity {
                     }
                     if (entity instanceof Item) {
                         inventory.addItem((Item)entity);
+                        if (entity instanceof Sword) {
+                            swordSlash = new SwordSlash(this, (Sword)entity);
+                        }
                         removedEntities.add(entity);
                         break;
                     }
@@ -118,6 +139,9 @@ public class Player extends ControllableEntity {
             // TODO: 2020-11-20 update le next lvl exp + play lvl up sound
         }
         inventory.getBow().update();
+        if (inventory.getSword() != null) {
+            inventory.getSword().update();
+        }
         interactCooldown++;
         if (interactCooldown > INTERACT_COOLDOWN) {
             interactCooldown = INTERACT_COOLDOWN;
@@ -143,6 +167,9 @@ public class Player extends ControllableEntity {
     @Override
     public void draw(Buffer buffer) {
         interactRange.draw(buffer);
+        if (swordSlash != null) {
+            swordSlash.draw(buffer);
+        }
         buffer.drawImage(animator.animate(getDirection()), x, y);
         hud.draw(buffer);
     }
