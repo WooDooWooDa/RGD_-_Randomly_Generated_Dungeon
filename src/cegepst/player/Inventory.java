@@ -45,6 +45,7 @@ public class Inventory {
                 equippedArmor = (Armor)item;
                 PlayerStats.BONUS_ARMOR = equippedArmor.getArmorPoint();
                 PlayerStats.BONUS_HEALTH = equippedArmor.getHealthPoint();
+                PlayerStats.MAX_HEALTH = PlayerStats.BASE_MAX_HEALTH + PlayerStats.BONUS_HEALTH;
                 return;
             }
         }

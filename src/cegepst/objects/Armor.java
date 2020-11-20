@@ -42,22 +42,26 @@ public class Armor extends Item {
         Random random = new Random();
         if (level == 2) {
             armorPoint = random.nextInt(15 + 1 - 5) + 5;
-            //healthPoint = random.nextInt();
+            healthPoint = random.nextInt(100 + 1 - 50) + 50;
             return;
         }
         if (level == 3) {
             armorPoint = random.nextInt(25 + 1 - 10) + 10;
+            healthPoint = random.nextInt(200 + 1 - 100) + 100;
             return;
         }
         if (level == 4) {
             armorPoint = random.nextInt(35 + 1 - 20) + 20;
+            healthPoint = random.nextInt(350 + 1 - 200) + 200;
             return;
         }
         if (level == 5) {
             armorPoint = random.nextInt(50 + 1 - 35) + 35;
+            healthPoint = random.nextInt(500 + 1 - 350) + 350;
             return;
         }
         armorPoint = random.nextInt(10 + 1 - 2) + 2;
+        healthPoint = random.nextInt(50) + 1;
     }
 
 }
