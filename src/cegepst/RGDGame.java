@@ -10,10 +10,9 @@ import cegepst.engine.entities.CollidableRepository;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.entities.UpdatableEntity;
 import cegepst.objects.Arrow;
-import cegepst.objects.Chest;
-import cegepst.objects.Item;
 import cegepst.player.Player;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class RGDGame extends Game {
@@ -24,9 +23,11 @@ public class RGDGame extends Game {
     private Player player;
     private WorldTime worldTime;
     private ArrayList<StaticEntity> worldEntities;
-    private ArrayList<StaticEntity> gameEnemies;
+    private ArrayList<StaticEntity> worldEnemies;
     private ArrayList<StaticEntity> killedEntities;
     private ArrayList<StaticEntity> newEntities;
+
+    private int currentWorldBiomes = 1;
 
     public RGDGame() {
         initAll();
@@ -37,15 +38,14 @@ public class RGDGame extends Game {
         menu.update();
         worldTime.update();
         checkForKeyPressed();
-        //updateWorldEntities();
-        for (StaticEntity entity : worldEntities) {
-            if (entity instanceof UpdatableEntity) {
-                ((UpdatableEntity) entity).update();
-            }
-        }
-        if (!menu.isOpen()) {
+        if (!menu.isOpen() && player.isAlive()) {
             player.update();
-            for (StaticEntity entity: gameEnemies) {
+            for (StaticEntity entity : worldEntities) {
+                if (entity instanceof UpdatableEntity) {
+                    ((UpdatableEntity) entity).update();
+                }
+            }
+            for (StaticEntity entity: worldEnemies) {
                 if (entity instanceof UpdatableEntity) {
                     if (entity instanceof Zombie) {
                         ((Zombie) entity).update(player.getX(), player.getY());
@@ -65,7 +65,7 @@ public class RGDGame extends Game {
                     } else if (entity instanceof Arrow) {
                         Arrow arrow = (Arrow)entity;
                         arrow.update();
-                        for (StaticEntity other : gameEnemies) {
+                        for (StaticEntity other : worldEnemies) {
                             if (arrow.hitBoxIntersectWith(other) && other instanceof Enemy) {
                                 ((Enemy)other).receivedDamage(arrow.dealDamage());
                                 killedEntities.add(arrow);
@@ -81,21 +81,28 @@ public class RGDGame extends Game {
             }
         }
         updateKilledEntities();
-        gameEnemies.addAll(newEntities);
+        worldEnemies.addAll(newEntities);
         newEntities.clear();
+        if (!player.isAlive()) {
+
+        }
     }
 
     @Override
     public void draw(Buffer buffer) {
         world.draw(buffer);
-        for (StaticEntity entity: worldEntities) {
-            entity.draw(buffer);
+        if (player.isAlive()) {
+            for (StaticEntity entity: worldEntities) {
+                entity.draw(buffer);
+            }
+            for (StaticEntity entity: worldEnemies) {
+                entity.draw(buffer);
+            }
+            player.draw(buffer);
+            worldTime.draw(buffer);
+        } else {
+            buffer.drawText("PLAYER IS DEAD!!!!!", 400, 300, Color.red);
         }
-        for (StaticEntity entity: gameEnemies) {
-            entity.draw(buffer);
-        }
-        player.draw(buffer);
-        worldTime.draw(buffer);
         if (menu.isOpen()) {
             menu.draw(buffer);
         }
@@ -122,7 +129,7 @@ public class RGDGame extends Game {
             menu.toggleMenu();
         }
         if (gamePad.isRangeAttackPressed() && player.canShot()) {
-            gameEnemies.add(player.shotArrow());
+            worldEnemies.add(player.shotArrow());
         }
         if (gamePad.isInteractPressed() && player.canInteract()) {
             worldEntities = player.interact(worldEntities);
@@ -130,7 +137,7 @@ public class RGDGame extends Game {
     }
 
     private void updateKilledEntities() {
-        for (StaticEntity entity : gameEnemies) {
+        for (StaticEntity entity : worldEnemies) {
             if (entity instanceof Enemy) {
                 if (!((Enemy)entity).isAlive()) {
                     worldEntities.addAll(((Enemy)entity).dies());
@@ -140,31 +147,39 @@ public class RGDGame extends Game {
         }
         if (!killedEntities.isEmpty()) {
             for (StaticEntity killedElement : killedEntities) {
-                gameEnemies.remove(killedElement);
+                worldEnemies.remove(killedElement);
                 CollidableRepository.getInstance().unregisterEntity(killedElement);
             }
         }
         killedEntities.clear();
     }
 
+    private void goToNextBiome() {
+        currentWorldBiomes++;
+        if (currentWorldBiomes > 5) {
+            currentWorldBiomes = 1;
+        }
+        worldEntities.clear();
+        worldEnemies.clear();
+        world.createMobs(currentWorldBiomes);
+        world.createMisc();
+        world.changeBackGround(currentWorldBiomes);
+    }
+
     private void initAll() {
-        gameEnemies = new ArrayList<>();
+        worldEnemies = new ArrayList<>();
         worldEntities = new ArrayList<>();
         killedEntities = new ArrayList<>();
         newEntities = new ArrayList<>();
         menu = new Menu();
         world = new World();
+        worldEnemies = world.createMobs(currentWorldBiomes);
+        worldEntities = world.createMisc();
+        world.changeBackGround(currentWorldBiomes);
         worldTime = new WorldTime();
         gamePad = new GamePad();
         player = new Player(gamePad);
         //camera = new Camera(player, worldEntities);
-        worldEntities.add(new Chest(100, 200));
-        worldEntities.add(new Chest(200, 100));
-        worldEntities.add(Item.Factory.create(200, 200));
-        worldEntities.addAll(world.getWorldBorder());
-        gameEnemies.add(new Slime(500, 500));
-        gameEnemies.add(new Zombie(300, 300, 2));
-        gameEnemies.add(new Zombie(400, 300, 3));
-        gameEnemies.add(new ZombieSpawner(600, 100));
+
     }
 }

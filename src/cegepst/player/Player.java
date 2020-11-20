@@ -39,6 +39,10 @@ public class Player extends ControllableEntity {
         addComplements();
     }
 
+    public boolean isAlive() {
+        return PlayerStats.HEALTH > 0;
+    }
+
     public boolean canInteract() {
         return interactCooldown == INTERACT_COOLDOWN;
     }
@@ -106,6 +110,9 @@ public class Player extends ControllableEntity {
     @Override
     public void update() {
         super.update();
+        if (PlayerStats.HEALTH <= 0) {
+            PlayerStats.HEALTH = 0;
+        }
         if (PlayerStats.PLAYER_EXP >= PlayerStats.NEXT_LVL_EXP) {
             PlayerStats.LVL++;
             // TODO: 2020-11-20 update le next lvl exp + play lvl up sound
