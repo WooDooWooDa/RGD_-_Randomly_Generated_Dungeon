@@ -11,7 +11,7 @@ public class Inventory {
 
     private Sword equippedSword;
     private Armor equippedArmor;
-    private Bow equippedBow;
+    private final Bow equippedBow;
 
     public Inventory() {
         equippedBow = new Bow();
@@ -36,19 +36,23 @@ public class Inventory {
         if (item instanceof Sword) {
             if (((Sword) item).isBetterThan(equippedSword)) {
                 equippedSword = (Sword)item;
-                PlayerStats.BONUS_DAMAGE = equippedSword.getDamage();
                 return;
             }
         }
         if (item instanceof Armor) {
             if (((Armor) item).isBetterThan(equippedArmor)) {
                 equippedArmor = (Armor)item;
-                PlayerStats.BONUS_ARMOR = equippedArmor.getArmorPoint();
-                PlayerStats.BONUS_HEALTH = equippedArmor.getHealthPoint();
-                PlayerStats.MAX_HEALTH = PlayerStats.BASE_MAX_HEALTH + PlayerStats.BONUS_HEALTH;
+                updatePlayerStats();
                 return;
             }
         }
         PlayerStats.GEM += item.getLevel() * 2;
+    }
+
+    private void updatePlayerStats() {
+        PlayerStats.BONUS_DAMAGE = equippedSword.getDamage();
+        PlayerStats.BONUS_ARMOR = equippedArmor.getArmorPoint();
+        PlayerStats.BONUS_HEALTH = equippedArmor.getHealthPoint();
+        PlayerStats.MAX_HEALTH = PlayerStats.BASE_MAX_HEALTH + PlayerStats.BONUS_HEALTH;
     }
 }

@@ -3,7 +3,7 @@ package cegepst.player;
 public class PlayerStats {
 
     public static int LVL = 1;
-    protected static int NEXT_LVL_EXP = 100;
+    protected static int NEXT_LVL_EXP = 150;
     protected static int PLAYER_EXP = 0;
     protected static int GEM = 0;
 
