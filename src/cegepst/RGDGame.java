@@ -70,6 +70,9 @@ public class RGDGame extends Game {
                                 ((Enemy)other).receivedDamage(arrow.dealDamage());
                                 killedEntities.add(arrow);
                             }
+                            if (!arrow.hasMoved()) {
+                                killedEntities.add(arrow);
+                            }
                         }
                     }
                 }
@@ -80,7 +83,10 @@ public class RGDGame extends Game {
         worldEnemies.addAll(newEntities);
         newEntities.clear();
         if (!player.isAlive()) {
-
+            endGame();
+        }
+        if (worldEnemies.isEmpty()) {
+            goToNextBiome();
         }
     }
 
@@ -98,11 +104,12 @@ public class RGDGame extends Game {
             player.draw(buffer);
             worldTime.draw(buffer);
         } else {
-            buffer.drawText("PLAYER IS DEAD!!!!!", 400, 300, Color.red);
+            buffer.drawText("PLAYER IS DEAD!!!!!", 300, 300, Color.red);
         }
         if (menu.isOpen()) {
             menu.draw(buffer);
         }
+        buffer.drawText(String.valueOf(worldEnemies.size()), 40, 200, Color.RED);
     }
 
     @Override
@@ -161,9 +168,15 @@ public class RGDGame extends Game {
         }
         worldEntities.clear();
         worldEnemies.clear();
-        world.createMobs(currentWorldBiomes);
-        world.createMisc();
+        world = new World();
+        worldEnemies.addAll(world.createMobs(currentWorldBiomes));
+        worldEntities.addAll(world.createMisc());
         world.changeBackGround(currentWorldBiomes);
+    }
+
+    private void endGame() {
+        worldEntities.clear();
+        worldEnemies.clear();
     }
 
     private void initAll() {

@@ -115,7 +115,7 @@ public class Player extends ControllableEntity {
                         break;
                     }
                     if (entity instanceof ExpOrb) {
-                        // TODO: 2020-11-19 play exp sound mc
+                        SoundPlayer.play("sounds/expOrb.wav");
                         PlayerStats.PLAYER_EXP += ((ExpOrb) entity).getExpValue();
                         removedEntities.add(entity);
                         break;
@@ -135,6 +135,7 @@ public class Player extends ControllableEntity {
             PlayerStats.HEALTH = 0;
         }
         if (PlayerStats.PLAYER_EXP >= PlayerStats.NEXT_LVL_EXP) {
+            SoundPlayer.play("sounds/expLvlUp.wav");
             PlayerStats.LVL++;
             // TODO: 2020-11-20 update le next lvl exp + play lvl up sound
         }

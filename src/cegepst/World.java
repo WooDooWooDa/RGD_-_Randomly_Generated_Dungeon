@@ -47,7 +47,7 @@ public class World {
         int nbZombies = rand.nextInt(5) + difficulty;
         int nbSlimes = rand.nextInt(8) + difficulty;
         for (int i = 0; i < nbZombies; i++) {
-            enemies.add(new Zombie(rand.nextInt(RenderingEngine.SCREEN_WIDTH), rand.nextInt(RenderingEngine.SCREEN_HEIGHT), rand.nextInt(1) + 1));
+            enemies.add(new Zombie(rand.nextInt(RenderingEngine.SCREEN_WIDTH), rand.nextInt(RenderingEngine.SCREEN_HEIGHT)));
         }
         for (int i = 0; i < nbSlimes; i++) {
             enemies.add(new Slime(rand.nextInt(RenderingEngine.SCREEN_WIDTH), rand.nextInt(RenderingEngine.SCREEN_HEIGHT)));

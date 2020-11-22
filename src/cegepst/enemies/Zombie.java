@@ -24,15 +24,15 @@ public class Zombie extends Enemy {
     private int grll = GRLL_COOLDOWN;
     private int attack = ATTACK_RATE;
 
-    public Zombie(int x, int y, int moveSpeed) {
-        MOVE_COOLDOWN = moveSpeed;
+    public Zombie(int x, int y) {
+        MOVE_COOLDOWN = 3;
         moveCooldown = MOVE_COOLDOWN;
         health = maxHealth;
         damage = 10;
         teleport(x, y);
         setDimension(32,32);
         animator = new WalkingAnimator(this, SPRITE_PATH, 96, 128);
-        animator.setAnimationSpeed(moveSpeed * 5);
+        animator.setAnimationSpeed(5);
     }
 
     public int dealDamage() {
