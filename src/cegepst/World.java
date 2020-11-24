@@ -73,7 +73,7 @@ public class World {
         for (int i = 0; i < 3; i++) {
             entities.add(new Tag(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
         }
-        entities.add(Item.Factory.create(200, 200));
+        entities.add(Item.Factory.create(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
         return entities;
     }
 

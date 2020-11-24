@@ -122,6 +122,7 @@ public class Player extends ControllableEntity {
                     break;
                 }
                 if (entity instanceof Tag) {
+                    SoundPlayer.play("sounds/tagAcquired.wav");
                     inventory.addTag();
                     removedEntities.add(entity);
                     break;

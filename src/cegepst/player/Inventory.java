@@ -1,5 +1,6 @@
 package cegepst.player;
 
+import cegepst.engine.SoundPlayer;
 import cegepst.objects.Armor;
 import cegepst.objects.Bow;
 import cegepst.objects.Item;
@@ -60,6 +61,7 @@ public class Inventory {
         if (item instanceof Sword) {
             if (((Sword) item).isBetterThan(equippedSword)) {
                 equippedSword = (Sword)item;
+                SoundPlayer.play("sounds/armorEquip.wav");
                 PlayerStats.BONUS_DAMAGE = equippedSword.getDamage();
                 return;
             }
@@ -67,12 +69,14 @@ public class Inventory {
         if (item instanceof Armor) {
             if (((Armor) item).isBetterThan(equippedArmor)) {
                 equippedArmor = (Armor)item;
+                SoundPlayer.play("sounds/armorEquip.wav");
                 PlayerStats.BONUS_ARMOR = equippedArmor.getArmorPoint();
                 PlayerStats.BONUS_HEALTH = equippedArmor.getHealthPoint();
                 PlayerStats.MAX_HEALTH = PlayerStats.BASE_MAX_HEALTH + PlayerStats.BONUS_HEALTH;
                 return;
             }
         }
+        SoundPlayer.play("sounds/coin.wav");
         PlayerStats.GEM += item.getLevel() * 2;
     }
 }
