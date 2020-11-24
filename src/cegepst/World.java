@@ -22,8 +22,9 @@ public class World {
     public static int WORLD_WIDTH = 1000;
     public static int WORLD_HEIGHT = 800;
 
-    private static final String FOREST_MAP_PATH = "images/forestMap.png";
-    private static final String SNOW_MAP_PATH = "images/snowmap.png";
+    private static final String FOREST_MAP_PATH = "images/maps/forestMap.png";
+    private static final String SNOW_MAP_PATH = "images/maps/snowMap.png";
+    private static final String DESERT_MAP_PATH = "images/maps/desertMap.png";
     private final BufferedImage[] biomeImages = new BufferedImage[5];
     private Image backGround;
     private ArrayList<Blockade> worldBorders;
@@ -115,6 +116,7 @@ public class World {
         try {
             biomeImages[0] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(FOREST_MAP_PATH));
             biomeImages[1] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(SNOW_MAP_PATH));
+            biomeImages[2] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(DESERT_MAP_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }
