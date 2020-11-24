@@ -39,8 +39,11 @@ public class Camera {
         if (y <= 0 ) {
             y = 0;
         }
-        if (x + RenderingEngine.SCREEN_HEIGHT >= World.WORLD_HEIGHT) {
-            x = x + RenderingEngine.SCREEN_WIDTH;
+        if (y >= World.WORLD_HEIGHT - RenderingEngine.SCREEN_HEIGHT) {
+            y = World.WORLD_HEIGHT - RenderingEngine.SCREEN_HEIGHT;
+        }
+        if (x >= World.WORLD_WIDTH - RenderingEngine.SCREEN_WIDTH) {
+            x = World.WORLD_WIDTH - RenderingEngine.SCREEN_WIDTH;
         }
     }
 }

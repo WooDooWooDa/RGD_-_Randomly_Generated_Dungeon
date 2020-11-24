@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 
 public class RenderingEngine {
     public static final int SCREEN_WIDTH = 800;
-    public static final int SCREEN_HEIGHT = 608;
+    public static final int SCREEN_HEIGHT = 600;
     private static RenderingEngine instance;
 
     private Screen screen;
