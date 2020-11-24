@@ -4,7 +4,6 @@ import cegepst.enemies.Slime;
 import cegepst.enemies.Zombie;
 import cegepst.enemies.ZombieSpawner;
 import cegepst.engine.Buffer;
-import cegepst.engine.RenderingEngine;
 import cegepst.engine.entities.Blockade;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.objects.Chest;
@@ -12,18 +11,19 @@ import cegepst.objects.Item;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class World {
 
-    public static final int WORLD_WIDTH = 1000;
-    public static final int WORLD_HEIGHT = 800;
+    public static int WORLD_WIDTH = 1000;
+    public static int WORLD_HEIGHT = 800;
 
     private static final String FOREST_MAP_PATH = "images/forestMap.png";
     private static final String SNOW_MAP_PATH = "images/snowMap.jpg";
-    private final Image[] biomeImages = new Image[5];
+    private final BufferedImage[] biomeImages = new BufferedImage[5];
     private Image backGround;
     private ArrayList<Blockade> worldBorders;
 
@@ -40,8 +40,10 @@ public class World {
         }
     }
 
-    public void changeBackGround(int biome) {
+    public void changeBiome(int biome) {
         backGround = biomeImages[biome - 1];
+        WORLD_WIDTH = biomeImages[biome - 1].getWidth();
+        WORLD_HEIGHT = biomeImages[biome - 1].getHeight();
     }
 
     public ArrayList<StaticEntity> createMobs(int difficulty) {
@@ -79,28 +81,28 @@ public class World {
     private void createBorderLeft() {
         Blockade border = new Blockade();
         border.setDimension(10, WORLD_HEIGHT);
-        border.teleport(-border.getWidth() / 2,0);
+        border.teleport(-border.getWidth() * 2,0);
         worldBorders.add(border);
     }
 
     private void createBorderRight() {
         Blockade border = new Blockade();
         border.setDimension(10, WORLD_HEIGHT);
-        border.teleport(WORLD_WIDTH - border.getWidth(), 0);
+        border.teleport(WORLD_WIDTH - border.getWidth() * 2, 0);
         worldBorders.add(border);
     }
 
     private void createBorderBottom() {
         Blockade border = new Blockade();
         border.setDimension(WORLD_WIDTH, 10);
-        border.teleport(0, 0);
+        border.teleport(0, -border.getHeight());
         worldBorders.add(border);
     }
 
     private void createBorderTop() {
         Blockade border = new Blockade();
         border.setDimension(WORLD_WIDTH, 10);
-        border.teleport(0, WORLD_HEIGHT - border.getHeight());
+        border.teleport(0, WORLD_HEIGHT);
         worldBorders.add(border);
     }
 

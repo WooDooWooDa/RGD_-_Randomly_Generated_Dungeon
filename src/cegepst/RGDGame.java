@@ -168,7 +168,7 @@ public class RGDGame extends Game {
         world = new World();
         worldEnemies.addAll(world.createMobs(currentWorldBiomes));
         worldEntities.addAll(world.createMisc());
-        world.changeBackGround(currentWorldBiomes);
+        world.changeBiome(currentWorldBiomes);
     }
 
     private void endGame() {
@@ -185,7 +185,7 @@ public class RGDGame extends Game {
         world = new World();
         worldEnemies.addAll(world.createMobs(currentWorldBiomes));
         worldEntities.addAll(world.createMisc());
-        world.changeBackGround(currentWorldBiomes);
+        world.changeBiome(currentWorldBiomes);
         worldTime = new WorldTime();
         gamePad = new GamePad();
         player = new Player(gamePad);
