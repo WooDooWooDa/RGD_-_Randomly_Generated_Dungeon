@@ -18,9 +18,12 @@ import java.util.Random;
 
 public class World {
 
+    public static final int WORLD_WIDTH = 1000;
+    public static final int WORLD_HEIGHT = 800;
+
     private static final String FOREST_MAP_PATH = "images/forestMap.png";
     private static final String SNOW_MAP_PATH = "images/snowMap.jpg";
-    private Image[] biomeImages = new Image[5];
+    private final Image[] biomeImages = new Image[5];
     private Image backGround;
     private ArrayList<Blockade> worldBorders;
 
@@ -75,29 +78,29 @@ public class World {
 
     private void createBorderLeft() {
         Blockade border = new Blockade();
-        border.setDimension(10, RenderingEngine.SCREEN_HEIGHT);
+        border.setDimension(10, WORLD_HEIGHT);
         border.teleport(-border.getWidth() / 2,0);
         worldBorders.add(border);
     }
 
     private void createBorderRight() {
         Blockade border = new Blockade();
-        border.setDimension(10, RenderingEngine.SCREEN_HEIGHT);
-        border.teleport(RenderingEngine.SCREEN_WIDTH - border.getWidth(), 0);
+        border.setDimension(10, WORLD_HEIGHT);
+        border.teleport(WORLD_WIDTH - border.getWidth(), 0);
         worldBorders.add(border);
     }
 
     private void createBorderBottom() {
         Blockade border = new Blockade();
-        border.setDimension(RenderingEngine.SCREEN_WIDTH, 10);
+        border.setDimension(WORLD_WIDTH, 10);
         border.teleport(0, 0);
         worldBorders.add(border);
     }
 
     private void createBorderTop() {
         Blockade border = new Blockade();
-        border.setDimension(RenderingEngine.SCREEN_WIDTH, 10);
-        border.teleport(0, RenderingEngine.SCREEN_HEIGHT - border.getHeight());
+        border.setDimension(WORLD_WIDTH, 10);
+        border.teleport(0, WORLD_HEIGHT - border.getHeight());
         worldBorders.add(border);
     }
 

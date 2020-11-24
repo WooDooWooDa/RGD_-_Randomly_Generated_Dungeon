@@ -12,7 +12,7 @@ public class Camera {
 
     public static Camera getInstance() {
         if (instance == null) {
-            instance = new Camera(0,0);
+            instance = new Camera(400,400);
         }
         return instance;
     }
@@ -33,5 +33,14 @@ public class Camera {
     public void update(Player player) {
         x = player.getX() - RenderingEngine.SCREEN_WIDTH / 2;
         y = player.getY() - RenderingEngine.SCREEN_HEIGHT / 2;
+        if (x <= 0) {
+            x = 0;
+        }
+        if (y <= 0 ) {
+            y = 0;
+        }
+        if (x + RenderingEngine.SCREEN_HEIGHT >= World.WORLD_HEIGHT) {
+            x = x + RenderingEngine.SCREEN_WIDTH;
+        }
     }
 }

@@ -1,6 +1,7 @@
 package cegepst.engine;
 
 import cegepst.Camera;
+import cegepst.World;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,7 +38,7 @@ public class RenderingEngine {
     }
 
     public Buffer getRenderingBuffer() {
-        bufferedImage = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        bufferedImage = new BufferedImage(World.WORLD_WIDTH, World.WORLD_HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = bufferedImage.createGraphics();
         graphics.setRenderingHints(getRenderingHints());
         return new Buffer(graphics);
