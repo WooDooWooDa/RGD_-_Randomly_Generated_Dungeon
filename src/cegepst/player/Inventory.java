@@ -12,27 +12,40 @@ public class Inventory {
     private Sword equippedSword;
     private Armor equippedArmor;
     private final Bow equippedBow;
+    private int nbKeys;
 
     public Inventory() {
         equippedBow = new Bow();
     }
 
-    public Bow getBow() {
+    protected void addKey() {
+        nbKeys++;
+    }
+
+    protected int getNbKeys() {
+        return nbKeys;
+    }
+
+    protected void useAllKeys() {
+        nbKeys = 0;
+    }
+
+    protected Bow getBow() {
         return equippedBow;
     }
 
-    public Sword getSword() {
+    protected Sword getSword() {
         return equippedSword;
     }
 
-    public boolean swordCanAttack() {
+    protected boolean swordCanAttack() {
         if (equippedSword == null) {
             return false;
         }
         return equippedSword.canAttack();
     }
 
-    public ArrayList<Item> getItems() {
+    protected ArrayList<Item> getItems() {
         ArrayList<Item> items = new ArrayList<>();
         if (equippedArmor != null) {
             items.add(equippedArmor);
@@ -43,7 +56,7 @@ public class Inventory {
         return items;
     }
 
-    public void addItem(Item item) {
+    protected void addItem(Item item) {
         if (item instanceof Sword) {
             if (((Sword) item).isBetterThan(equippedSword)) {
                 equippedSword = (Sword)item;

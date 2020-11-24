@@ -45,6 +45,10 @@ public class Player extends ControllableEntity {
         return PlayerStats.HEALTH > 0;
     }
 
+    public boolean hasAllKeys() {
+        return inventory.getNbKeys() == 3;
+    }
+
     public boolean canInteract() {
         return interactCooldown == INTERACT_COOLDOWN;
     }

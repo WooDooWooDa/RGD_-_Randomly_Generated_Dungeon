@@ -27,6 +27,7 @@ public class RGDGame extends Game {
     private ArrayList<StaticEntity> newEntities;
 
     private int currentWorldBiomes = 1;
+    private int changingWorld = 0;
 
     public RGDGame() {
         initAll();
@@ -91,21 +92,26 @@ public class RGDGame extends Game {
 
     @Override
     public void draw(Buffer buffer) {
-        world.draw(buffer);
-        if (player.isAlive()) {
-            for (StaticEntity entity: worldEnemies) {
-                entity.draw(buffer);
-            }
-            for (StaticEntity entity: worldEntities) {
-                entity.draw(buffer);
-            }
-            player.draw(buffer);
-            worldTime.draw(buffer);
+        if (changingWorld > 0) {
+            changingWorld--;
+            buffer.drawText("Changing World...", 500, 300, Color.white);
         } else {
-            buffer.drawText("PLAYER IS DEAD!!!!!", 300, 300, Color.red);
-        }
-        if (menu.isOpen()) {
-            menu.draw(buffer);
+            world.draw(buffer);
+            if (player.isAlive()) {
+                for (StaticEntity entity: worldEnemies) {
+                    entity.draw(buffer);
+                }
+                for (StaticEntity entity: worldEntities) {
+                    entity.draw(buffer);
+                }
+                player.draw(buffer);
+                worldTime.draw(buffer);
+            } else {
+                buffer.drawText("PLAYER IS DEAD!!!!!", 300, 300, Color.red);
+            }
+            if (menu.isOpen()) {
+                menu.draw(buffer);
+            }
         }
     }
 
@@ -159,6 +165,7 @@ public class RGDGame extends Game {
     }
 
     private void goToNextBiome() {
+        changingWorld = 500;
         currentWorldBiomes++;
         if (currentWorldBiomes > 5) {
             currentWorldBiomes = 1;
