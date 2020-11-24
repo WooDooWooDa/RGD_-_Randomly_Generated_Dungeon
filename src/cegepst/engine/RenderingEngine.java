@@ -1,5 +1,7 @@
 package cegepst.engine;
 
+import cegepst.Camera;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
@@ -43,7 +45,9 @@ public class RenderingEngine {
 
     public void renderBufferOnScreen() {
         Graphics2D graphics2D = (Graphics2D) panel.getGraphics();
+        graphics2D.translate(-Camera.getInstance().getX(), -Camera.getInstance().getY());
         graphics2D.drawImage(bufferedImage, 0,0, panel);
+        graphics2D.translate(Camera.getInstance().getX(), Camera.getInstance().getY());
         Toolkit.getDefaultToolkit().sync();
         graphics2D.dispose();
     }

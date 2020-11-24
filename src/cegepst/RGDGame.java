@@ -78,7 +78,7 @@ public class RGDGame extends Game {
                 }
             }
         }
-        //camera.update();
+        camera.update(player);
         updateKilledEntities();
         worldEnemies.addAll(newEntities);
         newEntities.clear();
@@ -94,7 +94,6 @@ public class RGDGame extends Game {
     public void draw(Buffer buffer) {
         world.draw(buffer);
         if (player.isAlive()) {
-            //camera.draw(buffer);
             for (StaticEntity entity: worldEnemies) {
                 entity.draw(buffer);
             }
@@ -192,7 +191,7 @@ public class RGDGame extends Game {
         worldTime = new WorldTime();
         gamePad = new GamePad();
         player = new Player(gamePad);
-        camera = new Camera(player, worldEntities, worldEnemies);
+        camera = Camera.getInstance();
 
     }
 }

@@ -35,7 +35,7 @@ public class Player extends ControllableEntity {
     public Player(MovementController gamePad) {
         super(gamePad);
         setDimension(32,32);
-        teleport(100 ,100);
+        teleport(400 ,300);
         setSpeed(PlayerStats.BASE_SPEED);
         PlayerStats.HEALTH = PlayerStats.MAX_HEALTH;
         addComplements();

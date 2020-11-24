@@ -1,5 +1,7 @@
 package cegepst.engine;
 
+import cegepst.Camera;
+
 import java.awt.event.KeyListener;
 
 public abstract class Game {
