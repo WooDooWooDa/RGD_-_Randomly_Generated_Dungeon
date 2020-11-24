@@ -12,22 +12,22 @@ public class Inventory {
     private Sword equippedSword;
     private Armor equippedArmor;
     private final Bow equippedBow;
-    private int nbKeys;
+    private int nbTags;
 
     public Inventory() {
         equippedBow = new Bow();
     }
 
-    protected void addKey() {
-        nbKeys++;
+    protected void addTag() {
+        nbTags++;
     }
 
-    protected int getNbKeys() {
-        return nbKeys;
+    protected int getNbTags() {
+        return nbTags;
     }
 
-    protected void useAllKeys() {
-        nbKeys = 0;
+    protected void useAllTag() {
+        nbTags = 0;
     }
 
     protected Bow getBow() {

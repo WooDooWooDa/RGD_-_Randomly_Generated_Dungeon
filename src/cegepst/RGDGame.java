@@ -85,7 +85,7 @@ public class RGDGame extends Game {
         if (!player.isAlive()) {
             endGame();
         }
-        if (worldEnemies.isEmpty()) {
+        if (worldEnemies.isEmpty() && player.hasAllKeys()) {
             goToNextBiome();
         }
     }
@@ -109,9 +109,9 @@ public class RGDGame extends Game {
             } else {
                 buffer.drawText("PLAYER IS DEAD!!!!!", 300, 300, Color.red);
             }
-            if (menu.isOpen()) {
-                menu.draw(buffer);
-            }
+        }
+        if (menu.isOpen()) {
+            menu.draw(buffer);
         }
     }
 

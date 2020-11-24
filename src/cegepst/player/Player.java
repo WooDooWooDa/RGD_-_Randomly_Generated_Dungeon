@@ -46,7 +46,7 @@ public class Player extends ControllableEntity {
     }
 
     public boolean hasAllKeys() {
-        return inventory.getNbKeys() == 3;
+        return inventory.getNbTags() == 3;
     }
 
     public boolean canInteract() {
@@ -96,34 +96,35 @@ public class Player extends ControllableEntity {
         ArrayList<StaticEntity> newEntities = new ArrayList<>();
         ArrayList<StaticEntity> removedEntities = new ArrayList<>();
         for (StaticEntity entity : worldEntities) {
-            if (entity.intersectWith(interactRange)) {
-                if (entity.isInteractable()) {
-                    if (entity instanceof Chest) {
-                        if (!((Chest) entity).isOpened()) {
-                            newEntities.addAll(((Chest) entity).openChest());
-                            break;
-                        }
+            if (entity.intersectWith(interactRange) && entity.isInteractable()) {
+                if (entity instanceof Chest && !((Chest) entity).isOpened()) {
+                    newEntities.addAll(((Chest) entity).openChest());
+                    break;
+                }
+                if (entity instanceof Gem) {
+                    SoundPlayer.play("sounds/coin.wav");
+                    PlayerStats.GEM += ((Gem) entity).getValue();
+                    removedEntities.add(entity);
+                    break;
+                }
+                if (entity instanceof Item) {
+                    inventory.addItem((Item)entity);
+                    if (entity instanceof Sword) {
+                        swordSlash = new SwordSlash(this, (Sword)entity);
                     }
-                    if (entity instanceof Gem) {
-                        SoundPlayer.play("sounds/coin.wav");
-                        PlayerStats.GEM += ((Gem) entity).getValue();
-                        removedEntities.add(entity);
-                        break;
-                    }
-                    if (entity instanceof Item) {
-                        inventory.addItem((Item)entity);
-                        if (entity instanceof Sword) {
-                            swordSlash = new SwordSlash(this, (Sword)entity);
-                        }
-                        removedEntities.add(entity);
-                        break;
-                    }
-                    if (entity instanceof ExpOrb) {
-                        SoundPlayer.play("sounds/expOrb.wav");
-                        PlayerStats.PLAYER_EXP += ((ExpOrb) entity).getExpValue();
-                        removedEntities.add(entity);
-                        break;
-                    }
+                    removedEntities.add(entity);
+                    break;
+                }
+                if (entity instanceof ExpOrb) {
+                    SoundPlayer.play("sounds/expOrb.wav");
+                    PlayerStats.PLAYER_EXP += ((ExpOrb) entity).getExpValue();
+                    removedEntities.add(entity);
+                    break;
+                }
+                if (entity instanceof Tag) {
+                    inventory.addTag();
+                    removedEntities.add(entity);
+                    break;
                 }
             }
         }
@@ -139,9 +140,10 @@ public class Player extends ControllableEntity {
             PlayerStats.HEALTH = 0;
         }
         if (PlayerStats.PLAYER_EXP >= PlayerStats.NEXT_LVL_EXP) {
+            PlayerStats.PLAYER_EXP = 0;
             SoundPlayer.play("sounds/expLvlUp.wav");
             PlayerStats.LVL++;
-            // TODO: 2020-11-20 update le next lvl exp + play lvl up sound
+            // TODO: 2020-11-20 update le next lvl exp
         }
         inventory.getBow().update();
         if (inventory.getSword() != null) {

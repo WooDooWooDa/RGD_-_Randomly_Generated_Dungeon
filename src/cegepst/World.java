@@ -8,6 +8,7 @@ import cegepst.engine.entities.Blockade;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.objects.Chest;
 import cegepst.objects.Item;
+import cegepst.objects.Tag;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -22,7 +23,7 @@ public class World {
     public static int WORLD_HEIGHT = 800;
 
     private static final String FOREST_MAP_PATH = "images/forestMap.png";
-    private static final String SNOW_MAP_PATH = "images/snowMap.jpg";
+    private static final String SNOW_MAP_PATH = "images/snowmap.png";
     private final BufferedImage[] biomeImages = new BufferedImage[5];
     private Image backGround;
     private ArrayList<Blockade> worldBorders;
@@ -65,8 +66,12 @@ public class World {
 
     public ArrayList<StaticEntity> createMisc() {
         ArrayList<StaticEntity> entities = new ArrayList<>();
-        entities.add(new Chest(100, 200));
-        entities.add(new Chest(200, 100));
+        Random rand = new Random();
+        entities.add(new Chest(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
+        entities.add(new Chest(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
+        for (int i = 0; i < 3; i++) {
+            entities.add(new Tag(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
+        }
         entities.add(Item.Factory.create(200, 200));
         return entities;
     }

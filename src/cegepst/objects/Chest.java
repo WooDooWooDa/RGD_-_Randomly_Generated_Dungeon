@@ -1,5 +1,6 @@
 package cegepst.objects;
 
+import cegepst.World;
 import cegepst.engine.Buffer;
 import cegepst.engine.SoundPlayer;
 import cegepst.engine.entities.Blockade;
@@ -17,7 +18,7 @@ public class Chest extends StaticEntity {
     private static final String OPENED_CHEST_PATH = "images/open_chest.png";
     private Image closedChest;
     private Image openedChest;
-    private Blockade chestBase;
+    private final Blockade chestBase;
     private boolean opened = false;
 
     public Chest(int x, int y) {
@@ -52,6 +53,11 @@ public class Chest extends StaticEntity {
         }
         if (rand.nextInt() <= 5) {
             items.add(Item.Factory.create(width * 2 + (x - width), rand.nextInt(20) + (y + height / 2)));
+        }
+        if (y >= World.WORLD_HEIGHT - height * 2) {
+            for (StaticEntity item : items) {
+                item.teleport(item.getX(), item.getY() - 15);
+            }
         }
         return items;
     }
