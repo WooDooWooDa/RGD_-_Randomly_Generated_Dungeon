@@ -1,5 +1,6 @@
 package cegepst.player;
 
+import cegepst.MessageAnnouncer;
 import cegepst.engine.SoundPlayer;
 import cegepst.objects.Armor;
 import cegepst.objects.Bow;
@@ -77,6 +78,7 @@ public class Inventory {
             }
         }
         SoundPlayer.play("sounds/coin.wav");
+        MessageAnnouncer.showMessage("Item converti en gem", 200);
         PlayerStats.GEM += item.getLevel() * 2;
     }
 }

@@ -51,7 +51,7 @@ public class World {
     public ArrayList<StaticEntity> createMobs(int difficulty) {
         ArrayList<StaticEntity> enemies = new ArrayList<>();
         Random rand = new Random();
-        int nbZombies = rand.nextInt(difficulty) + 5;
+        int nbZombies = rand.nextInt(difficulty * 2) + 5;
         int nbSlimes = rand.nextInt(difficulty) + 8;
         for (int i = 0; i < nbZombies; i++) {
             enemies.add(new Zombie(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));

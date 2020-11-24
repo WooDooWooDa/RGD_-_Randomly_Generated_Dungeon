@@ -1,6 +1,7 @@
 package cegepst.player;
 
 import cegepst.Animator;
+import cegepst.MessageAnnouncer;
 import cegepst.enemies.Enemy;
 import cegepst.engine.entities.MovableEntity;
 import cegepst.objects.*;
@@ -124,6 +125,7 @@ public class Player extends ControllableEntity {
                 if (entity instanceof Tag) {
                     SoundPlayer.play("sounds/tagAcquired.wav");
                     inventory.addTag();
+                    MessageAnnouncer.showMessage("tag trouver  " + inventory.getNbTags() + " I 3", 200);
                     removedEntities.add(entity);
                     break;
                 }

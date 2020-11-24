@@ -21,6 +21,7 @@ public class RGDGame extends Game {
     private GamePad gamePad;
     private Player player;
     private WorldTime worldTime;
+    private MessageAnnouncer messageAnnouncer;
     private ArrayList<StaticEntity> worldEntities;
     private ArrayList<StaticEntity> worldEnemies;
     private ArrayList<StaticEntity> killedEntities;
@@ -37,6 +38,7 @@ public class RGDGame extends Game {
     public void update() {
         menu.update();
         worldTime.update();
+        messageAnnouncer.update();
         checkForKeyPressed();
         if (!menu.isOpen() && player.isAlive()) {
             player.update();
@@ -110,6 +112,7 @@ public class RGDGame extends Game {
                 buffer.drawText("PLAYER IS DEAD!!!!!", 300, 300, Color.red);
             }
         }
+        messageAnnouncer.showMessage(buffer);
         if (menu.isOpen()) {
             menu.draw(buffer);
         }
@@ -194,6 +197,7 @@ public class RGDGame extends Game {
         worldEntities.addAll(world.createMisc());
         world.changeBiome(currentWorldBiomes);
         worldTime = new WorldTime();
+        messageAnnouncer = new MessageAnnouncer();
         gamePad = new GamePad();
         player = new Player(gamePad);
     }
