@@ -1,5 +1,6 @@
 package cegepst.player;
 
+import cegepst.Camera;
 import cegepst.GameResources;
 import cegepst.engine.Buffer;
 
@@ -23,21 +24,23 @@ public class Hud {
     }
 
     public void draw(Buffer buffer) {
+        int camX = Camera.getInstance().getX();
+        int camY = Camera.getInstance().getY();
         setXValueOfText();
-        buffer.drawImage(backGround, 15 ,15);
-        buffer.drawRectangle(97, 42, (int)(224 * ((double)PlayerStats.HEALTH / PlayerStats.MAX_HEALTH)), 16, hpBarColor);
+        buffer.drawImage(backGround, camX + 15 ,camY + 15);
+        buffer.drawRectangle(camX + 97, camY + 42, (int)(224 * ((double)PlayerStats.HEALTH / PlayerStats.MAX_HEALTH)), 16, hpBarColor);
         buffer.setGameFontSmall();
-        buffer.drawText((PlayerStats.HEALTH + " I " + PlayerStats.MAX_HEALTH), 100, 54, Color.WHITE);
+        buffer.drawText((PlayerStats.HEALTH + " I " + PlayerStats.MAX_HEALTH), camX + 100, camY + 54, Color.WHITE);
         buffer.setGameFontBig();
         int expBarHeight = (int)(81 * ((double)PlayerStats.PLAYER_EXP / PlayerStats.NEXT_LVL_EXP));
-        buffer.drawRectangle(18, 23 + (81 - expBarHeight), 5, expBarHeight, expColor);
-        buffer.drawText(String.valueOf(PlayerStats.LVL), 47, 95, expColor);
-        buffer.drawText(String.valueOf(PlayerStats.BASE_DAMAGE + PlayerStats.BONUS_DAMAGE), damageTextX, 90, textColor);
-        buffer.drawText(String.valueOf(PlayerStats.GEM), gemTextX, 90, textColor);
-        buffer.drawText(String.valueOf(PlayerStats.BASE_ARMOR + PlayerStats.BONUS_ARMOR), armorTextX, 90, textColor);
+        buffer.drawRectangle(camX + 18, camY + 23 + (81 - expBarHeight), 5, expBarHeight, expColor);
+        buffer.drawText(String.valueOf(PlayerStats.LVL), camX + 47, camY + 95, expColor);
+        buffer.drawText(String.valueOf(PlayerStats.BASE_DAMAGE + PlayerStats.BONUS_DAMAGE), camX + damageTextX, camY + 90, textColor);
+        buffer.drawText(String.valueOf(PlayerStats.GEM), camX + gemTextX, camY + 90, textColor);
+        buffer.drawText(String.valueOf(PlayerStats.BASE_ARMOR + PlayerStats.BONUS_ARMOR), camX + armorTextX, camY + 90, textColor);
         if (playerRef.getItems().size() > 0) {
             for (int i = 0; i < playerRef.getItems().size(); i++) {
-                buffer.drawImage(playerRef.getItems().get(i).getImage(), 97 + i * 32, 95);
+                buffer.drawImage(playerRef.getItems().get(i).getImage(), camX + 97 + i * 32, camY + 95);
             }
         }
     }

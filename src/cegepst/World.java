@@ -47,16 +47,16 @@ public class World {
     public ArrayList<StaticEntity> createMobs(int difficulty) {
         ArrayList<StaticEntity> enemies = new ArrayList<>();
         Random rand = new Random();
-        int nbZombies = rand.nextInt(5) + difficulty;
-        int nbSlimes = rand.nextInt(8) + difficulty;
+        int nbZombies = rand.nextInt(difficulty) + 5;
+        int nbSlimes = rand.nextInt(difficulty) + 8;
         for (int i = 0; i < nbZombies; i++) {
-            enemies.add(new Zombie(rand.nextInt(RenderingEngine.SCREEN_WIDTH), rand.nextInt(RenderingEngine.SCREEN_HEIGHT)));
+            enemies.add(new Zombie(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
         }
         for (int i = 0; i < nbSlimes; i++) {
-            enemies.add(new Slime(rand.nextInt(RenderingEngine.SCREEN_WIDTH), rand.nextInt(RenderingEngine.SCREEN_HEIGHT)));
+            enemies.add(new Slime(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
         }
         for (int i = 0; i < difficulty; i++) {
-            enemies.add(new ZombieSpawner(rand.nextInt(RenderingEngine.SCREEN_WIDTH), rand.nextInt(RenderingEngine.SCREEN_HEIGHT)));
+            enemies.add(new ZombieSpawner(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
         }
         return enemies;
     }

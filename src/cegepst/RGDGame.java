@@ -21,7 +21,6 @@ public class RGDGame extends Game {
     private GamePad gamePad;
     private Player player;
     private WorldTime worldTime;
-    private Camera camera;
     private ArrayList<StaticEntity> worldEntities;
     private ArrayList<StaticEntity> worldEnemies;
     private ArrayList<StaticEntity> killedEntities;
@@ -78,7 +77,7 @@ public class RGDGame extends Game {
                 }
             }
         }
-        camera.update(player);
+        Camera.getInstance().update(player);
         updateKilledEntities();
         worldEnemies.addAll(newEntities);
         newEntities.clear();
@@ -108,7 +107,6 @@ public class RGDGame extends Game {
         if (menu.isOpen()) {
             menu.draw(buffer);
         }
-        buffer.drawText(String.valueOf(worldEnemies.size()), 40, 200, Color.RED);
     }
 
     @Override
@@ -191,7 +189,5 @@ public class RGDGame extends Game {
         worldTime = new WorldTime();
         gamePad = new GamePad();
         player = new Player(gamePad);
-        camera = Camera.getInstance();
-
     }
 }
