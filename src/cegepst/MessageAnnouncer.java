@@ -7,7 +7,6 @@ import java.awt.*;
 public class MessageAnnouncer {
 
     private static String message;
-
     private static int messageTimer;
 
     public MessageAnnouncer() {

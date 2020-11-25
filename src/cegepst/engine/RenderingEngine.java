@@ -1,11 +1,14 @@
 package cegepst.engine;
 
 import cegepst.Camera;
+import cegepst.Menu;
 import cegepst.World;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 public class RenderingEngine {
@@ -73,6 +76,15 @@ public class RenderingEngine {
         panel.setBackground(Color.BLUE);
         panel.setFocusable(true);
         panel.setDoubleBuffered(true);
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    Menu.mouseX = e.getX();
+                    Menu.mouseY = e.getY();
+                }
+            }
+        });
         screen.setPanel(panel);
     }
 

@@ -132,7 +132,7 @@ public class RGDGame extends Game {
     }
 
     private void checkForKeyPressed() {
-        if (gamePad.isQuitPressed()) {
+        if (menu.isQuit()) {
             super.stop();
         }
         if (gamePad.isMenuPressed() && menu.CanBeOpen()) {

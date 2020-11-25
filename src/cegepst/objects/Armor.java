@@ -38,7 +38,7 @@ public class Armor extends Item {
         return "name";
     }
 
-    private void setBonusPoint(int level) { // TODO: 2020-11-18 set bonus healthPoint
+    private void setBonusPoint(int level) {
         Random random = new Random();
         if (level == 2) {
             armorPoint = random.nextInt(15 + 1 - 5) + 5;
