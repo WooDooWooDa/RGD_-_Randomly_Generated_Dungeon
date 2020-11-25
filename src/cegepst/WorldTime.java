@@ -19,6 +19,10 @@ public class WorldTime {
         light = new Color(0, 0, 0, darkness);
     }
 
+    public void resetTime() {
+        time = 0;
+    }
+
     public void update() {
         if (GameSettings.GAME_TIME) {
             if (isNight) {
@@ -40,7 +44,7 @@ public class WorldTime {
 
     public void draw(Buffer buffer) {
         if (GameSettings.GAME_TIME) {
-            buffer.drawRectangle(0, 0, RenderingEngine.SCREEN_WIDTH, RenderingEngine.SCREEN_HEIGHT, light);
+            buffer.drawRectangle(Camera.getInstance().getX(), Camera.getInstance().getY(), RenderingEngine.SCREEN_WIDTH, RenderingEngine.SCREEN_HEIGHT, light);
         }
     }
 }

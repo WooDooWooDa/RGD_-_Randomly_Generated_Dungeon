@@ -14,13 +14,19 @@ public class Menu {
     public static int mouseY;
 
     private static final String MENU_PATH = "images/menu.png";
-    private BufferedImage image;
+    private static final String MENU2_PATH = "images/optionMenu.png";
+    private BufferedImage[] menus = new BufferedImage[3];
     private final int x;
     private final int y;
+    private static int currentMenu = 1;
     private boolean opened = false;
     private int menuCooldown = 40;
 
     private boolean quit = false;
+
+    public static void setMenu(int menu) {
+        currentMenu = menu;
+    }
 
     public Menu() {
         loadImage();
@@ -51,29 +57,73 @@ public class Menu {
     }
 
     public void update() {
-        int camX = Camera.getInstance().getX();
-        int camY = Camera.getInstance().getY();
         menuCooldown++;
         if (menuCooldown > 40) {
             menuCooldown = 40;
         }
-        if ((camX + mouseX >= x + 95 && camX + mouseX <= x + image.getWidth() - 95) && (camY + mouseY >= y + 25 && camY + mouseY <= y + 75)) { // TODO: 2020-11-24 do for all btn
-            opened = !opened;
-        }
         if (!isOpen()) {
-            mouseX = 0;
-            mouseY = 0;
+            resetMouse();
+            currentMenu = 1;
+            return;
         }
+        int camX = Camera.getInstance().getX();
+        int camY = Camera.getInstance().getY();
+        if (currentMenu == 1) {
+            if (topBoxClicked(camX, camY)) {
+                opened = !opened;
+            }
+            if (middleBoxClicked(camX, camY)) {
+                currentMenu = 2;
+            }
+            if (bottomBoxClicked(camX, camY)) {
+                quit = !quit;
+            }
+        }
+        if (currentMenu == 2) {
+            if (topBoxClicked(camX, camY)) {
+                opened = !opened;
+            }
+            if (middleBoxClicked(camX, camY)) {
+                GameSettings.GAME_TIME = !GameSettings.GAME_TIME;
+            }
+            if (bottomBoxClicked(camX, camY)) {
+                currentMenu = 1;
+            }
+        }
+        resetMouse();
+
     }
 
     public void draw(Buffer buffer) {
-        buffer.drawText(mouseX + ", " + mouseY, x, y, Color.WHITE);
-        buffer.drawImage(image, Camera.getInstance().getX() + x , Camera.getInstance().getY() + y);
+        if (currentMenu == 1) {
+            buffer.drawImage(menus[1], Camera.getInstance().getX() + x , Camera.getInstance().getY() + y);
+        } else if (currentMenu == 2) {
+            buffer.drawImage(menus[2],Camera.getInstance().getX() + x, Camera.getInstance().getY() + y);
+            buffer.drawText(String.valueOf(GameSettings.GAME_TIME), Camera.getInstance().getX() + x + 245, Camera.getInstance().getY() + y + 128, Color.BLACK);
+        }
+    }
+
+    private void resetMouse() {
+        mouseX = 0;
+        mouseY = 0;
+    }
+
+    private boolean topBoxClicked(int camX, int camY) {
+        return (camX + mouseX >= camX + x + 95 && camX + mouseX <= camX+  x + menus[1].getWidth() - 95) && (camY + mouseY >= camY + y + 25 && camY + mouseY <= camY + y + 75);
+    }
+
+    private boolean bottomBoxClicked(int camX, int camY) {
+        return (camX + mouseX >= camX + x + 95 && camX + mouseX <= camX + x + menus[1].getWidth() - 95) && (camY + mouseY >= camY + y + 165 && camY + mouseY <= camY + y + 215);
+    }
+
+    private boolean middleBoxClicked(int camX, int camY) {
+        return (camX + mouseX >= camX + x + 95 && camX + mouseX <= camX + x + menus[1].getWidth() - 95) && (camY + mouseY >= camY + y + 100 && camY + mouseY <= camY + y + 150);
     }
 
     private void loadImage() {
         try {
-            image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(MENU_PATH));
+            menus[1] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(MENU_PATH));
+            menus[2] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(MENU2_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }

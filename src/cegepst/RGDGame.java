@@ -173,12 +173,14 @@ public class RGDGame extends Game {
         if (currentWorldBiomes > 5) {
             currentWorldBiomes = 1;
         }
+        worldTime.resetTime();
         worldEntities.clear();
         worldEnemies.clear();
         world = new World();
         worldEnemies.addAll(world.createMobs(currentWorldBiomes));
         worldEntities.addAll(world.createMisc());
         world.changeBiome(currentWorldBiomes);
+        player.teleport(50, 50);
     }
 
     private void endGame() {
