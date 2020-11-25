@@ -57,7 +57,7 @@ public class Menu {
         if (menuCooldown > 40) {
             menuCooldown = 40;
         }
-        if ((camX + mouseX >= x + 95 && camX + mouseX <= x + image.getWidth() - 95) && (camY + mouseY >= y + 25 && camY + mouseY <= y + 75)) { // TODO: 2020-11-24 ajust to fit menu button
+        if ((camX + mouseX >= x + 95 && camX + mouseX <= x + image.getWidth() - 95) && (camY + mouseY >= y + 25 && camY + mouseY <= y + 75)) { // TODO: 2020-11-24 do for all btn
             opened = !opened;
         }
         if (!isOpen()) {
