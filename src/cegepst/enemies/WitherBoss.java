@@ -5,16 +5,18 @@ import cegepst.engine.Buffer;
 
 public class WitherBoss extends Enemy {
 
-    private static final String BOSS_PATH = "images/witherBoss.png";
+    private static final String BOSS_PATH = "images/witherboss.png";
 
     private final Animator animator;
+    private final int ATTACK_RATE = 80;
 
     private int deltaX;
     private int deltaY;
+    private int attack = ATTACK_RATE;
 
     public WitherBoss() {
         teleport(300, 300);
-        setDimension(100,100);
+        setDimension(150,150);
         health = 1000;
         damage = 40;
         animator = new Animator(this, BOSS_PATH, 4);
@@ -22,12 +24,13 @@ public class WitherBoss extends Enemy {
 
     @Override
     public int dealDamage() {
+        attack = ATTACK_RATE;
         return damage;
     }
 
     @Override
     public boolean canAttack() {
-        return false;
+        return attack == 0;
     }
 
     @Override
@@ -36,6 +39,10 @@ public class WitherBoss extends Enemy {
     }
 
     public void update(int playerX, int playerY) {
+        attack--;
+        if (attack <= 0) {
+            attack = 0;
+        }
         getPositionToPlayer(playerX, playerY);
         setImageDirection();
     }

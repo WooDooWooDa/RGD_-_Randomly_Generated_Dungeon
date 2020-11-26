@@ -48,7 +48,7 @@ public class RGDGame extends Game {
                 if (entity instanceof UpdatableEntity) {
                     if (entity instanceof WitherBoss) {
                         ((WitherBoss) entity).update(player.getX(), player.getY());
-                        if (entity.intersectWith(player)) {
+                        if (entity.intersectWith(player) && ((WitherBoss) entity).canAttack()) {
                             player.receiveDamage(((WitherBoss) entity).dealDamage());
                         }
                     }else if (entity instanceof Zombie) {
@@ -102,13 +102,13 @@ public class RGDGame extends Game {
         } else {
             world.draw(buffer);
             if (player.isAlive()) {
+                player.draw(buffer);
                 for (StaticEntity entity: worldEnemies) {
                     entity.draw(buffer);
                 }
                 for (StaticEntity entity: worldEntities) {
                     entity.draw(buffer);
                 }
-                player.draw(buffer);
                 worldTime.draw(buffer);
             } else {
                 buffer.drawText("PLAYER IS DEAD!!!!!", 300, 300, Color.red);
