@@ -46,6 +46,10 @@ public class Animator {
         }
     }
 
+    public void setCurrentAnimationFrame(int frame) {
+        currentAnimationFrame = frame -1;
+    }
+
     public Image animate() {
         return frames[currentAnimationFrame];
     }
@@ -57,7 +61,7 @@ public class Animator {
     private void loadFrames() {
         frames = new Image[nbAnimationFrames];
         for (int i = 0; i < nbAnimationFrames; i++) {
-            frames[i] = spriteSheet.getSubimage( x + (i * 32), y, entity.getWidth(), entity.getHeight());
+            frames[i] = spriteSheet.getSubimage( x + (i * entity.getWidth()), y, entity.getWidth(), entity.getHeight());
         }
     }
 

@@ -1,6 +1,7 @@
 package cegepst;
 
 import cegepst.enemies.Slime;
+import cegepst.enemies.WitherBoss;
 import cegepst.enemies.Zombie;
 import cegepst.enemies.ZombieSpawner;
 import cegepst.engine.Buffer;
@@ -50,6 +51,10 @@ public class World {
 
     public ArrayList<StaticEntity> createMobs(int difficulty) {
         ArrayList<StaticEntity> enemies = new ArrayList<>();
+        if (difficulty == 3) {      // TODO: 2020-11-26 change to world 5 
+            enemies.add(new WitherBoss());
+            return enemies;
+        }
         Random rand = new Random();
         int nbZombies = rand.nextInt(difficulty * 2) + 5;
         int nbSlimes = rand.nextInt(difficulty) + 8;

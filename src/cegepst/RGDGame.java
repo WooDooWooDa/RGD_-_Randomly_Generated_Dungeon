@@ -1,9 +1,6 @@
 package cegepst;
 
-import cegepst.enemies.Enemy;
-import cegepst.enemies.Slime;
-import cegepst.enemies.Zombie;
-import cegepst.enemies.ZombieSpawner;
+import cegepst.enemies.*;
 import cegepst.engine.*;
 import cegepst.engine.entities.CollidableRepository;
 import cegepst.engine.entities.StaticEntity;
@@ -27,7 +24,7 @@ public class RGDGame extends Game {
     private ArrayList<StaticEntity> killedEntities;
     private ArrayList<StaticEntity> newEntities;
 
-    private int currentWorldBiomes = 1;
+    private int currentWorldBiomes = 3;
     private int changingWorld = 0;
 
     public RGDGame() {
@@ -49,7 +46,12 @@ public class RGDGame extends Game {
             }
             for (StaticEntity entity: worldEnemies) {
                 if (entity instanceof UpdatableEntity) {
-                    if (entity instanceof Zombie) {
+                    if (entity instanceof WitherBoss) {
+                        ((WitherBoss) entity).update(player.getX(), player.getY());
+                        if (entity.intersectWith(player)) {
+                            player.receiveDamage(((WitherBoss) entity).dealDamage());
+                        }
+                    }else if (entity instanceof Zombie) {
                         ((Zombie) entity).update(player.getX(), player.getY());
                         if (entity.intersectWith(player) && ((Zombie) entity).canAttack()) {
                             player.receiveDamage(((Zombie) entity).dealDamage());
