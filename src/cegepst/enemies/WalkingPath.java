@@ -25,6 +25,10 @@ public class WalkingPath {
         }
     }
 
+    public void changeWalkMode(int mode) {
+        walkMode = mode;
+    }
+
     public void setHorizontalWalk(int length) {
         walkDown = length;
         walkUp = length;

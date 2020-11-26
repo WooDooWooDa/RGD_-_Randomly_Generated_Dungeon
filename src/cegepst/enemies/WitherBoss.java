@@ -3,11 +3,15 @@ package cegepst.enemies;
 import cegepst.Animator;
 import cegepst.engine.Buffer;
 
+import java.util.Random;
+
 public class WitherBoss extends Enemy {
 
     private static final String BOSS_PATH = "images/witherboss.png";
 
     private final Animator animator;
+    private WalkingPath path;
+    private final Random rand;
     private final int ATTACK_RATE = 80;
 
     private int deltaX;
@@ -20,6 +24,8 @@ public class WitherBoss extends Enemy {
         health = 1000;
         damage = 40;
         animator = new Animator(this, BOSS_PATH, 4);
+        path = new WalkingPath(3);
+        rand = new Random();
     }
 
     @Override
@@ -45,6 +51,8 @@ public class WitherBoss extends Enemy {
         }
         getPositionToPlayer(playerX, playerY);
         setImageDirection();
+        changeWalkPath();
+        move(path.follow());
     }
 
     @Override
@@ -55,6 +63,17 @@ public class WitherBoss extends Enemy {
 
     private void drawHealthBar(Buffer buffer) {
 
+    }
+
+    private void changeWalkPath() {
+        if (rand.nextInt(200) < 50) {
+            int mode = rand.nextInt(100);
+            if (mode > 66) {
+                path.changeWalkMode(1);
+            } else if (mode > 33) {
+                path.changeWalkMode(2);
+            } else path.changeWalkMode(3);
+        }
     }
 
     private void setImageDirection() {
