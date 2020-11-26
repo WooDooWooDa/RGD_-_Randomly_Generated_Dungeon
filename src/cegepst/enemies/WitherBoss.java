@@ -2,7 +2,9 @@ package cegepst.enemies;
 
 import cegepst.Animator;
 import cegepst.engine.Buffer;
+import cegepst.engine.entities.StaticEntity;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class WitherBoss extends Enemy {
@@ -37,12 +39,21 @@ public class WitherBoss extends Enemy {
 
     @Override
     public boolean canAttack() {
+        return false;
+    }
+
+    public boolean canPhysicalAttack() {
         return physicalAttackRate == 0;
     }
 
     @Override
     public boolean isAlive() {
         return health > 0;
+    }
+
+    public ArrayList<StaticEntity> spawnWitherSkulls() {
+        ArrayList<StaticEntity> skulls = new ArrayList<>();
+        return skulls;
     }
 
     public void update(int playerX, int playerY) {

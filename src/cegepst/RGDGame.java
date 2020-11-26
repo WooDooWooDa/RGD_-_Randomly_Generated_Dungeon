@@ -48,10 +48,13 @@ public class RGDGame extends Game {
                 if (entity instanceof UpdatableEntity) {
                     if (entity instanceof WitherBoss) {
                         ((WitherBoss) entity).update(player.getX(), player.getY());
-                        if (entity.intersectWith(player) && ((WitherBoss) entity).canAttack()) {
+                        if (entity.intersectWith(player) && ((WitherBoss) entity).canPhysicalAttack()) {
                             player.receiveDamage(((WitherBoss) entity).dealDamage());
                         }
-                    }else if (entity instanceof Zombie) {
+                        if (((WitherBoss) entity).canAttack()) {
+                            worldEnemies.addAll(((WitherBoss) entity).spawnWitherSkulls());
+                        }
+                    } else if (entity instanceof Zombie) {
                         ((Zombie) entity).update(player.getX(), player.getY());
                         if (entity.intersectWith(player) && ((Zombie) entity).canAttack()) {
                             player.receiveDamage(((Zombie) entity).dealDamage());
