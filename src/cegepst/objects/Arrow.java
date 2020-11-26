@@ -16,6 +16,7 @@ public class Arrow extends Projectile {
     public Arrow(Player player, int dmg) {
         loadImage();
         damage = dmg;
+        setMaxDistanceTraveled(100);
         teleport(player.getX(), player.getY());
         setSpeed(2);
         setDirection(player.getDirection());

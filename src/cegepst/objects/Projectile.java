@@ -7,7 +7,7 @@ public abstract class Projectile extends MovableEntity {
     protected int damage;
     protected int distanceTraveled = 0;
 
-    private int maxTravelDistance = 100;
+    private int maxTravelDistance = 0;
 
     public int dealDamage() {
         return damage;
@@ -15,6 +15,10 @@ public abstract class Projectile extends MovableEntity {
 
     public boolean hasReachMaxDistance() {
         return distanceTraveled > maxTravelDistance;
+    }
+
+    public void setMaxDistanceTraveled(int distance) {
+        maxTravelDistance = distance;
     }
 
 }
