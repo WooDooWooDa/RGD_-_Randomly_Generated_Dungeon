@@ -2,22 +2,20 @@ package cegepst.objects;
 
 import cegepst.engine.Buffer;
 import cegepst.engine.controls.Direction;
-import cegepst.engine.entities.MovableEntity;
 import cegepst.player.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
 
-public class Arrow extends MovableEntity {
+public class Arrow extends Projectile {
 
-    private final int damage;
     private Image[] arrowsImages = new Image[4];
     private Image arrow;
 
-    public Arrow(Player player, int damage) {
+    public Arrow(Player player, int dmg) {
         loadImage();
-        this.damage = damage;
+        damage = dmg;
         teleport(player.getX(), player.getY());
         setSpeed(2);
         setDirection(player.getDirection());
@@ -25,13 +23,10 @@ public class Arrow extends MovableEntity {
         updatePositionOrientation();
     }
 
-    public int dealDamage() {
-        return damage;
-    }
-
     @Override
     public void update() {
         super.update();
+        distanceTraveled++;
         move(getDirection());
     }
 

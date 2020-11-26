@@ -30,6 +30,7 @@ public class Slime extends Enemy {
         setWalkingPathLength();
     }
 
+    @Override
     public int dealDamage() {
         attack = ATTACK_RATE;
         return damage;

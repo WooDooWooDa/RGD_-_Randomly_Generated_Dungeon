@@ -8,20 +8,21 @@ import java.util.Random;
 public class WitherBoss extends Enemy {
 
     private static final String BOSS_PATH = "images/witherboss.png";
+    private static final int MAX_HEALTH = 1000;
+    private static final int PHYSICAL_ATTACK_RATE = 80;
 
     private final Animator animator;
     private WalkingPath path;
     private final Random rand;
-    private final int ATTACK_RATE = 80;
 
     private int deltaX;
     private int deltaY;
-    private int attack = ATTACK_RATE;
+    private int physicalAttackRate = PHYSICAL_ATTACK_RATE;
 
     public WitherBoss() {
         teleport(300, 300);
         setDimension(150,150);
-        health = 1000;
+        health = MAX_HEALTH;
         damage = 40;
         animator = new Animator(this, BOSS_PATH, 4);
         path = new WalkingPath(3);
@@ -30,13 +31,13 @@ public class WitherBoss extends Enemy {
 
     @Override
     public int dealDamage() {
-        attack = ATTACK_RATE;
+        physicalAttackRate = PHYSICAL_ATTACK_RATE;
         return damage;
     }
 
     @Override
     public boolean canAttack() {
-        return attack == 0;
+        return physicalAttackRate == 0;
     }
 
     @Override
@@ -45,9 +46,9 @@ public class WitherBoss extends Enemy {
     }
 
     public void update(int playerX, int playerY) {
-        attack--;
-        if (attack <= 0) {
-            attack = 0;
+        physicalAttackRate--;
+        if (physicalAttackRate <= 0) {
+            physicalAttackRate = 0;
         }
         getPositionToPlayer(playerX, playerY);
         setImageDirection();

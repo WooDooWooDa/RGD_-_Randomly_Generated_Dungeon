@@ -74,7 +74,7 @@ public class RGDGame extends Game {
                                 ((Enemy)other).receivedDamage(arrow.dealDamage());
                                 killedEntities.add(arrow);
                             }
-                            if (!arrow.hasMoved()) {
+                            if (!arrow.hasMoved() || arrow.hasReachMaxDistance()) {
                                 killedEntities.add(arrow);
                             }
                         }
