@@ -61,7 +61,7 @@ public class RGDGame extends Game {
                             player.receiveDamage(((WitherBoss) entity).dealDamage());
                         }
                         if (((WitherBoss) entity).canAttack()) {
-                            newEntities.addAll(((WitherBoss) entity).spawnWitherSkulls());
+                            newEntities.addAll(((WitherBoss) entity).attack());
                         }
                     } else if (entity instanceof Zombie) {
                         ((Zombie) entity).update(player.getX(), player.getY());

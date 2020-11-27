@@ -57,15 +57,8 @@ public class WitherBoss extends Enemy {
         return health > 0;
     }
 
-    public ArrayList<StaticEntity> spawnWitherSkulls() {
-        attack = ATTACK_RATE;
-        ArrayList<StaticEntity> skulls = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            int skullX = (x - width) + (rand.nextInt(width * 3));
-            int skullY = (y - height) + (rand.nextInt(height * 3));
-            skulls.addAll(createSkullPack(skullX, skullY));
-        }
-        return skulls;
+    public ArrayList<StaticEntity> attack() {
+        return spawnWitherSkulls();
     }
 
     public void update(int playerX, int playerY) {
@@ -90,6 +83,17 @@ public class WitherBoss extends Enemy {
         buffer.drawText("Wither Boss", Camera.getInstance().getX() + 320, Camera.getInstance().getY() + 115, Color.BLACK);
         buffer.drawRectangle(Camera.getInstance().getX() + 150, Camera.getInstance().getY() + 120, 500, 16, new Color(50, 0 ,0));
         buffer.drawRectangle(Camera.getInstance().getX() + 150, Camera.getInstance().getY() + 120, (int)(500 * ((double) health / MAX_HEALTH)), 16, Color.RED);
+    }
+
+    private ArrayList<StaticEntity> spawnWitherSkulls() {
+        attack = ATTACK_RATE;
+        ArrayList<StaticEntity> skulls = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            int skullX = (x - width) + (rand.nextInt(width * 3));
+            int skullY = (y - height) + (rand.nextInt(height * 3));
+            skulls.addAll(createSkullPack(skullX, skullY));
+        }
+        return skulls;
     }
 
     private ArrayList<StaticEntity> createSkullPack(int skullx, int skully) {
