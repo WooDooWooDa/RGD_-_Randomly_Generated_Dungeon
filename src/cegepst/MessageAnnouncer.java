@@ -13,7 +13,7 @@ public class MessageAnnouncer {
         messageTimer = 0;
     }
 
-    public static void showMessage(String msg, int time) {
+    public static void setMessage(String msg, int time) {
         messageTimer = time;
         message = msg;
     }

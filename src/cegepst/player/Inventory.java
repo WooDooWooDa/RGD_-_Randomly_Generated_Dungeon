@@ -78,7 +78,7 @@ public class Inventory {
             }
         }
         SoundPlayer.play("sounds/coin.wav");
-        MessageAnnouncer.showMessage("Item converti en gem", 200);
+        MessageAnnouncer.setMessage("Item converti en gem", 200);
         PlayerStats.GEM += item.getLevel() * 2;
     }
 }

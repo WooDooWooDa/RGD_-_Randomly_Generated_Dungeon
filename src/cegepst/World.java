@@ -26,6 +26,7 @@ public class World {
     private static final String FOREST_MAP_PATH = "images/maps/forestMap.png";
     private static final String SNOW_MAP_PATH = "images/maps/snowMap.png";
     private static final String DESERT_MAP_PATH = "images/maps/desertMap.png";
+    private static final String BOSS_MAP_PATH = "images/maps/endBossMap.png";
     private final BufferedImage[] biomeImages = new BufferedImage[5];
     private Image backGround;
     private ArrayList<Blockade> worldBorders;
@@ -51,11 +52,12 @@ public class World {
 
     public ArrayList<StaticEntity> createMobs(int difficulty) {
         ArrayList<StaticEntity> enemies = new ArrayList<>();
-        if (difficulty == 3) {      // TODO: 2020-11-26 change to world 5 
+        Random rand = new Random();
+        if (difficulty == 4) {
             enemies.add(new WitherBoss());
+            enemies.add(new ZombieSpawner(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
             return enemies;
         }
-        Random rand = new Random();
         int nbZombies = rand.nextInt(difficulty * 2) + 5;
         int nbSlimes = rand.nextInt(difficulty) + 8;
         for (int i = 0; i < nbZombies; i++) {
@@ -122,6 +124,7 @@ public class World {
             biomeImages[0] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(FOREST_MAP_PATH));
             biomeImages[1] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(SNOW_MAP_PATH));
             biomeImages[2] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(DESERT_MAP_PATH));
+            biomeImages[3] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(BOSS_MAP_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }

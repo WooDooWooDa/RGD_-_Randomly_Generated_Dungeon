@@ -6,11 +6,9 @@ import cegepst.engine.Buffer;
 import cegepst.engine.controls.Direction;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.objects.WitherSkull;
-import cegepst.player.PlayerStats;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Random;
 
 public class WitherBoss extends Enemy {
@@ -89,7 +87,8 @@ public class WitherBoss extends Enemy {
     }
 
     private void drawHealthBar(Buffer buffer) {
-        buffer.drawRectangle(Camera.getInstance().getX() + 200, Camera.getInstance().getY() + 100, (int)(500 * ((double) health / MAX_HEALTH)), 16, Color.RED);
+        buffer.drawText("Wither Boss", Camera.getInstance().getX() + 320, Camera.getInstance().getY() + 115, Color.BLACK);
+        buffer.drawRectangle(Camera.getInstance().getX() + 150, Camera.getInstance().getY() + 120, (int)(500 * ((double) health / MAX_HEALTH)), 16, Color.RED);
     }
 
     private ArrayList<StaticEntity> createSkullPack(int skullx, int skully) {

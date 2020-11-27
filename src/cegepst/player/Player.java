@@ -127,7 +127,7 @@ public class Player extends ControllableEntity {
                 if (entity instanceof Tag) {
                     SoundPlayer.play("sounds/tagAcquired.wav");
                     inventory.addTag();
-                    MessageAnnouncer.showMessage("tag trouver  " + inventory.getNbTags() + " I 3", 200);
+                    MessageAnnouncer.setMessage("tag trouver  " + inventory.getNbTags() + " I 3", 200);
                     removedEntities.add(entity);
                     break;
                 }
@@ -183,6 +183,9 @@ public class Player extends ControllableEntity {
             swordSlash.draw(buffer);
         }
         buffer.drawImage(animator.animate(getDirection()), x, y);
+    }
+
+    public void drawHud(Buffer buffer) {
         hud.draw(buffer);
     }
 

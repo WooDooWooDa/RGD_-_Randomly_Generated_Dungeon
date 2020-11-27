@@ -68,7 +68,7 @@ public class RenderingEngine {
     private void initializeFrame() {
         screen = new Screen();
         screen.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        screen.setTitle("Viking Game");
+        screen.setTitle("RGD - Randomly Generated Dungeons");
     }
 
     private void initializePanel() {
@@ -80,7 +80,6 @@ public class RenderingEngine {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    System.out.println(e.getX());
                     Mouse.mouseX = e.getX();
                     Mouse.mouseY = e.getY();
                 }

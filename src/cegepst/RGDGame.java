@@ -25,7 +25,7 @@ public class RGDGame extends Game {
     private ArrayList<StaticEntity> killedEntities;
     private ArrayList<StaticEntity> newEntities;
 
-    private int currentWorldBiomes = 3;
+    private int currentWorldBiomes = 4;
     private int changingWorld = 0;
 
     public RGDGame() {
@@ -36,7 +36,6 @@ public class RGDGame extends Game {
     public void update() {
         if (!player.isAlive()) {
             endGame();
-            System.out.println(Mouse.mouseX);
             if (Mouse.mouseX != 0) {
                 resetGame();
             }
@@ -124,16 +123,17 @@ public class RGDGame extends Game {
             world.draw(buffer);
             if (player.isAlive()) {
                 player.draw(buffer);
-                for (StaticEntity entity: worldEnemies) {
-                    entity.draw(buffer);
-                }
                 for (StaticEntity entity: worldEntities) {
                     entity.draw(buffer);
                 }
+                for (StaticEntity entity: worldEnemies) {
+                    entity.draw(buffer);
+                }
+                player.drawHud(buffer);
                 worldTime.draw(buffer);
             } else {
-                MessageAnnouncer.showMessage("PLAYER IS DEAD.....", 1000);
-                buffer.drawText("CLick anywhere to restart!", camX + 300, camY + 300, Color.BLACK);
+                MessageAnnouncer.setMessage("PLAYER IS DEAD.....", 1000);
+                buffer.drawText("CLick anywhere to restart!", camX + 200, camY + 180, Color.BLACK);
             }
         }
         messageAnnouncer.showMessage(buffer);
@@ -194,7 +194,7 @@ public class RGDGame extends Game {
     private void goToNextBiome() {
         changingWorld = 500;
         currentWorldBiomes++;
-        if (currentWorldBiomes > 3) {
+        if (currentWorldBiomes > 4) {
             currentWorldBiomes = 1;
         }
         worldTime.resetTime();
@@ -215,6 +215,7 @@ public class RGDGame extends Game {
         worldEntities.addAll(world.createMisc());
         world.changeBiome(currentWorldBiomes);
         player = new Player(gamePad);
+        RenderingEngine.getInstance().getScreen().hideCursor();
     }
 
     private void endGame() {
