@@ -88,6 +88,7 @@ public class WitherBoss extends Enemy {
 
     private void drawHealthBar(Buffer buffer) {
         buffer.drawText("Wither Boss", Camera.getInstance().getX() + 320, Camera.getInstance().getY() + 115, Color.BLACK);
+        buffer.drawRectangle(Camera.getInstance().getX() + 150, Camera.getInstance().getY() + 120, 500, 16, new Color(50, 0 ,0));
         buffer.drawRectangle(Camera.getInstance().getX() + 150, Camera.getInstance().getY() + 120, (int)(500 * ((double) health / MAX_HEALTH)), 16, Color.RED);
     }
 
