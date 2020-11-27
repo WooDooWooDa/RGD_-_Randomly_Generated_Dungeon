@@ -18,6 +18,11 @@ public class MessageAnnouncer {
         message = msg;
     }
 
+    public void clearMessage() {
+        messageTimer = 0;
+        message = "";
+    }
+
     public void update() {
         if (messageTimer > 0) {
             messageTimer--;

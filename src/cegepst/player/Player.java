@@ -35,8 +35,9 @@ public class Player extends ControllableEntity {
 
     public Player(MovementController gamePad) {
         super(gamePad);
+        PlayerStats.reset();
         setDimension(32,32);
-        teleport(400 ,300);
+        teleport(50 ,50);
         setSpeed(PlayerStats.BASE_SPEED);
         PlayerStats.HEALTH = PlayerStats.MAX_HEALTH;
         addComplements();
@@ -79,6 +80,7 @@ public class Player extends ControllableEntity {
     }
 
     public void swordAttack(ArrayList<StaticEntity> worldEnemies) {
+        SoundPlayer.play("sounds/swordSlash.wav");
         if (swordSlash != null) {
             inventory.getSword().reset();
             isAttackingBySword = true;

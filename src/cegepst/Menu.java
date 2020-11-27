@@ -10,9 +10,6 @@ import java.io.IOException;
 
 public class Menu {
 
-    public static int mouseX;
-    public static int mouseY;
-
     private static final String MENU_PATH = "images/menu.png";
     private static final String MENU2_PATH = "images/optionMenu.png";
     private BufferedImage[] menus = new BufferedImage[3];
@@ -104,20 +101,20 @@ public class Menu {
     }
 
     private void resetMouse() {
-        mouseX = 0;
-        mouseY = 0;
+        Mouse.mouseX = 0;
+        Mouse.mouseY = 0;
     }
 
     private boolean topBoxClicked(int camX, int camY) {
-        return (camX + mouseX >= camX + x + 95 && camX + mouseX <= camX+  x + menus[1].getWidth() - 95) && (camY + mouseY >= camY + y + 25 && camY + mouseY <= camY + y + 75);
+        return (camX + Mouse.mouseX >= camX + x + 95 && camX + Mouse.mouseX <= camX+  x + menus[1].getWidth() - 95) && (camY + Mouse.mouseY >= camY + y + 25 && camY + Mouse.mouseY <= camY + y + 75);
     }
 
     private boolean bottomBoxClicked(int camX, int camY) {
-        return (camX + mouseX >= camX + x + 95 && camX + mouseX <= camX + x + menus[1].getWidth() - 95) && (camY + mouseY >= camY + y + 165 && camY + mouseY <= camY + y + 215);
+        return (camX + Mouse.mouseX >= camX + x + 95 && camX + Mouse.mouseX <= camX + x + menus[1].getWidth() - 95) && (camY + Mouse.mouseY >= camY + y + 165 && camY + Mouse.mouseY <= camY + y + 215);
     }
 
     private boolean middleBoxClicked(int camX, int camY) {
-        return (camX + mouseX >= camX + x + 95 && camX + mouseX <= camX + x + menus[1].getWidth() - 95) && (camY + mouseY >= camY + y + 100 && camY + mouseY <= camY + y + 150);
+        return (camX + Mouse.mouseX >= camX + x + 95 && camX + Mouse.mouseX <= camX + x + menus[1].getWidth() - 95) && (camY + Mouse.mouseY >= camY + y + 100 && camY + Mouse.mouseY <= camY + y + 150);
     }
 
     private void loadImage() {

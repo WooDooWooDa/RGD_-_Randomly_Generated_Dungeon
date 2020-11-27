@@ -6,6 +6,7 @@ import cegepst.engine.entities.CollidableRepository;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.entities.UpdatableEntity;
 import cegepst.objects.Arrow;
+import cegepst.objects.WitherSkull;
 import cegepst.player.Player;
 
 import java.awt.*;
@@ -33,6 +34,14 @@ public class RGDGame extends Game {
 
     @Override
     public void update() {
+        if (!player.isAlive()) {
+            endGame();
+            System.out.println(Mouse.mouseX);
+            if (Mouse.mouseX != 0) {
+                resetGame();
+            }
+            return;
+        }
         menu.update();
         worldTime.update();
         messageAnnouncer.update();
@@ -52,7 +61,7 @@ public class RGDGame extends Game {
                             player.receiveDamage(((WitherBoss) entity).dealDamage());
                         }
                         if (((WitherBoss) entity).canAttack()) {
-                            worldEnemies.addAll(((WitherBoss) entity).spawnWitherSkulls());
+                            newEntities.addAll(((WitherBoss) entity).spawnWitherSkulls());
                         }
                     } else if (entity instanceof Zombie) {
                         ((Zombie) entity).update(player.getX(), player.getY());
@@ -81,6 +90,16 @@ public class RGDGame extends Game {
                                 killedEntities.add(arrow);
                             }
                         }
+                    } else if (entity instanceof WitherSkull) {
+                        WitherSkull skull = (WitherSkull)entity;
+                        skull.update();
+                        if (skull.intersectWith(player)) {
+                            player.receiveDamage(skull.dealDamage());
+                            killedEntities.add(skull);
+                        }
+                        if (!skull.hasMoved() || skull.hasReachMaxDistance()) {
+                            killedEntities.add(skull);
+                        }
                     }
                 }
             }
@@ -89,9 +108,6 @@ public class RGDGame extends Game {
         updateKilledEntities();
         worldEnemies.addAll(newEntities);
         newEntities.clear();
-        if (!player.isAlive()) {
-            endGame();
-        }
         if (worldEnemies.isEmpty() && player.hasAllKeys()) {
             goToNextBiome();
         }
@@ -99,9 +115,11 @@ public class RGDGame extends Game {
 
     @Override
     public void draw(Buffer buffer) {
+        int camX = Camera.getInstance().getX();
+        int camY = Camera.getInstance().getY();
         if (changingWorld > 0) {
             changingWorld--;
-            buffer.drawText("Changing World...", 500, 300, Color.white);
+            buffer.drawText("Changing World...", camX + 400, camY + 300, Color.white);
         } else {
             world.draw(buffer);
             if (player.isAlive()) {
@@ -114,7 +132,8 @@ public class RGDGame extends Game {
                 }
                 worldTime.draw(buffer);
             } else {
-                buffer.drawText("PLAYER IS DEAD!!!!!", 300, 300, Color.red);
+                MessageAnnouncer.showMessage("PLAYER IS DEAD.....", 1000);
+                buffer.drawText("CLick anywhere to restart!", camX + 300, camY + 300, Color.BLACK);
             }
         }
         messageAnnouncer.showMessage(buffer);
@@ -175,7 +194,7 @@ public class RGDGame extends Game {
     private void goToNextBiome() {
         changingWorld = 500;
         currentWorldBiomes++;
-        if (currentWorldBiomes > 5) {
+        if (currentWorldBiomes > 3) {
             currentWorldBiomes = 1;
         }
         worldTime.resetTime();
@@ -188,7 +207,19 @@ public class RGDGame extends Game {
         player.teleport(50, 50);
     }
 
+    private void resetGame() {
+        messageAnnouncer.clearMessage();
+        currentWorldBiomes = 1;
+        world = new World();
+        worldEnemies.addAll(world.createMobs(currentWorldBiomes));
+        worldEntities.addAll(world.createMisc());
+        world.changeBiome(currentWorldBiomes);
+        player = new Player(gamePad);
+    }
+
     private void endGame() {
+        RenderingEngine.getInstance().getScreen().showCursor();
+        worldTime.resetTime();
         worldEntities.clear();
         worldEnemies.clear();
     }

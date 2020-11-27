@@ -1,7 +1,7 @@
 package cegepst.engine;
 
 import cegepst.Camera;
-import cegepst.Menu;
+import cegepst.Mouse;
 import cegepst.World;
 
 import javax.swing.*;
@@ -80,8 +80,9 @@ public class RenderingEngine {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
-                    Menu.mouseX = e.getX();
-                    Menu.mouseY = e.getY();
+                    System.out.println(e.getX());
+                    Mouse.mouseX = e.getX();
+                    Mouse.mouseY = e.getY();
                 }
             }
         });

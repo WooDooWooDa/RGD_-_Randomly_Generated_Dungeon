@@ -1,12 +1,10 @@
 package cegepst.objects;
 
 import cegepst.engine.Buffer;
-import cegepst.engine.controls.Direction;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
-import java.util.Random;
 
 public class WitherSkull extends Projectile {
 
@@ -14,10 +12,9 @@ public class WitherSkull extends Projectile {
 
     public WitherSkull(int x, int y, int dmg) {
         teleport(x, y);
-        setDimension(36, 36);
+        setDimension(21, 21);
         setMaxDistanceTraveled(500);
-        setDirection(randomDirection());
-        setSpeed(5);
+        setSpeed(2);
         damage = dmg;
         loadImage();
     }
@@ -31,16 +28,7 @@ public class WitherSkull extends Projectile {
 
     @Override
     public void draw(Buffer buffer) {
-
-    }
-
-    private Direction randomDirection() {
-        return switch (new Random().nextInt(4)) {
-            case 1 -> Direction.UP;
-            case 2 -> Direction.RIGHT;
-            case 3 -> Direction.LEFT;
-            default -> Direction.DOWN;
-        };
+        buffer.drawImage(image, x, y);
     }
 
     private void loadImage() {
