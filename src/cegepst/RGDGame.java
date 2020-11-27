@@ -6,6 +6,7 @@ import cegepst.engine.entities.CollidableRepository;
 import cegepst.engine.entities.StaticEntity;
 import cegepst.engine.entities.UpdatableEntity;
 import cegepst.objects.Arrow;
+import cegepst.objects.Projectile;
 import cegepst.objects.WitherSkull;
 import cegepst.player.Player;
 
@@ -85,18 +86,12 @@ public class RGDGame extends Game {
                                 ((Enemy)other).receivedDamage(arrow.dealDamage());
                                 killedEntities.add(arrow);
                             }
-                            if (!arrow.hasMoved() || arrow.hasReachMaxDistance()) {
-                                killedEntities.add(arrow);
-                            }
                         }
                     } else if (entity instanceof WitherSkull) {
                         WitherSkull skull = (WitherSkull)entity;
                         skull.update();
                         if (skull.intersectWith(player)) {
                             player.receiveDamage(skull.dealDamage());
-                            killedEntities.add(skull);
-                        }
-                        if (!skull.hasMoved() || skull.hasReachMaxDistance()) {
                             killedEntities.add(skull);
                         }
                     }
@@ -175,11 +170,12 @@ public class RGDGame extends Game {
 
     private void updateKilledEntities() {
         for (StaticEntity entity : worldEnemies) {
-            if (entity instanceof Enemy) {
-                if (!((Enemy)entity).isAlive()) {
-                    worldEntities.addAll(((Enemy)entity).dies());
-                    killedEntities.add(entity);
-                }
+            if (entity instanceof Enemy && !((Enemy)entity).isAlive()) {
+                worldEntities.addAll(((Enemy)entity).dies());
+                killedEntities.add(entity);
+            }
+            if (entity instanceof Projectile && ( !((Projectile)entity).hasMoved() || ((Projectile) entity).hasReachMaxDistance())) {
+                killedEntities.add(entity);
             }
         }
         if (!killedEntities.isEmpty()) {
@@ -200,7 +196,6 @@ public class RGDGame extends Game {
         worldTime.resetTime();
         worldEntities.clear();
         worldEnemies.clear();
-        world = new World();
         worldEnemies.addAll(world.createMobs(currentWorldBiomes));
         worldEntities.addAll(world.createMisc());
         world.changeBiome(currentWorldBiomes);
@@ -210,7 +205,6 @@ public class RGDGame extends Game {
     private void resetGame() {
         messageAnnouncer.clearMessage();
         currentWorldBiomes = 1;
-        world = new World();
         worldEnemies.addAll(world.createMobs(currentWorldBiomes));
         worldEntities.addAll(world.createMisc());
         world.changeBiome(currentWorldBiomes);

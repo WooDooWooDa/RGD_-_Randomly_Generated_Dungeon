@@ -11,10 +11,8 @@ import cegepst.objects.Chest;
 import cegepst.objects.Item;
 import cegepst.objects.Tag;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -23,16 +21,12 @@ public class World {
     public static int WORLD_WIDTH = 1000;
     public static int WORLD_HEIGHT = 800;
 
-    private static final String FOREST_MAP_PATH = "images/maps/forestMap.png";
-    private static final String SNOW_MAP_PATH = "images/maps/snowMap.png";
-    private static final String DESERT_MAP_PATH = "images/maps/desertMap.png";
-    private static final String BOSS_MAP_PATH = "images/maps/endBossMap.png";
     private final BufferedImage[] biomeImages = new BufferedImage[5];
     private Image backGround;
     private ArrayList<Blockade> worldBorders;
 
     public World() {
-        loadBackGround();
+        loadBackGrounds();
         worldBorders = new ArrayList<>();
         createBorders();
     }
@@ -54,8 +48,8 @@ public class World {
         ArrayList<StaticEntity> enemies = new ArrayList<>();
         Random rand = new Random();
         if (difficulty == 4) {
-            enemies.add(new WitherBoss());
             enemies.add(new ZombieSpawner(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
+            enemies.add(new WitherBoss());
             return enemies;
         }
         int nbZombies = rand.nextInt(difficulty * 2) + 5;
@@ -119,14 +113,10 @@ public class World {
         worldBorders.add(border);
     }
 
-    private void loadBackGround() {
-        try {
-            biomeImages[0] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(FOREST_MAP_PATH));
-            biomeImages[1] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(SNOW_MAP_PATH));
-            biomeImages[2] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(DESERT_MAP_PATH));
-            biomeImages[3] = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(BOSS_MAP_PATH));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void loadBackGrounds() {
+        biomeImages[0] = GameResources.getInstance().getBufferedImage("forestMap");
+        biomeImages[1] = GameResources.getInstance().getBufferedImage("snowMap");
+        biomeImages[2] = GameResources.getInstance().getBufferedImage("desertMap");
+        biomeImages[3] = GameResources.getInstance().getBufferedImage("bossMap");
     }
 }

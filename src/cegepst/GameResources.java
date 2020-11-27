@@ -45,6 +45,10 @@ public class GameResources {
     private void loadBufferedImagesResources() {
         try {
             allBufferedImages.put("items", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/allItems.png")));
+            allBufferedImages.put("forestMap", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/maps/forestMap.png")));
+            allBufferedImages.put("snowMap", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/maps/snowMap.png")));
+            allBufferedImages.put("desertMap", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/maps/desertMap.png")));
+            allBufferedImages.put("bossMap", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/maps/endBossMap.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
