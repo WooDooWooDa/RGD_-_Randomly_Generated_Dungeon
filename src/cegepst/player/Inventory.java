@@ -42,6 +42,7 @@ public class Inventory {
 
     protected boolean swordCanAttack() {
         if (equippedSword == null) {
+            MessageAnnouncer.setMessage("You have no sword...", 200);
             return false;
         }
         return equippedSword.canAttack();
@@ -78,7 +79,7 @@ public class Inventory {
             }
         }
         SoundPlayer.play("sounds/coin.wav");
-        MessageAnnouncer.setMessage("Item converti en gem", 200);
+        MessageAnnouncer.setMessage("Item converted in gem!", 200);
         PlayerStats.GEM += item.getLevel() * 2;
     }
 }

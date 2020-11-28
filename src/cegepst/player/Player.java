@@ -148,6 +148,7 @@ public class Player extends ControllableEntity {
             PlayerStats.PLAYER_EXP = 0;
             SoundPlayer.play("sounds/expLvlUp.wav");
             PlayerStats.LVL++;
+            MessageAnnouncer.setMessage("Monster difficulty increased!", 250);
             // TODO: 2020-11-20 update le next lvl exp
         }
         inventory.getBow().update();
