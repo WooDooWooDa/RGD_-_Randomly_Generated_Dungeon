@@ -42,6 +42,7 @@ public class Zombie extends Enemy {
 
     public void upgrade() {
         maxHealth += 50;
+        health = maxHealth;
         damage += 10;
     }
 

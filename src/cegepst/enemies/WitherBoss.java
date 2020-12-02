@@ -46,6 +46,7 @@ public class WitherBoss extends Enemy {
     @Override
     public void upgrade() {
         maxHealth += 200;
+        health = maxHealth;
         damage += 20;
     }
 

@@ -37,7 +37,7 @@ public class PlayerStats {
     protected static void upgradeStats() {
         NEXT_LVL_EXP += 50;
         MAX_HEALTH += 20;
-        BASE_DAMAGE += 5;
+        BASE_DAMAGE += 10;
         BASE_ARMOR += 2;
     }
 }

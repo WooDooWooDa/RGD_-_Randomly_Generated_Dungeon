@@ -29,6 +29,7 @@ public class ZombieSpawner extends Enemy {
     @Override
     public void upgrade() {
         maxHealth += 100;
+        health = maxHealth;
         spawnRate -= 75;
     }
 

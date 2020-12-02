@@ -28,6 +28,7 @@ public class RGDGame extends Game {
 
     private int currentWorldBiomes = 1;
     private int changingWorld = 0;
+    private boolean gameIsStarted = false;
 
     public RGDGame() {
         initAll();
@@ -35,6 +36,9 @@ public class RGDGame extends Game {
 
     @Override
     public void update() {
+        menu.update();
+        messageAnnouncer.update();
+        checkForKeyPressed();
         if (!player.isAlive()) {
             endGame();
             if (Mouse.mouseX != 0) {
@@ -50,10 +54,7 @@ public class RGDGame extends Game {
                 }
             }
         }
-        menu.update();
         worldTime.update();
-        messageAnnouncer.update();
-        checkForKeyPressed();
         if (!menu.isOpen() && player.isAlive()) {
             player.update();
             for (StaticEntity entity : worldEntities) {

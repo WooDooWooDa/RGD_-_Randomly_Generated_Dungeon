@@ -33,7 +33,8 @@ public class Slime extends Enemy {
     @Override
     public void upgrade() {
         maxHealth += 20;
-        damage += 15;
+        health = maxHealth;
+        damage += 10;
     }
 
     @Override
