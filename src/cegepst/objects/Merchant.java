@@ -15,7 +15,7 @@ public class Merchant extends StaticEntity {
     private Image image;
 
     public Merchant(int x, int y) {
-        setDimension(32, 32);
+        setDimension(27, 29);
         teleport(x, y);
         setInteractable();
         CollidableRepository.getInstance().registerEntity(this);
