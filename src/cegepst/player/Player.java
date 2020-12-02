@@ -155,9 +155,10 @@ public class Player extends ControllableEntity {
         }
         if (PlayerStats.PLAYER_EXP >= PlayerStats.NEXT_LVL_EXP) {
             PlayerStats.PLAYER_EXP = 0;
+            PlayerStats.upgradeStats();
             SoundPlayer.play("sounds/expLvlUp.wav");
             PlayerStats.LVL++;
-            PlayerStats.upgradeStats();
+            PlayerStats.HEALTH = PlayerStats.MAX_HEALTH;
             leveling = true;
             MessageAnnouncer.setMessage("Monster difficulty increased!", 250);
         }
