@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class ZombieSpawner extends Enemy {
 
-    public int maxHealth = 150;
+    private int maxHealth = 150;
 
     private int spawnRate = 1000;
 

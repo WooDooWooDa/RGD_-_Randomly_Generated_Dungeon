@@ -50,6 +50,14 @@ public class Item extends StaticEntity {
             return new Sword(x, y, generateLevel());
         }
 
+        public static Item createItemOfLvl(int x, int y, int lvl) {
+            random = new Random();
+            if (random.nextInt(2) == 1) {
+                return new Armor(x, y, lvl);
+            }
+            return new Sword(x, y, lvl);
+        }
+
         private static int generateLevel() {
             int playerLvl = PlayerStats.LVL;
             int chance = random.nextInt(100);

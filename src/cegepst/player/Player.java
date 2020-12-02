@@ -113,6 +113,19 @@ public class Player extends ControllableEntity {
                     newEntities.addAll(((Chest) entity).openChest());
                     break;
                 }
+                if (entity instanceof Merchant) {
+                    if (!((Merchant) entity).hasTraded()) {
+                        if (PlayerStats.GEM >= 100) {
+                            newEntities.add(((Merchant) entity).trade());
+                            PlayerStats.GEM -= 100;
+                        } else {
+                            MessageAnnouncer.setMessage("Not enough gems...", 100);
+                        }
+                        break;
+                    }
+                    MessageAnnouncer.setMessage("Already traded item...", 100);
+                    break;
+                }
                 if (entity instanceof Gem) {
                     SoundPlayer.play("sounds/coin.wav");
                     PlayerStats.GEM += ((Gem) entity).getValue();

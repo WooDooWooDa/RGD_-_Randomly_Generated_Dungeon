@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class Slime extends Enemy {
 
-    public static int maxHealth = 50;
+    private int maxHealth = 50;
 
     private final int ATTACK_RATE = 50;
 
@@ -32,7 +32,7 @@ public class Slime extends Enemy {
 
     @Override
     public void upgrade() {
-        maxHealth += 20;
+        maxHealth += 50;
         health = maxHealth;
         damage += 10;
     }

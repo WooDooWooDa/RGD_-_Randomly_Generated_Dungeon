@@ -10,7 +10,6 @@ import java.util.Random;
 
 public class Zombie extends Enemy {
 
-    public static int maxHealth = 50;
     private static final String SPRITE_PATH = "images/player.png";
 
     private final int MOVE_COOLDOWN;
@@ -18,6 +17,7 @@ public class Zombie extends Enemy {
     private final int ATTACK_RATE = 120;
     private final WalkingAnimator animator;
 
+    private int maxHealth = 50;
     private int deltaX;
     private int deltaY;
     private int moveCooldown;
@@ -41,7 +41,7 @@ public class Zombie extends Enemy {
     }
 
     public void upgrade() {
-        maxHealth += 50;
+        maxHealth += 75;
         health = maxHealth;
         damage += 10;
     }

@@ -21,7 +21,7 @@ public class WitherBoss extends Enemy {
     private WalkingPath path;
     private final Random rand;
 
-    private int maxHealth = 1000;
+    private int maxHealth = 100;
     private int deltaX;
     private int deltaY;
     private int physicalAttackRate = PHYSICAL_ATTACK_RATE;
@@ -46,7 +46,6 @@ public class WitherBoss extends Enemy {
     @Override
     public void upgrade() {
         maxHealth += 200;
-        health = maxHealth;
         damage += 20;
     }
 
