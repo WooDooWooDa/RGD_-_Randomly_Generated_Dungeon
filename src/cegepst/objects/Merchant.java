@@ -4,18 +4,22 @@ import cegepst.engine.Buffer;
 import cegepst.engine.entities.CollidableRepository;
 import cegepst.engine.entities.StaticEntity;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.IOException;
 import java.util.Random;
 
 public class Merchant extends StaticEntity {
 
     private boolean traded = false;
+    private Image image;
 
     public Merchant(int x, int y) {
-        setDimension(20, 20);
+        setDimension(32, 32);
         teleport(x, y);
         setInteractable();
         CollidableRepository.getInstance().registerEntity(this);
+        loadImage();
     }
 
     public boolean hasTraded() {
@@ -29,6 +33,14 @@ public class Merchant extends StaticEntity {
 
     @Override
     public void draw(Buffer buffer) {
-        buffer.drawRectangle(x, y, width, height, Color.white);
+        buffer.drawImage(image, x, y);
+    }
+
+    private void loadImage() {
+        try {
+            image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/merchant.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
