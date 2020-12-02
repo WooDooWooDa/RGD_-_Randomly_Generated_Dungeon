@@ -26,7 +26,7 @@ public class RGDGame extends Game {
     private ArrayList<StaticEntity> killedEntities;
     private ArrayList<StaticEntity> newEntities;
 
-    private int currentWorldBiomes = 4;
+    private int currentWorldBiomes = 1;
     private int changingWorld = 0;
 
     public RGDGame() {
@@ -41,6 +41,14 @@ public class RGDGame extends Game {
                 resetGame();
             }
             return;
+        }
+        if (player.isLeveling()) {
+            player.doneLeveling();
+            for (StaticEntity entity : worldEnemies) {
+                if (entity instanceof Enemy) {
+                    ((Enemy) entity).upgrade();
+                }
+            }
         }
         menu.update();
         worldTime.update();

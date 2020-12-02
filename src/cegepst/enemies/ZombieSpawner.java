@@ -12,9 +12,9 @@ public class ZombieSpawner extends Enemy {
 
     public int maxHealth = 150;
 
-    private final int SPAWN_RATE = 1000;
+    private int spawnRate = 1000;
 
-    private int spawn = SPAWN_RATE;
+    private int spawn = spawnRate;
     private Random random = new Random();
     private Image image;
 
@@ -24,6 +24,12 @@ public class ZombieSpawner extends Enemy {
         health = maxHealth;
         loadImage();
         CollidableRepository.getInstance().registerEntity(this);
+    }
+
+    @Override
+    public void upgrade() {
+        maxHealth += 100;
+        spawnRate -= 75;
     }
 
     public int dealDamage() {
@@ -39,7 +45,7 @@ public class ZombieSpawner extends Enemy {
     }
 
     public Zombie spawn() {
-        spawn = SPAWN_RATE;
+        spawn = spawnRate;
         int newZombieX = (x - width) + (random.nextInt(width * 3));
         int newZombieY = (y - height) + (random.nextInt(height * 3));
         return new Zombie(newZombieX, newZombieY);

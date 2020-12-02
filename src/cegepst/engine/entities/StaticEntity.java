@@ -55,5 +55,4 @@ public abstract class StaticEntity {
     protected Rectangle getBounds() {
         return new Rectangle(x, y, width, height);
     }
-
 }

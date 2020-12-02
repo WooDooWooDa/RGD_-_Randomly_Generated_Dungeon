@@ -19,9 +19,9 @@ public class PlayerStats {
     protected static int BONUS_DAMAGE;
     protected static int BONUS_ARMOR;
 
-    public static void reset() {
+    protected static void reset() {
         LVL = 1;
-        NEXT_LVL_EXP = 150;
+        NEXT_LVL_EXP = 100;
         PLAYER_EXP = 0;
         GEM = 0;
         BASE_MAX_HEALTH = 100;
@@ -32,5 +32,12 @@ public class PlayerStats {
         BONUS_HEALTH = 0;
         BONUS_DAMAGE = 0;
         BONUS_ARMOR = 0;
+    }
+
+    protected static void upgradeStats() {
+        NEXT_LVL_EXP += 50;
+        MAX_HEALTH += 20;
+        BASE_DAMAGE += 10;
+        BASE_ARMOR += 2;
     }
 }

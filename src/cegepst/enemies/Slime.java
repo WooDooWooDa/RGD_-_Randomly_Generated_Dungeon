@@ -31,6 +31,12 @@ public class Slime extends Enemy {
     }
 
     @Override
+    public void upgrade() {
+        maxHealth += 20;
+        damage += 15;
+    }
+
+    @Override
     public int dealDamage() {
         attack = ATTACK_RATE;
         return damage;

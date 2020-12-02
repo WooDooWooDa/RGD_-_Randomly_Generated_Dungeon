@@ -14,7 +14,6 @@ import java.util.Random;
 public class WitherBoss extends Enemy {
 
     private static final String BOSS_PATH = "images/witherboss.png";
-    private static final int MAX_HEALTH = 1000;
     private static final int PHYSICAL_ATTACK_RATE = 80;
     private static final int ATTACK_RATE = 200;
 
@@ -22,6 +21,7 @@ public class WitherBoss extends Enemy {
     private WalkingPath path;
     private final Random rand;
 
+    private int maxHealth = 1000;
     private int deltaX;
     private int deltaY;
     private int physicalAttackRate = PHYSICAL_ATTACK_RATE;
@@ -30,7 +30,7 @@ public class WitherBoss extends Enemy {
     public WitherBoss() {
         teleport(300, 300);
         setDimension(150,150);
-        health = MAX_HEALTH;
+        health = maxHealth;
         damage = 40;
         animator = new Animator(this, BOSS_PATH, 4);
         path = new WalkingPath(3);
@@ -41,6 +41,12 @@ public class WitherBoss extends Enemy {
     public int dealDamage() {
         physicalAttackRate = PHYSICAL_ATTACK_RATE;
         return damage;
+    }
+
+    @Override
+    public void upgrade() {
+        maxHealth += 200;
+        damage += 20;
     }
 
     @Override
@@ -82,7 +88,7 @@ public class WitherBoss extends Enemy {
     private void drawHealthBar(Buffer buffer) {
         buffer.drawText("Wither Boss", Camera.getInstance().getX() + 320, Camera.getInstance().getY() + 115, Color.BLACK);
         buffer.drawRectangle(Camera.getInstance().getX() + 150, Camera.getInstance().getY() + 120, 500, 16, new Color(50, 0 ,0));
-        buffer.drawRectangle(Camera.getInstance().getX() + 150, Camera.getInstance().getY() + 120, (int)(500 * ((double) health / MAX_HEALTH)), 16, Color.RED);
+        buffer.drawRectangle(Camera.getInstance().getX() + 150, Camera.getInstance().getY() + 120, (int)(500 * ((double) health / maxHealth)), 16, Color.RED);
     }
 
     private ArrayList<StaticEntity> spawnWitherSkulls() {

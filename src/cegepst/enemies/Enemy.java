@@ -37,6 +37,8 @@ public abstract class Enemy extends MovableEntity {
         return drop;
     }
 
+    public abstract void upgrade();
+
     public abstract int dealDamage();
 
     public abstract boolean canAttack();

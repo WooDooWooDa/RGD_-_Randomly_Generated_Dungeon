@@ -40,6 +40,11 @@ public class Zombie extends Enemy {
         return damage;
     }
 
+    public void upgrade() {
+        maxHealth += 50;
+        damage += 10;
+    }
+
     public boolean isAlive() {
         return health > 0;
     }

@@ -32,6 +32,7 @@ public class Player extends ControllableEntity {
     private boolean isAttackingBySword = false;
     private boolean isAttackingByBow = false;
     private int attack = 4;
+    private boolean leveling = false;
 
     public Player(MovementController gamePad) {
         super(gamePad);
@@ -41,6 +42,10 @@ public class Player extends ControllableEntity {
         setSpeed(PlayerStats.BASE_SPEED);
         PlayerStats.HEALTH = PlayerStats.MAX_HEALTH;
         addComplements();
+    }
+
+    public boolean isLeveling() {
+        return leveling;
     }
 
     public boolean isAlive() {
@@ -62,7 +67,11 @@ public class Player extends ControllableEntity {
     public boolean canShot() {
         return inventory.getBow().canShot();
     }
-    
+
+    public void doneLeveling() {
+        leveling = !leveling;
+    }
+
     public void receiveDamage(int damage) {
         SoundPlayer.play("sounds/damageReceive.wav");
         int damageReceived = damage - (PlayerStats.BASE_ARMOR + PlayerStats.BONUS_ARMOR);
@@ -148,8 +157,9 @@ public class Player extends ControllableEntity {
             PlayerStats.PLAYER_EXP = 0;
             SoundPlayer.play("sounds/expLvlUp.wav");
             PlayerStats.LVL++;
+            PlayerStats.upgradeStats();
+            leveling = true;
             MessageAnnouncer.setMessage("Monster difficulty increased!", 250);
-            // TODO: 2020-11-20 update le next lvl exp
         }
         inventory.getBow().update();
         if (inventory.getSword() != null) {
