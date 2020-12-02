@@ -111,6 +111,11 @@ public class RGDGame extends Game {
         worldEnemies.addAll(newEntities);
         newEntities.clear();
         if (worldEnemies.isEmpty() && player.hasAllKeys()) {
+            MessageAnnouncer.setMessage("Press anywhere to move on!", 100);
+            RenderingEngine.getInstance().getScreen().showCursor();
+            if (Mouse.mouseX == 0) {
+                return;
+            }
             goToNextBiome();
         }
     }
@@ -196,6 +201,8 @@ public class RGDGame extends Game {
     }
 
     private void goToNextBiome() {
+        messageAnnouncer.clearMessage();
+        RenderingEngine.getInstance().getScreen().hideCursor();
         changingWorld = 500;
         currentWorldBiomes++;
         if (currentWorldBiomes > 4) {

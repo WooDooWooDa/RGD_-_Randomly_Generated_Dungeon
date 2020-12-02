@@ -61,7 +61,7 @@ public class World {
             enemies.add(new Slime(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
         }
         for (int i = 0; i < difficulty; i++) {
-            enemies.add(new ZombieSpawner(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
+            enemies.add(new ZombieSpawner(rand.nextInt(WORLD_WIDTH - 100) + 20, rand.nextInt(WORLD_HEIGHT)));
         }
         return enemies;
     }
