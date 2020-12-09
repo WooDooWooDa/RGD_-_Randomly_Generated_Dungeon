@@ -14,7 +14,7 @@ public class Sword extends Item {
     private int rate;
 
     public Sword(int x, int y, int level) {
-        super(level, x, y, getSwordName(), getImage(level - 1));
+        super(level, x, y, getImage(level - 1));
         setBonusPoint(level);
         attackRate = 40 / level + 10;
     }
@@ -47,10 +47,6 @@ public class Sword extends Item {
         if (rate > attackRate) {
             rate = attackRate;
         }
-    }
-
-    private static String getSwordName() {
-        return "name";
     }
 
     private static Image getImage(int x) {

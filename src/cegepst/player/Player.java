@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class Player extends ControllableEntity {
 
-    private static final String SPRITE_PATH = "images/player.png";
+    private static final String SPRITE_PATH = "CharactersSheet";
     private static final String ATTACK_PATH = "images/playerAttack.png";
     private static final int INTERACT_COOLDOWN = 25;
     private int interactCooldown = INTERACT_COOLDOWN;

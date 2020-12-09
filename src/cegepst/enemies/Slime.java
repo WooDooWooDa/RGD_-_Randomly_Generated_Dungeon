@@ -24,7 +24,7 @@ public class Slime extends Enemy {
         setSpeed(1);
         damage = 5;
         health = maxHealth;
-        animator = new Animator(this, "images/slime.png", 4);
+        animator = new Animator(this, "slime", 4);
         animator.setAnimationSpeed(16);
         path = new WalkingPath(new Random().nextInt(3) + 1);
         setWalkingPathLength();

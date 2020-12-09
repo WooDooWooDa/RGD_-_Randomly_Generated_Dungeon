@@ -10,20 +10,14 @@ import java.util.Random;
 public class Item extends StaticEntity {
 
     private final int level;
-    private final String name;
     private final Image image;
 
-    protected Item(int level, int x, int y, String name, Image image) {
+    protected Item(int level, int x, int y, Image image) {
         setInteractable();
         this.level = level;
         teleport(x, y);
         setDimension(16, 16);
-        this.name = name;
         this.image = image;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getLevel() {

@@ -1,5 +1,6 @@
 package cegepst.objects;
 
+import cegepst.GameResources;
 import cegepst.World;
 import cegepst.engine.Buffer;
 import cegepst.engine.SoundPlayer;
@@ -14,8 +15,6 @@ import java.util.Random;
 
 public class Chest extends StaticEntity {
 
-    private static final String CLOSED_CHEST_PATH = "images/chest.png";
-    private static final String OPENED_CHEST_PATH = "images/open_chest.png";
     private Image closedChest;
     private Image openedChest;
     private final Blockade chestBase;
@@ -73,11 +72,7 @@ public class Chest extends StaticEntity {
     }
 
     private void loadImage() {
-        try {
-            closedChest = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(CLOSED_CHEST_PATH));
-            openedChest = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(OPENED_CHEST_PATH));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        closedChest = GameResources.getInstance().getImage("closeChest");
+        openedChest = GameResources.getInstance().getImage("openChest");
     }
 }

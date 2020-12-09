@@ -156,7 +156,6 @@ public class RGDGame extends Game {
         RenderingEngine.getInstance().getScreen().hideCursor();
         GameResources.getInstance();
         SoundPlayer.playLoop("musics/forestThemeBackgroundMusic.wav");
-        //RenderingEngine.getInstance().getScreen().fullScreen();
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class WitherBoss extends Enemy {
 
-    private static final String BOSS_PATH = "images/witherboss.png";
+    private static final String BOSS_PATH = "witherBoss";
     private static final int PHYSICAL_ATTACK_RATE = 80;
     private static final int ATTACK_RATE = 200;
 

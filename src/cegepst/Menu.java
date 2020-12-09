@@ -21,10 +21,6 @@ public class Menu {
 
     private boolean quit = false;
 
-    public static void setMenu(int menu) {
-        currentMenu = menu;
-    }
-
     public Menu() {
         loadImage();
         x = 200;
@@ -75,13 +71,12 @@ public class Menu {
             if (bottomBoxClicked(camX, camY)) {
                 quit = !quit;
             }
-        }
-        if (currentMenu == 2) {
+        } else if (currentMenu == 2) {
             if (topBoxClicked(camX, camY)) {
                 opened = !opened;
             }
             if (middleBoxClicked(camX, camY)) {
-                GameSettings.GAME_TIME = !GameSettings.GAME_TIME;
+                RenderingEngine.getInstance().getScreen().toggleFullScreen();
             }
             if (bottomBoxClicked(camX, camY)) {
                 currentMenu = 1;
@@ -96,7 +91,6 @@ public class Menu {
             buffer.drawImage(menus[1], Camera.getInstance().getX() + x , Camera.getInstance().getY() + y);
         } else if (currentMenu == 2) {
             buffer.drawImage(menus[2],Camera.getInstance().getX() + x, Camera.getInstance().getY() + y);
-            buffer.drawText(String.valueOf(GameSettings.GAME_TIME), Camera.getInstance().getX() + x + 245, Camera.getInstance().getY() + y + 128, Color.BLACK);
         }
     }
 

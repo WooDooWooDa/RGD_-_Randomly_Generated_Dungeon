@@ -1,5 +1,6 @@
 package cegepst.enemies;
 
+import cegepst.GameResources;
 import cegepst.engine.Buffer;
 import cegepst.engine.entities.CollidableRepository;
 
@@ -69,10 +70,6 @@ public class ZombieSpawner extends Enemy {
     }
 
     private void loadImage() {
-        try {
-            image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/spawner.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        image = GameResources.getInstance().getImage("ZombieSpawner");
     }
 }

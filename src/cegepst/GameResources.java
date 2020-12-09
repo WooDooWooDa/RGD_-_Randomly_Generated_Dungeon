@@ -37,6 +37,10 @@ public class GameResources {
     private void loadImagesResources() {
         try {
             allImages.put("playerHud", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/playerHud.png")));
+            allImages.put("ZombieSpawner", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/spawner.png")));
+            allImages.put("witherSkull", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/witherSkull.png")));
+            allImages.put("closeChest", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/chest.png")));
+            allImages.put("openChest", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/open_chest.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,6 +48,9 @@ public class GameResources {
 
     private void loadBufferedImagesResources() {
         try {
+            allBufferedImages.put("slime", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/slime.png")));
+            allBufferedImages.put("witherBoss", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/witherboss.png")));
+            allBufferedImages.put("CharactersSheet", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/player.png")));
             allBufferedImages.put("items", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/allItems.png")));
             allBufferedImages.put("forestMap", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/maps/forestMap.png")));
             allBufferedImages.put("snowMap", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/maps/snowMap.png")));

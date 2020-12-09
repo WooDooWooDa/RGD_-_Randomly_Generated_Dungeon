@@ -11,7 +11,7 @@ public class Armor extends Item {
     private int healthPoint;
 
     public Armor(int x, int y, int level) {
-        super(level, x, y, getArmorName(), getImage(level - 1));
+        super(level, x, y, getImage(level - 1));
         setBonusPoint(level);
     }
 
@@ -32,10 +32,6 @@ public class Armor extends Item {
 
     private static Image getImage(int xPositionInSheet) {
         return GameResources.getInstance().getBufferedImage("items").getSubimage(xPositionInSheet * 16, 16, 16, 16);
-    }
-
-    private static String getArmorName() {
-        return "name";
     }
 
     private void setBonusPoint(int level) {

@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class Zombie extends Enemy {
 
-    private static final String SPRITE_PATH = "images/player.png";
+    private static final String SPRITE_PATH = "CharactersSheet";
 
     private final int MOVE_COOLDOWN;
     private final int GRLL_COOLDOWN = 100;

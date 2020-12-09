@@ -66,10 +66,6 @@ public class Animator {
     }
 
     private void loadSpriteSheet() {
-        try {
-            spriteSheet = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(spriteSheetPath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        spriteSheet = GameResources.getInstance().getBufferedImage(spriteSheetPath);
     }
 }

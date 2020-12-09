@@ -1,5 +1,6 @@
 package cegepst.objects;
 
+import cegepst.GameResources;
 import cegepst.engine.Buffer;
 
 import javax.imageio.ImageIO;
@@ -32,11 +33,7 @@ public class WitherSkull extends Projectile {
     }
 
     private void loadImage() {
-        try {
-            image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/witherSkull.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        image = GameResources.getInstance().getImage("witherSkull");
     }
 
 }
