@@ -38,7 +38,7 @@ public class Player extends ControllableEntity {
         super(gamePad);
         PlayerStats.reset();
         setDimension(32,32);
-        teleport(50 ,50);
+        teleport(100 ,100);
         setSpeed(PlayerStats.BASE_SPEED);
         PlayerStats.HEALTH = PlayerStats.MAX_HEALTH;
         addComplements();
@@ -70,6 +70,12 @@ public class Player extends ControllableEntity {
 
     public void doneLeveling() {
         leveling = !leveling;
+    }
+
+    public void changeBiome() {
+        teleport(100, 100);
+        inventory.useAllTag();
+        PlayerStats.HEALTH = PlayerStats.MAX_HEALTH;
     }
 
     public void receiveDamage(int damage) {

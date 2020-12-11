@@ -209,7 +209,7 @@ public class RGDGame extends Game {
         worldEnemies.addAll(world.createMobs());
         worldEntities.addAll(world.createMisc());
         world.changeBiome();
-        player.teleport(50, 50);
+        player.changeBiome();
     }
 
     private void resetGame() {
@@ -236,9 +236,9 @@ public class RGDGame extends Game {
         newEntities = new ArrayList<>();
         menu = new Menu();
         world = new World();
+        world.changeBiome(1);
         worldEnemies.addAll(world.createMobs());
         worldEntities.addAll(world.createMisc());
-        world.changeBiome(1);
         worldTime = new WorldTime();
         messageAnnouncer = new MessageAnnouncer();
         gamePad = new GamePad();

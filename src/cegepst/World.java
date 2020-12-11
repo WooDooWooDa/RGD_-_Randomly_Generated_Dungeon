@@ -42,6 +42,7 @@ public class World {
     }
 
     public void changeBiome(int biome) {
+        currentWorldBiomes = biome;
         backGround = biomeImages[biome - 1];
         WORLD_WIDTH = biomeImages[biome - 1].getWidth();
         WORLD_HEIGHT = biomeImages[biome - 1].getHeight();
@@ -84,9 +85,9 @@ public class World {
         Random rand = new Random();
         entities.add(new Chest(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
         entities.add(new Chest(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
-        if (rand.nextInt(100) <= 1) {
+        //if (rand.nextInt(100) <= 1) {
             entities.add(new Merchant(rand.nextInt(WORLD_WIDTH - 50) + 20, rand.nextInt(WORLD_HEIGHT - 100) + 20));
-        }
+        //}
         for (int i = 0; i < 3; i++) {
             entities.add(new Tag(rand.nextInt(WORLD_WIDTH - 50) + 20, rand.nextInt(WORLD_HEIGHT - 100) + 20));
         }
