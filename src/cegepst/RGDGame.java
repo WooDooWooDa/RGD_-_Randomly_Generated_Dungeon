@@ -26,12 +26,10 @@ public class RGDGame extends Game {
     private ArrayList<StaticEntity> killedEntities;
     private ArrayList<StaticEntity> newEntities;
 
-    private int currentWorldBiomes;
     private int changingWorld = 0;
     private boolean gameIsStarted = false;
 
     public RGDGame() {
-        currentWorldBiomes = 1;
         initAll();
     }
 
@@ -204,26 +202,22 @@ public class RGDGame extends Game {
     private void goToNextBiome() {
         messageAnnouncer.clearMessage();
         RenderingEngine.getInstance().getScreen().hideCursor();
-        changingWorld = 500;
-        currentWorldBiomes++;
-        if (currentWorldBiomes > 4) {
-            currentWorldBiomes = 1;
-        }
+        changingWorld = 300;
         worldTime.resetTime();
         worldEntities.clear();
         worldEnemies.clear();
-        worldEnemies.addAll(world.createMobs(currentWorldBiomes));
+        worldEnemies.addAll(world.createMobs());
         worldEntities.addAll(world.createMisc());
-        world.changeBiome(currentWorldBiomes);
+        world.changeBiome();
         player.teleport(50, 50);
     }
 
     private void resetGame() {
         messageAnnouncer.clearMessage();
-        currentWorldBiomes = 1;
-        worldEnemies.addAll(world.createMobs(currentWorldBiomes));
+        world = new World();
+        worldEnemies.addAll(world.createMobs());
         worldEntities.addAll(world.createMisc());
-        world.changeBiome(currentWorldBiomes);
+        world.changeBiome();
         player = new Player(gamePad);
         RenderingEngine.getInstance().getScreen().hideCursor();
     }
@@ -242,9 +236,9 @@ public class RGDGame extends Game {
         newEntities = new ArrayList<>();
         menu = new Menu();
         world = new World();
-        worldEnemies.addAll(world.createMobs(currentWorldBiomes));
+        worldEnemies.addAll(world.createMobs());
         worldEntities.addAll(world.createMisc());
-        world.changeBiome(currentWorldBiomes);
+        world.changeBiome();
         worldTime = new WorldTime();
         messageAnnouncer = new MessageAnnouncer();
         gamePad = new GamePad();

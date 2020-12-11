@@ -22,11 +22,13 @@ public class World {
     public static int WORLD_WIDTH = 1000;
     public static int WORLD_HEIGHT = 800;
 
+    private int currentWorldBiomes;
     private final BufferedImage[] biomeImages = new BufferedImage[5];
     private Image backGround;
     private ArrayList<Blockade> worldBorders;
 
     public World() {
+        currentWorldBiomes = 1;
         loadBackGrounds();
         worldBorders = new ArrayList<>();
         createBorders();
@@ -39,29 +41,33 @@ public class World {
         }
     }
 
-    public void changeBiome(int biome) {
-        backGround = biomeImages[biome - 1];
-        WORLD_WIDTH = biomeImages[biome - 1].getWidth();
-        WORLD_HEIGHT = biomeImages[biome - 1].getHeight();
+    public void changeBiome() {
+        currentWorldBiomes++;
+        if (currentWorldBiomes > 4) {
+            currentWorldBiomes = 1;
+        }
+        backGround = biomeImages[currentWorldBiomes - 1];
+        WORLD_WIDTH = biomeImages[currentWorldBiomes - 1].getWidth();
+        WORLD_HEIGHT = biomeImages[currentWorldBiomes - 1].getHeight();
     }
 
-    public ArrayList<StaticEntity> createMobs(int difficulty) {
+    public ArrayList<StaticEntity> createMobs() {
         ArrayList<StaticEntity> enemies = new ArrayList<>();
         Random rand = new Random();
-        if (difficulty == 4) {
+        if (currentWorldBiomes == 4) {
             enemies.add(new ZombieSpawner(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
             enemies.add(new WitherBoss());
             return enemies;
         }
-        int nbZombies = rand.nextInt(difficulty * 2) + 5;
-        int nbSlimes = rand.nextInt(difficulty) + 8;
+        int nbZombies = rand.nextInt(currentWorldBiomes * 2) + 5;
+        int nbSlimes = rand.nextInt(currentWorldBiomes) + 8;
         for (int i = 0; i < nbZombies; i++) {
             enemies.add(new Zombie(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
         }
         for (int i = 0; i < nbSlimes; i++) {
             enemies.add(new Slime(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
         }
-        for (int i = 0; i < difficulty; i++) {
+        for (int i = 0; i < currentWorldBiomes; i++) {
             enemies.add(new ZombieSpawner(rand.nextInt(WORLD_WIDTH - 100) + 20, rand.nextInt(WORLD_HEIGHT)));
         }
         return enemies;
