@@ -26,11 +26,12 @@ public class RGDGame extends Game {
     private ArrayList<StaticEntity> killedEntities;
     private ArrayList<StaticEntity> newEntities;
 
-    private int currentWorldBiomes = 1;
+    private int currentWorldBiomes;
     private int changingWorld = 0;
     private boolean gameIsStarted = false;
 
     public RGDGame() {
+        currentWorldBiomes = 1;
         initAll();
     }
 

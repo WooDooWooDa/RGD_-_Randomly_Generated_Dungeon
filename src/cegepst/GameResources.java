@@ -48,6 +48,7 @@ public class GameResources {
 
     private void loadBufferedImagesResources() {
         try {
+            allBufferedImages.put("rocks", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/rock.png")));
             allBufferedImages.put("slime", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/slime.png")));
             allBufferedImages.put("witherBoss", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/witherboss.png")));
             allBufferedImages.put("CharactersSheet", ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/player.png")));

@@ -78,6 +78,9 @@ public class World {
         for (int i = 0; i < 3; i++) {
             entities.add(new Tag(rand.nextInt(WORLD_WIDTH - 50) + 20, rand.nextInt(WORLD_HEIGHT - 100) + 20));
         }
+        for (int i = 0; i < 5; i++) {
+            entities.add(new Rock(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
+        }
         entities.add(Item.Factory.create(rand.nextInt(WORLD_WIDTH), rand.nextInt(WORLD_HEIGHT)));
         return entities;
     }

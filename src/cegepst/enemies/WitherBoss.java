@@ -21,7 +21,7 @@ public class WitherBoss extends Enemy {
     private WalkingPath path;
     private final Random rand;
 
-    private int maxHealth = 100;
+    private int maxHealth = 1000;
     private int deltaX;
     private int deltaY;
     private int physicalAttackRate = PHYSICAL_ATTACK_RATE;
@@ -105,7 +105,7 @@ public class WitherBoss extends Enemy {
     private ArrayList<StaticEntity> createSkullPack(int skullx, int skully) {
         ArrayList<StaticEntity> skulls = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            WitherSkull skull = new WitherSkull(skullx, skully, damage);
+            WitherSkull skull = new WitherSkull(skullx, skully, damage / 2);
             if (i == 0) {
                 skull.setDirection(Direction.UP);
             } else if (i == 1) {
