@@ -20,12 +20,10 @@ public class Rock extends StaticEntity {
 
     @Override
     public void draw(Buffer buffer) {
-        //buffer.drawRectangle(x, y, width, height, Color.BLACK);
         buffer.drawImage(image, x, y);
     }
 
     private void loadImages() {
-        //
         image = GameResources.getInstance().getBufferedImage("rocks").getSubimage(new Random().nextInt(2) == 1 ? 0 : 32, 0, width, height);
     }
 }
