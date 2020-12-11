@@ -41,6 +41,12 @@ public class World {
         }
     }
 
+    public void changeBiome(int biome) {
+        backGround = biomeImages[biome - 1];
+        WORLD_WIDTH = biomeImages[biome - 1].getWidth();
+        WORLD_HEIGHT = biomeImages[biome - 1].getHeight();
+    }
+
     public void changeBiome() {
         currentWorldBiomes++;
         if (currentWorldBiomes > 4) {

@@ -238,7 +238,7 @@ public class RGDGame extends Game {
         world = new World();
         worldEnemies.addAll(world.createMobs());
         worldEntities.addAll(world.createMisc());
-        world.changeBiome();
+        world.changeBiome(1);
         worldTime = new WorldTime();
         messageAnnouncer = new MessageAnnouncer();
         gamePad = new GamePad();
